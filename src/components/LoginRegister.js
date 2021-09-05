@@ -1,54 +1,51 @@
-import {useState} from 'react'
+import axios from 'axios';
+import useControlledForms from '../hooks/useControlledForms';
 
-export default function LoginRegister() {
+export default function LoginRegister(props) {
 
-  const [formValues, setFormValues] = useState({
-    loginUsername: "",
-    loginPass: "",
-    registerUsername: "",
-    registerPass: ""
-  })
+  const { setUsername } = props;
+
+  const [formValues, handleFormChange] = useControlledForms();
 
   const handleLogin = event => {
     event.preventDefault();
     const {loginUsername, loginPass} = formValues;
-    console.log(loginUsername, loginPass);
+    console.log(`Logging in with username: ${loginUsername} and password: ${loginPass}`);
+    axios.post(`/api/login`, {username: loginUsername, rawPassword: loginPass})
+         .then(res => console.log(res.data))
   }
 
   const handleRegister = event => {
     event.preventDefault();
     const {registerUsername, registerPass} = formValues;
+    console.log(`Registering a new user with username: ${registerUsername} and password: ${registerPass}`);
     console.log(registerUsername, registerPass);
+    axios.post(`/api/register`, {username: registerUsername, rawPassword: registerPass})
+         .then(res => console.log(res.data))
   }
 
-  const handleChange = event => {
-    event.preventDefault();
-    setFormValues(prev => {
-      const newVals = {...prev};
-      newVals[event.target.name] = event.target.value;
-      return newVals;
-    })
-
-  }
 
   return (
     <div className="login-register">
-      <div class="login">
+      <div className="login">
         <form onSubmit={handleLogin}>
-          <label for="loginUsername">Username: </label>
-          <input name="loginUsername" type="text" value={formValues.loginUsername} onChange={handleChange}></input>
-          <label for="loginPass">Password: </label>
+          <label htmlFor="loginUsername">Username: </label>
+          <input name="loginUsername" type="text" value={formValues.loginUsername} onChange={handleFormChange}></input>
 
-          <input name="loginPass" type="password" value={formValues.loginPass} onChange={handleChange}></input>
+          <label htmlFor="loginPass">Password: </label>
+          <input name="loginPass" type="password" value={formValues.loginPass} onChange={handleFormChange}></input>
+
           <button>Login</button>
         </form>
       </div>
-      <div class="register">
+      <div className="register">
         <form onSubmit={handleRegister}>
-          <label for="registerUsername">Username: </label>
-          <input name="registerUsername" type="text" value={formValues.registerUsername} onChange={handleChange}></input>
-          <label for="registerPass">Password: </label>
-          <input name="registerPass" type="password" value={formValues.registerPass} onChange={handleChange}></input>
+          <label htmlFor="registerUsername">Username: </label>
+          <input name="registerUsername" type="text" value={formValues.registerUsername} onChange={handleFormChange}></input>
+
+          <label htmlFor="registerPass">Password: </label>
+          <input name="registerPass" type="password" value={formValues.registerPass} onChange={handleFormChange}></input>
+
           <button>Register</button>
         </form>
       </div>

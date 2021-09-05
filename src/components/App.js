@@ -35,7 +35,7 @@ export default function App() {
 
       {/* If we've finished trying to log in and there's no user: */}
       {!loading && !username &&
-        <LoginRegister />
+        <LoginRegister setUsername={setUsername} />
       }
 
       {/* If we've successfully logged in: */}
