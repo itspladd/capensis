@@ -11,10 +11,10 @@ import {
 
 export default function App() {
 
+  // Attempt to log in the user.
   useEffect(() => {
-    console.log('in useEffect');
-    axios.get(`/`)
-      .then(res => console.log(res));
+    axios.post('/api/login')
+      .then(res => console.log(res.data))
   })
 
   return (
