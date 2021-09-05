@@ -27,6 +27,12 @@ export default function App() {
       })
   }, [])
 
+  const handleLogout = event => {
+    event.preventDefault();
+    axios.post(`/api/logout`)
+         .then(res => setUsername(res.data.username))
+  }
+
   return (
     <div className="App">
       <p>User is {username}</p>
@@ -40,7 +46,10 @@ export default function App() {
 
       {/* If we've successfully logged in: */}
       {!loading && username &&
+        <>
         <p>You are logged in!</p>
+        <button onClick={handleLogout}>Logout</button>
+        </>
       }
     </div>
   );
