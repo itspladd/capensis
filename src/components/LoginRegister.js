@@ -20,7 +20,7 @@ export default function LoginRegister(props) {
     const {registerUsername, registerPass} = formValues;
     console.log(`Registering a new user with username: ${registerUsername} and password: ${registerPass}`);
     console.log(registerUsername, registerPass);
-    axios.post(`/api/register`, {username: registerUsername, rawPassword: registerPass})
+    axios.post(`/api/users`, {username: registerUsername, rawPassword: registerPass})
          .then(res => console.log(res.data))
   }
 
