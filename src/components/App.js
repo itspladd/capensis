@@ -2,12 +2,16 @@ import '../styles/App.css';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// Router components
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+
+// My components
+import LoginRegister from './LoginRegister';
 
 export default function App() {
 
@@ -31,7 +35,7 @@ export default function App() {
 
       {/* If we've finished trying to log in and there's no user: */}
       {!loading && !username &&
-        <p>You aren't logged in!</p>
+        <LoginRegister />
       }
 
       {/* If we've successfully logged in: */}
