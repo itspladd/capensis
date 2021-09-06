@@ -10,9 +10,12 @@ import {
   Link
 } from "react-router-dom";
 
-// My components
-import LoginRegister from './LoginRegister';
+// Custom components
 import Header from './Header';
+import LoginRegister from './LoginRegister';
+import DaySchedule from './DaySchedule';
+import WeekSchedule from './WeekSchedule';
+import ProjectList from './ProjectList';
 import Block from './Block';
 
 // Custom hooks
@@ -22,6 +25,7 @@ export default function App() {
 
   const [loading, username, setUsername] = useAuthentication();
   const [blocks, setBlocks] = useState([]);
+  const [currentDay, setCurrentDay] = useState(new Date());
 
   const handleLogout = event => {
     event.preventDefault();
@@ -31,16 +35,26 @@ export default function App() {
 
   const loadWeeklyBlocks = () => {
     axios.get(`/api/blocks/week`)
-         .then(res => generateBlockComponents(res.data))
-         .then(blocks => setBlocks(blocks))
+    .then(res => generateBlockComponents(res.data))
+    .then(blocks => setBlocks(blocks))
   }
 
   const generateBlockComponents = blockArray => {
-    return blockArray.map(blockObj => <Block {...blockObj} />)
+    return blockArray.map(blockObj => <Block
+      day={new Date(blockObj.schedule_date)}
+      {...blockObj}
+      />)
   }
 
   // Load weekly blocks any time the username changes
   useEffect(loadWeeklyBlocks, [username]);
+
+  // Change the day by a positive or negative amount
+  const changeDay = days => {
+    const deltaMs = 1000*60*60*24*days;
+    setCurrentDay(new Date(currentDay.valueOf() + deltaMs))
+  }
+
 
   return (
     <div className="App">
@@ -56,7 +70,27 @@ export default function App() {
       {!loading && username &&
         <>
           <Header username={username} handleLogout={handleLogout} />
-          {blocks}
+          <Router>
+            <Switch>
+              <Route exact path={["/", "/day"]}>
+                <DaySchedule
+                  blocks={blocks}
+                  day={currentDay}
+                  tomorrow={() => changeDay(1)}
+                  yesterday={() => changeDay(-1)}
+                />
+              </Route>
+              <Route exact path="/week" >
+                <WeekSchedule />
+              </Route>
+              <Route exact path="/projects" >
+                <ProjectList />
+              </Route>
+              <Route exact path="/reports" >
+                <p>Reports component</p>
+              </Route>
+            </Switch>
+          </Router>
         </>
       }
     </div>
