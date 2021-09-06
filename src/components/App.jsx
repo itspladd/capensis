@@ -13,20 +13,15 @@ import {
 // My components
 import LoginRegister from './LoginRegister';
 import Header from './Header';
+import Block from './Block';
+
+// Custom hooks
+import useAuthentication from '../hooks/useAuthentication'
 
 export default function App() {
 
-  const [loading, setLoading] = useState(true);
-  const [username, setUsername] = useState(null)
-
-  // Attempt to authenticate the user if they've logged in previously.
-  useEffect(() => {
-    axios.post('/api/authenticate')
-      .then(res => {
-        setUsername(res.data.username)
-        setLoading(false);
-      })
-  }, [])
+  const [loading, username, setUsername] = useAuthentication();
+  const [blocks, setBlocks] = useState([]);
 
   const handleLogout = event => {
     event.preventDefault();
@@ -34,12 +29,25 @@ export default function App() {
          .then(res => setUsername(res.data.username))
   }
 
+  const loadWeeklyBlocks = () => {
+    axios.get(`/api/blocks/week`)
+         .then(res => generateBlockComponents(res.data))
+         .then(blocks => setBlocks(blocks))
+  }
+
+  const generateBlockComponents = blockArray => {
+    return blockArray.map(blockObj => <Block {...blockObj} />)
+  }
+
+  // Load weekly blocks any time the username changes
+  useEffect(loadWeeklyBlocks, [username]);
+
   return (
     <div className="App">
       {/* If we haven't finished trying to log in: */}
       {loading && <p>Currently loading...</p>}
 
-      {/* If we've finished trying to log in and there's no user: */}
+      {/* If there's no valid login: */}
       {!loading && !username &&
         <LoginRegister setUsername={setUsername} />
       }
@@ -48,6 +56,7 @@ export default function App() {
       {!loading && username &&
         <>
           <Header username={username} handleLogout={handleLogout} />
+          {blocks}
         </>
       }
     </div>
