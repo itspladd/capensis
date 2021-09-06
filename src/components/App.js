@@ -12,6 +12,7 @@ import {
 
 // My components
 import LoginRegister from './LoginRegister';
+import Header from './Header';
 
 export default function App() {
 
@@ -35,7 +36,6 @@ export default function App() {
 
   return (
     <div className="App">
-      <p>User is {username}</p>
       {/* If we haven't finished trying to log in: */}
       {loading && <p>Currently loading...</p>}
 
@@ -47,8 +47,7 @@ export default function App() {
       {/* If we've successfully logged in: */}
       {!loading && username &&
         <>
-        <p>You are logged in!</p>
-        <button onClick={handleLogout}>Logout</button>
+          <Header username={username} handleLogout={handleLogout} />
         </>
       }
     </div>
