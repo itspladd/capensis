@@ -14,5 +14,11 @@ export default function useAuthentication() {
       })
   }, []);
 
-  return [loading, username, setUsername];
+  const logout = event => {
+    event.preventDefault();
+    axios.post(`/api/logout`)
+         .then(res => setUsername(res.data.username))
+  }
+
+  return [loading, username, setUsername, logout];
 }
