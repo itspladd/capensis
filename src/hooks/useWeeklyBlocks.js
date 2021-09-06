@@ -7,7 +7,6 @@ import { getLastSunday, makeZeroDate } from '../helpers/dayHelpers'
 
 // Ensures that the app always has the Blocks for the current week.
 export default function useWeeklyBlocks(username) {
-
   const today = new Date();
   makeZeroDate(today);
   const sunday = getLastSunday(today);
@@ -26,12 +25,14 @@ export default function useWeeklyBlocks(username) {
 
   // Loads blocks from the API, generates Block components, and sets state.
   const loadUserBlocks = () => {
+    console.log('running loaduserblocks')
     axios.get(`/api/blocks/week?date=${currentDay.toISOString()}`)
     .then(res => generateBlockComponents(res.data))
     .then(blocks => setBlocks(blocks))
   }
 
   const checkAndUpdateWeek = () => {
+    console.log('running checkAndUpdateWeek')
     const currentSunday = getLastSunday(currentDay);
     if (currentWeek.getDate() !== currentSunday.getDate()) {
       console.log("new week!")
