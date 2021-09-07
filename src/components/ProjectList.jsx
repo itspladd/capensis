@@ -13,19 +13,21 @@ export default function ProjectList(props) {
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
+    const title = formValue !== null ? formValue : projects[id].title;
     setSelectedProject(null);
     setFormValue(null);
-    const newProject = {...projects[id], title: formValue};
+    const newProject = {...projects[id], title};
     setProjects(prev => ({
       ...prev,
       [id]: newProject
     }))
-    axios.patch(`/api/projects/${id}`, { title: formValue })
+    axios.patch(`/api/projects/${id}`, { title })
          .then(res => console.log(res))
   }
 
-  const handleDelete = (event, id) => {
-
+  const handleCancel = event => {
+    event.preventDefault();
+    setSelectedProject(null);
   }
 
   const handleChange = event => {
@@ -53,10 +55,11 @@ export default function ProjectList(props) {
   }
 
   const projectItems = Object.values(projects).map(project => (
-    <ProjectListItem 
+    <ProjectListItem
       {...project}
       selected={ project.id === selectedProject}
       onEditClick={() => setSelectedProject(project.id)}
+      onCancelClick={handleCancel}
       onSubmit={(event) => handleSubmit(event, project.id)}
       handleChange={handleChange}
       formValue={formValue === null ? project.title : formValue}
@@ -64,21 +67,43 @@ export default function ProjectList(props) {
   ))
 
   return (
-    <div>
+    <div className="container">
       <h3>My Projects</h3>
-      { !showNewProjectForm &&
-        <button onClick={() => setShowNewProjectForm(true)}>Add a Project</button>
-      }
-      { showNewProjectForm &&
-        <form onSubmit={handleNewProjectSubmit}>
-          <label>New project name:</label>
-          <input type="text" value={newProjectFormValue} onChange={handleNewProjectFormChange}></input>
-          <button type="submit">Submit</button>
-        </form>
-      }
-      <ul>
+
+      <ul className="list-group">
         {projectItems}
       </ul>
+      <div className="newProject">
+        { !showNewProjectForm &&
+          <button
+            className="btn btn-primary"
+            onClick={() => setShowNewProjectForm(true)}
+          >
+              Add a Project
+          </button>
+        }
+        { showNewProjectForm &&
+          <form className="row row-cols-lg-auto g-3" onSubmit={handleNewProjectSubmit}>
+            <div className="col-12">
+              <label className="visually-hidden" htmlFor="newProject">New project name:</label>
+              <input
+                className="form-control"
+                type="text"
+                id="newProject"
+                value={newProjectFormValue}
+                onChange={handleNewProjectFormChange}
+              ></input>
+            </div>
+            <div className="col-12">
+              <button className="btn btn-success" type="submit">Submit</button>
+            </div>
+            <div className="col-12">
+              <button className="btn btn-danger">Cancel</button>
+            </div>
+          </form>
+        }
+      </div>
     </div>
+    
   )
 }
