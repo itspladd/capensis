@@ -54,6 +54,12 @@ export default function ProjectList(props) {
          })
   }
 
+  const handleNewProjectCancel = event => {
+    event.preventDefault();
+    setNewProjectFormValue("");
+    setShowNewProjectForm(false)
+  }
+
   const projectItems = Object.values(projects).map(project => (
     <ProjectListItem
       {...project}
@@ -98,12 +104,12 @@ export default function ProjectList(props) {
               <button className="btn btn-success" type="submit">Submit</button>
             </div>
             <div className="col-12">
-              <button className="btn btn-danger">Cancel</button>
+              <button className="btn btn-danger" type="button" onClick={handleNewProjectCancel}>Cancel</button>
             </div>
           </form>
         }
       </div>
     </div>
-    
+
   )
 }

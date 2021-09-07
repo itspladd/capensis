@@ -1,9 +1,15 @@
+import axios from 'axios';
+import '../styles/Block.css'
+
 export default function Block(props) {
-  const { title, schedule_date, start_time, end_time } = props;
+  const { title, project_id, schedule_date, start_time, end_time } = props;
+
 
   return(
-    <div>
-      <h3>{title}</h3>
+    <div className="block"
+      projectid={project_id}
+    >
+      <h5>{title}</h5>
       <ul>
         <li>Day: {schedule_date}</li>
         <li>Starts at: {start_time}</li>

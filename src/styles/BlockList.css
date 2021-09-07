@@ -1,0 +1,4 @@
+.blockList {
+  display: flex;
+  flex-direction: column;
+}

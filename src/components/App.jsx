@@ -12,6 +12,7 @@ import {
 
 // Custom components
 import Header from './Header';
+import StatusBar from './StatusBar';
 import LoginRegister from './LoginRegister';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
@@ -20,12 +21,14 @@ import ProjectList from './ProjectList';
 // Custom hooks
 import useAuthentication from '../hooks/useAuthentication'
 import useWeeklyBlocks from '../hooks/useWeeklyBlocks';
+import useSessionTracking from '../hooks/useSessionTracking';
 
 export default function App() {
 
 
   const [loading, username, setUsername, logout] = useAuthentication();
   const [blocks, currentDay, changeDay] = useWeeklyBlocks(username);
+  const [currentSession, toggleSession] = useSessionTracking(username);
   const [projects, setProjects] = useState({})
 
   useEffect(() => {
@@ -38,7 +41,9 @@ export default function App() {
   }, [username])
 
   return (
-    <div className="App">
+    <div className="App"
+      onClick={toggleSession}
+    >
       {/* If we haven't finished trying to log in: */}
       {loading && <p>Currently loading...</p>}
 
@@ -51,7 +56,8 @@ export default function App() {
       {!loading && username &&
         <>
           <Router>
-            <Header username={username} handleLogout={logout} />
+            <Header username={username} handleLogout={logout} currentSession={currentSession} />
+            <StatusBar currentSession={currentSession} projects={projects} />
             <Switch>
               <Route exact path={["/", "/day"]}>
                 <DaySchedule

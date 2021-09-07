@@ -2,7 +2,7 @@
 import { Link, NavLink } from "react-router-dom";
 
 export default function Header(props) {
-  const { username, handleLogout } = props;
+  const { username, handleLogout, currentSession } = props;
 
   return(
     <div className="navbar navbar-expand-sm navbar-light bg-info">
@@ -27,10 +27,10 @@ export default function Header(props) {
             </li>
           </ul>
         </div>
-      <div className="d-flex">
-        <span className="navbar-text me-2">Logged in as {username}</span>
-        <button className="btn btn-outline-dark" onClick={handleLogout}>Logout</button>
-      </div>
+        <div className="d-flex">
+          <span className="navbar-text me-2">Logged in as {username}</span>
+          <button className="btn btn-outline-dark" onClick={handleLogout}>Logout</button>
+        </div>
       </div>
     </div>
   )
