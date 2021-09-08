@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/timekeeper/static/css/main.c27656eb.chunk.css",
-    "main.js": "/timekeeper/static/js/main.1c7ba8e8.chunk.js",
-    "main.js.map": "/timekeeper/static/js/main.1c7ba8e8.chunk.js.map",
+    "main.js": "/timekeeper/static/js/main.5917084c.chunk.js",
+    "main.js.map": "/timekeeper/static/js/main.5917084c.chunk.js.map",
     "runtime-main.js": "/timekeeper/static/js/runtime-main.322bfcad.js",
     "runtime-main.js.map": "/timekeeper/static/js/runtime-main.322bfcad.js.map",
     "static/css/2.818011ed.chunk.css": "/timekeeper/static/css/2.818011ed.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.818011ed.chunk.css",
     "static/js/2.d465a421.chunk.js",
     "static/css/main.c27656eb.chunk.css",
-    "static/js/main.1c7ba8e8.chunk.js"
+    "static/js/main.5917084c.chunk.js"
   ]
 }
