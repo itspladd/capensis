@@ -18,24 +18,21 @@ export default function useWeeklyBlocks(username) {
   // Uses an array of block objects from the API to create Block components.
   const generateBlockComponents = blockArray => {
     return blockArray.map(blockObj => <Block
-      day={new Date(blockObj.schedule_date)}
+      day={new Date(blockObj.start_time)}
       {...blockObj}
       />)
   }
 
   // Loads blocks from the API, generates Block components, and sets state.
   const loadUserBlocks = () => {
-    console.log('running loaduserblocks')
     axios.get(`/api/blocks/week?date=${currentDay.toISOString()}`)
     .then(res => generateBlockComponents(res.data))
     .then(blocks => setBlocks(blocks))
   }
 
   const checkAndUpdateWeek = () => {
-    console.log('running checkAndUpdateWeek')
     const currentSunday = getLastSunday(currentDay);
     if (currentWeek.getDate() !== currentSunday.getDate()) {
-      console.log("new week!")
       setCurrentWeek(currentSunday);
       loadUserBlocks();
     }

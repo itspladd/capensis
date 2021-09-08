@@ -17,6 +17,7 @@ import LoginRegister from './LoginRegister';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
+import Reports from './Reports';
 
 // Custom hooks
 import useAuthentication from '../hooks/useAuthentication'
@@ -74,7 +75,7 @@ export default function App() {
                 <ProjectList projects={projects} setProjects={setProjects} />
               </Route>
               <Route exact path="/reports" >
-                <p>Reports component</p>
+                <Reports projects={projects} />
               </Route>
             </Switch>
           </Router>
