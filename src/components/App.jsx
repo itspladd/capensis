@@ -56,7 +56,7 @@ export default function App() {
       {/* If we've successfully logged in: */}
       {!loading && username &&
         <>
-          <Router>
+          <Router basename="/timekeeper">
             <Header username={username} handleLogout={logout} currentSession={currentSession} />
             <StatusBar currentSession={currentSession} projects={projects} />
             <Switch>

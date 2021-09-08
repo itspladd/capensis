@@ -12,46 +12,45 @@ export default function useWeeklyBlocks(username) {
   const sunday = getLastSunday(today);
 
   const [currentDay, setCurrentDay] = useState(today);
-  const [currentWeek, setCurrentWeek] = useState(sunday);
   const [blocks, setBlocks] = useState([]);
 
   // Uses an array of block objects from the API to create Block components.
-  const generateBlockComponents = blockArray => {
-    return blockArray.map(blockObj => <Block
-      day={new Date(blockObj.start_time)}
-      {...blockObj}
-      />)
-  }
+
 
   // Loads blocks from the API, generates Block components, and sets state.
   const loadUserBlocks = () => {
-    axios.get(`/api/blocks/week?date=${currentDay.toISOString()}`)
-    .then(res => generateBlockComponents(res.data))
-    .then(blocks => setBlocks(blocks))
+    axios.get(`/api/blocks/week`)
+    .then(res => setBlocks(res.data))
   }
 
-  const checkAndUpdateWeek = () => {
-    const currentSunday = getLastSunday(currentDay);
-    if (currentWeek.getDate() !== currentSunday.getDate()) {
-      setCurrentWeek(currentSunday);
-      loadUserBlocks();
+  // Compare two input days. If one is in a different week than the other,
+  // return true.
+  const checkForNewWeek = (current, newDay) => {
+    const currentSunday = getLastSunday(current);
+    const newSunday = getLastSunday(newDay);
+    if (currentSunday.getDate() !== newSunday.getDate()) {
+      return true;
     }
+
+    return false;
   }
 
   // Load the current week's blocks any time the username changes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(loadUserBlocks, [username]);
-
-  // Check for a new week any time the current day changes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(checkAndUpdateWeek, [currentDay])
 
   // Change currentDay by given number of days
   // i.e. days = 1 gives next day, days = -1 gives prev day
+  // Check for new week and load new blocks if necessary.
   const changeDay = days => {
     const msDayMultiplier = 1000*60*60*24;
     const deltaMs = msDayMultiplier*days;
-    setCurrentDay(new Date(currentDay.valueOf() + deltaMs))
+    const newDay = new Date(currentDay.valueOf() + deltaMs);
+    const newWeek = checkForNewWeek(currentDay, newDay)
+    if (newWeek) {
+      axios.get(`/api/blocks/week?date=${newDay.toISOString()}`)
+      .then(res => setBlocks(res.data))
+    }
+    setCurrentDay(newDay)
   }
 
   return [blocks, currentDay, changeDay];
