@@ -24,7 +24,7 @@ export default function DaySchedule(props) {
       <Button variant="primary" onClick={showForm}>
         Make a new block
       </Button>
-        <div className="dayScheduleInternal">
+        <div className="dayScheduleInternal mt-2">
           <button 
             className="btn btn-primary"
             onClick={yesterday}>{`<--`}</button>

@@ -72,7 +72,7 @@ export default function App() {
               refreshBlocks={refreshBlocks}
             />
             <Switch>
-              <Route exact path={["/", "/day"]}>
+              <Route exact path={["/", "/schedule"]}>
                 <DaySchedule
                   blocks={blocks}
                   day={currentDay}

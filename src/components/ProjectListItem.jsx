@@ -2,7 +2,7 @@ export default function ProjectListItem(props) {
   const { id, title, selected, onEditClick, onCancelClick, onSubmit, formValue, handleChange } = props;
 
   return (
-    <li key={id} className="list-group-item d-flex justify-content-between">
+    <li key={id} className="list-group-item d-flex justify-content-between bg-light">
       <span><strong>{title}</strong></span>
       { selected &&
         <form className="row row-cols-sm-auto g-3 align-items-center" onSubmit={onSubmit}>

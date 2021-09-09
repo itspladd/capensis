@@ -10,9 +10,7 @@ export default function BlockList(props) {
     return fifteenMinuteUnits;
   }
 
-  const blocksForDay = blocks.filter(block => {
-    return new Date(block.start_time).getDate() === day.getDate();
-    })
+  const blocksForDay = blocks.filter(block => new Date(block.start_time).getDate() === day.getDate())
     .map(block => (
       <Block
         {...block}
@@ -22,8 +20,8 @@ export default function BlockList(props) {
     ))
 
   return (
-    <div className="blockList">
+    <ul className="blockList list-group ms-2 me-2">
       { blocksForDay }
-    </div>
+    </ul>
   )
 }

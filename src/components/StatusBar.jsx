@@ -7,7 +7,7 @@ export default function StatusBar(props) {
   const projectTitle = tracking && projects[currentSession.project_id].title
 
   return (
-    <div className={`statusBar border-top border-info
+    <div className={`statusBar mb-2 border-top border-info
       ${tracking ? 'bg-warning' : 'bg-info'}`}>
       { currentSession.id &&
         `Currently tracking ${projectTitle}`

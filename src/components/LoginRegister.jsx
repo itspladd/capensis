@@ -31,26 +31,44 @@ export default function LoginRegister(props) {
 
   return (
     <div className="login-register">
-      <div className="login">
-        <form onSubmit={handleLogin}>
-          <label htmlFor="loginUsername">Username: </label>
-          <input name="loginUsername" type="text" value={formValues.loginUsername} onChange={handleFormChange}></input>
-
-          <label htmlFor="loginPass">Password: </label>
-          <input name="loginPass" type="password" value={formValues.loginPass} onChange={handleFormChange}></input>
-
-          <button>Login</button>
+      <div className="login m-2">
+        <form className="row row-cols-sm-auto g-3 align-items-center"
+          onSubmit={handleLogin}>
+          <div className="col-12">
+            <label className="form-label" htmlFor="loginUsername">Username: </label>
+          </div>
+          <div className="col-12">
+            <input className="form-control" name="loginUsername" type="text" value={formValues.loginUsername} onChange={handleFormChange}></input>
+          </div>
+          <div className="col-12">
+            <label className="form-label" htmlFor="loginPass">Password: </label>
+          </div>
+          <div className="col-12">
+            <input className="form-control" name="loginPass" type="password" value={formValues.loginPass} onChange={handleFormChange}></input>
+          </div>
+          <div className="col-12">
+            <button class="btn btn-success">Login</button>
+          </div>
         </form>
       </div>
-      <div className="register">
-        <form onSubmit={handleRegister}>
-          <label htmlFor="registerUsername">Username: </label>
-          <input name="registerUsername" type="text" value={formValues.registerUsername} onChange={handleFormChange}></input>
-
-          <label htmlFor="registerPass">Password: </label>
-          <input name="registerPass" type="password" value={formValues.registerPass} onChange={handleFormChange}></input>
-
-          <button>Register</button>
+      <div className="register m-2">
+        <form className="row row-cols-sm-auto g-3 align-items-center"
+          onSubmit={handleRegister}>
+          <div className="col-12">
+            <label className="form-label" htmlFor="registerUsername">Username: </label>
+          </div>
+          <div className="col-12">
+            <input className="form-control" name="registerUsername" type="text" value={formValues.registerUsername} onChange={handleFormChange}></input>
+          </div>
+          <div className="col-12">
+            <label className="form-label" htmlFor="registerPass">Password: </label>
+          </div>
+          <div className="col-12">
+            <input className="form-control" name="registerPass" type="password" value={formValues.registerPass} onChange={handleFormChange}></input>
+          </div>
+          <div className="col-12">
+            <button className="btn btn-success">Register</button>
+          </div>
         </form>
       </div>
     </div>
