@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/timekeeper/static/css/main.c27656eb.chunk.css",
-    "main.js": "/timekeeper/static/js/main.5a9ecf3a.chunk.js",
-    "main.js.map": "/timekeeper/static/js/main.5a9ecf3a.chunk.js.map",
-    "runtime-main.js": "/timekeeper/static/js/runtime-main.322bfcad.js",
-    "runtime-main.js.map": "/timekeeper/static/js/runtime-main.322bfcad.js.map",
-    "static/css/2.818011ed.chunk.css": "/timekeeper/static/css/2.818011ed.chunk.css",
-    "static/js/2.2b256e05.chunk.js": "/timekeeper/static/js/2.2b256e05.chunk.js",
-    "static/js/2.2b256e05.chunk.js.map": "/timekeeper/static/js/2.2b256e05.chunk.js.map",
-    "index.html": "/timekeeper/index.html",
-    "static/css/2.818011ed.chunk.css.map": "/timekeeper/static/css/2.818011ed.chunk.css.map",
-    "static/css/main.c27656eb.chunk.css.map": "/timekeeper/static/css/main.c27656eb.chunk.css.map",
-    "static/js/2.2b256e05.chunk.js.LICENSE.txt": "/timekeeper/static/js/2.2b256e05.chunk.js.LICENSE.txt"
+    "main.css": "/capensis/static/css/main.c27656eb.chunk.css",
+    "main.js": "/capensis/static/js/main.7222547f.chunk.js",
+    "main.js.map": "/capensis/static/js/main.7222547f.chunk.js.map",
+    "runtime-main.js": "/capensis/static/js/runtime-main.b84be314.js",
+    "runtime-main.js.map": "/capensis/static/js/runtime-main.b84be314.js.map",
+    "static/css/2.818011ed.chunk.css": "/capensis/static/css/2.818011ed.chunk.css",
+    "static/js/2.48ab2bcf.chunk.js": "/capensis/static/js/2.48ab2bcf.chunk.js",
+    "static/js/2.48ab2bcf.chunk.js.map": "/capensis/static/js/2.48ab2bcf.chunk.js.map",
+    "index.html": "/capensis/index.html",
+    "static/css/2.818011ed.chunk.css.map": "/capensis/static/css/2.818011ed.chunk.css.map",
+    "static/css/main.c27656eb.chunk.css.map": "/capensis/static/css/main.c27656eb.chunk.css.map",
+    "static/js/2.48ab2bcf.chunk.js.LICENSE.txt": "/capensis/static/js/2.48ab2bcf.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.322bfcad.js",
+    "static/js/runtime-main.b84be314.js",
     "static/css/2.818011ed.chunk.css",
-    "static/js/2.2b256e05.chunk.js",
+    "static/js/2.48ab2bcf.chunk.js",
     "static/css/main.c27656eb.chunk.css",
-    "static/js/main.5a9ecf3a.chunk.js"
+    "static/js/main.7222547f.chunk.js"
   ]
 }
