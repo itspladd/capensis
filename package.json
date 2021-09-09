@@ -1,6 +1,6 @@
 {
-  "homepage": "http://itspladd.github.io/timekeeper",
-  "name": "timekeeper",
+  "homepage": "http://itspladd.github.io/capensis",
+  "name": "capensis",
   "version": "0.1.0",
   "private": true,
   "proxy": "http://localhost:8080",
