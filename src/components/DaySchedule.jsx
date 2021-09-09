@@ -1,13 +1,13 @@
 import '../styles/DaySchedule.css';
 
+import Button from 'react-bootstrap/Button';
 import BlockList from './BlockList'
 
 export default function DaySchedule(props) {
 
   // Props:
   // blocks is an array of Block components.
-  const { blocks, day, tomorrow, yesterday } = props;
-
+  const { blocks, day, tomorrow, yesterday, showForm } = props;
   const dayMap = {
     0: "Sunday",
     1: "Monday",
@@ -21,6 +21,9 @@ export default function DaySchedule(props) {
   return(
     <div className="daySchedule">
       <h3>{day.toDateString()}</h3>
+      <Button variant="primary" onClick={showForm}>
+        Make a new block
+      </Button>
         <div className="dayScheduleInternal">
           <button 
             className="btn btn-primary"

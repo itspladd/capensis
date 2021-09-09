@@ -13,6 +13,7 @@ import {
 // Custom components
 import Header from './Header';
 import StatusBar from './StatusBar';
+import NewBlockForm from './NewBlockForm';
 import LoginRegister from './LoginRegister';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
@@ -23,13 +24,15 @@ import Reports from './Reports';
 import useAuthentication from '../hooks/useAuthentication'
 import useWeeklyBlocks from '../hooks/useWeeklyBlocks';
 import useSessionTracking from '../hooks/useSessionTracking';
+import usePopupModal from '../hooks/usePopupModal';
 
 export default function App() {
 
 
   const [loading, username, setUsername, logout] = useAuthentication();
-  const [blocks, currentDay, changeDay] = useWeeklyBlocks(username);
+  const [blocks, refreshBlocks, currentDay, changeDay] = useWeeklyBlocks(username);
   const [currentSession, toggleSession] = useSessionTracking(username);
+  const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
 
   useEffect(() => {
@@ -59,6 +62,15 @@ export default function App() {
           <Router basename="/timekeeper">
             <Header username={username} handleLogout={logout} currentSession={currentSession} />
             <StatusBar currentSession={currentSession} projects={projects} />
+            <NewBlockForm 
+              show={show}
+              handleShow={showForm}
+              handleClose={closeForm}
+              currentDay={currentDay}
+              projects={projects}
+              blocks={blocks}
+              refreshBlocks={refreshBlocks}
+            />
             <Switch>
               <Route exact path={["/", "/day"]}>
                 <DaySchedule
@@ -66,6 +78,7 @@ export default function App() {
                   day={currentDay}
                   tomorrow={() => changeDay(1)}
                   yesterday={() => changeDay(-1)}
+                  showForm={showForm}
                 />
               </Route>
               <Route exact path="/week" >

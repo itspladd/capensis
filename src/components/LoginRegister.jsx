@@ -5,7 +5,12 @@ export default function LoginRegister(props) {
 
   const { setUsername } = props;
 
-  const [formValues, handleFormChange] = useControlledForms();
+  const [formValues, handleFormChange] = useControlledForms({
+    loginUsername: "",
+    loginPass: "",
+    registerUsername: "",
+    registerPass: ""
+  });
 
   const handleLogin = event => {
     event.preventDefault();

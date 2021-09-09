@@ -53,5 +53,10 @@ export default function useWeeklyBlocks(username) {
     setCurrentDay(newDay)
   }
 
-  return [blocks, currentDay, changeDay];
+  const refreshBlocks = () => {
+    axios.get(`/api/blocks/week?date=${currentDay.toISOString()}`)
+      .then(res => setBlocks(res.data))
+  }
+
+  return [blocks, refreshBlocks, currentDay, changeDay];
 }
