@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/timekeeper/static/css/main.c27656eb.chunk.css",
-    "main.js": "/timekeeper/static/js/main.9054d2c9.chunk.js",
-    "main.js.map": "/timekeeper/static/js/main.9054d2c9.chunk.js.map",
+    "main.js": "/timekeeper/static/js/main.c4a33726.chunk.js",
+    "main.js.map": "/timekeeper/static/js/main.c4a33726.chunk.js.map",
     "runtime-main.js": "/timekeeper/static/js/runtime-main.322bfcad.js",
     "runtime-main.js.map": "/timekeeper/static/js/runtime-main.322bfcad.js.map",
     "static/css/2.818011ed.chunk.css": "/timekeeper/static/css/2.818011ed.chunk.css",
-    "static/js/2.d7c0d5d3.chunk.js": "/timekeeper/static/js/2.d7c0d5d3.chunk.js",
-    "static/js/2.d7c0d5d3.chunk.js.map": "/timekeeper/static/js/2.d7c0d5d3.chunk.js.map",
+    "static/js/2.2b256e05.chunk.js": "/timekeeper/static/js/2.2b256e05.chunk.js",
+    "static/js/2.2b256e05.chunk.js.map": "/timekeeper/static/js/2.2b256e05.chunk.js.map",
     "index.html": "/timekeeper/index.html",
     "static/css/2.818011ed.chunk.css.map": "/timekeeper/static/css/2.818011ed.chunk.css.map",
     "static/css/main.c27656eb.chunk.css.map": "/timekeeper/static/css/main.c27656eb.chunk.css.map",
-    "static/js/2.d7c0d5d3.chunk.js.LICENSE.txt": "/timekeeper/static/js/2.d7c0d5d3.chunk.js.LICENSE.txt"
+    "static/js/2.2b256e05.chunk.js.LICENSE.txt": "/timekeeper/static/js/2.2b256e05.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.322bfcad.js",
     "static/css/2.818011ed.chunk.css",
-    "static/js/2.d7c0d5d3.chunk.js",
+    "static/js/2.2b256e05.chunk.js",
     "static/css/main.c27656eb.chunk.css",
-    "static/js/main.9054d2c9.chunk.js"
+    "static/js/main.c4a33726.chunk.js"
   ]
 }
