@@ -36,7 +36,7 @@ export default function NewBlockForm(props) {
     const endMinutes = Number(values.endMinute)
     const startMins = minutesSinceMidnight(startHours, startMinutes);
     const endMins = minutesSinceMidnight(endHours, endMinutes);
-
+    console.log(`getBoundaryMinutes found: ${startMins}, ${endMins}`);
     return [startMins, endMins]
   }, [])
 
@@ -105,7 +105,11 @@ export default function NewBlockForm(props) {
   const hoursOptions = function() {
     const optionsList = [];
     for(let i = 1; i <= 12; i++) {
-      optionsList.push(<option>{i}</option>)
+      // The 12 hour should display as 12, but has a value of 0 for time calculations.
+      // The PM value accounts for the 12-hour offset for noon.
+      // (i.e. 12:00 AM is 00:00 (0 hours for '12' + 0 hours for 'AM'
+      //  and 12:00 PM is 12:00 (0 hours for '12', 12 hours for 'PM'))
+      optionsList.push(<option value={i === 12 ? 0 : i}>{i}</option>)
     }
     return optionsList;
   }()
