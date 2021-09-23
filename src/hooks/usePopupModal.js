@@ -9,7 +9,6 @@ export default function usePopupModal() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event)
     // Submit the form and close it
     setShow(false);
   }

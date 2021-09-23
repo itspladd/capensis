@@ -6,7 +6,6 @@ import App from './components/App';
 import axios from 'axios';
 
 if (process.env.REACT_APP_API_URL) {
-  console.log('found a variable:', process.env.REACT_APP_API_URL)
   axios.defaults.baseURL = process.env.REACT_APP_API_URL;
   axios.defaults.withCredentials = true;
 }

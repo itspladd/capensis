@@ -15,7 +15,6 @@ export default function LoginRegister(props) {
   const handleLogin = event => {
     event.preventDefault();
     const { loginUsername, loginPass } = formValues;
-    console.log(`Logging in with username: ${loginUsername} and password: ${loginPass}`);
     axios.post(`/api/login`, {username: loginUsername, rawPassword: loginPass})
          .then(res => setUsername(res.data.username))
   }
@@ -23,7 +22,6 @@ export default function LoginRegister(props) {
   const handleRegister = event => {
     event.preventDefault();
     const { registerUsername, registerPass } = formValues;
-    console.log(`Registering a new user with username: ${registerUsername} and password: ${registerPass}`);
     axios.post(`/api/users`, {username: registerUsername, rawPassword: registerPass})
          .then(res => setUsername(res.data.username))
   }

@@ -20,12 +20,10 @@ export default function useSessionTracking(username) {
       // If we have a session running already, ping the API to stop it.
       if (currentSession.id) {
         axios.patch(`/api/sessions`, { session_id: currentSession.id })
-            .then(res => console.log('stopped session:', res.data))
       }
 
-      // If the input matches the currently-tracked session, then we should just stop
+      // If the input matches the currently-tracked session, just stop
       // the current session without starting a new one.
-      console.log(`checking ${projectId} vs ${currentSession.project_id}, result: ${projectId === currentSession.project_id}`)
       if (projectId === currentSession.project_id) {
         setCurrentSession({});
       } else {

@@ -63,10 +63,7 @@ export default function NewBlockForm(props) {
       const endTime = new Date(endDateMs).toISOString();
 
       axios.post('/api/blocks', { startTime, endTime, project: values.project})
-           .then(res => {
-             console.log(res);
-             refreshBlocks()
-           })
+           .then(refreshBlocks)
       handleClose();
     }
     setSubmitStatus({ valid, msg });
