@@ -22,7 +22,6 @@ export default function ProjectList(props) {
       [id]: newProject
     }))
     axios.patch(`/api/projects/${id}`, { title })
-         .then(res => console.log(res))
   }
 
   const handleCancel = event => {

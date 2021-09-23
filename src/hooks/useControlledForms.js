@@ -8,7 +8,6 @@ export default function useControlledForms(fields) {
     setFormValues(prev => {
       const newVals = {...prev};
       newVals[event.target.name] = event.target.value;
-      console.log(newVals)
       return newVals;
     })
   }
