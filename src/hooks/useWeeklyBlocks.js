@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Block from '../components/Block';
 
-import { getLastSunday, makeZeroDate } from '../helpers/dayHelpers'
+import { getLastSunday, makeZeroDate } from '../helpers/timeHelpers'
 
 // Ensures that the app always has the Blocks for the current week.
 export default function useWeeklyBlocks(username) {
