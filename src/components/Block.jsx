@@ -1,4 +1,3 @@
-import axios from 'axios';
 import '../styles/Block.css'
 
 export default function Block(props) {
