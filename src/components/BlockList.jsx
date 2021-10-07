@@ -14,6 +14,7 @@ export default function BlockList(props) {
     .map(block => (
       <Block
         {...block}
+        key={block.id}
         day={new Date(block.start_time)}
         length={getFifteenMinuteUnits(block.start_time, block.end_time)}
       />
