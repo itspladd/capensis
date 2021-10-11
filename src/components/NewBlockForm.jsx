@@ -146,7 +146,7 @@ export default function NewBlockForm(props) {
           </div>
         </form>
         </Modal.Body>
-          {!formIsValid && (
+          {showErrors && (
             <Modal.Footer>Bad form.</Modal.Footer>
           )}
         <Modal.Footer>
