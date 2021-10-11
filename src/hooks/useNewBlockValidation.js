@@ -37,8 +37,9 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
       return badStart || badEnd;
     }
 
-    const conflicts = blocks.filter(blockIsToday)
-    .filter(blockConflictsWithCurrentTime);
+    const conflict = blocks.filter(blockIsToday)
+    .filter(blockConflictsWithCurrentTime)
+    [0];
 
     setErrors({
       noProject: !values.project,
