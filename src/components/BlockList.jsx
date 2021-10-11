@@ -10,10 +10,12 @@ export default function BlockList(props) {
     return fifteenMinuteUnits;
   }
 
-  const blocksForDay = blocks.filter(block => new Date(block.start_time).getDate() === day.getDate())
+  const blocksForDay = blocks
+    .filter(block => new Date(block.start_time).getDate() === day.getDate())
     .map(block => (
       <Block
         {...block}
+        key={block.id}
         day={new Date(block.start_time)}
         length={getFifteenMinuteUnits(block.start_time, block.end_time)}
       />
