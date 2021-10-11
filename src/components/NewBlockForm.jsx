@@ -55,17 +55,15 @@ export default function NewBlockForm(props) {
     }
     return optionsList;
   }()
-
-  const makeErrorStrings = error => {
-
-  }
-
-  const errorList = () => {
-    return Object.keys(errors)
-                 .map(errorType => (
-                   <li>{STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType]}</li>
-                 ))
-  }
+  const errorList = Object.keys(errors)
+                          .map(errorType => {
+                            console.log('making error list for :', errorType)
+                            console.log('using:', STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType])
+                            return (
+                   <li key={errorType}>
+                     {STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType](errors[errorType])}
+                   </li>
+                 )})
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -124,7 +122,7 @@ export default function NewBlockForm(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {showErrors && errors.conflict
+            {showErrors && errors.conflict && errors.conflict.start &&
              (<small id="passwordHelpBlock" className="form-text text-muted">
              That start time conflicts with an existing Block!
              </small>)}
@@ -150,7 +148,7 @@ export default function NewBlockForm(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {showErrors &&
+            {showErrors && errors.conflict && errors.conflict.end &&
              (<small id="passwordHelpBlock" className="form-text text-muted">
              That end time conflicts with an existing Block!
              </small>)}
@@ -158,7 +156,7 @@ export default function NewBlockForm(props) {
         </form>
         </Modal.Body>
           {showErrors && (
-            <Modal.Footer>Bad form.</Modal.Footer>
+            <Modal.Footer><ul>{errorList}</ul></Modal.Footer>
           )}
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

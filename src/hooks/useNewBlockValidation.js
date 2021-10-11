@@ -5,11 +5,7 @@ import { minutesSinceMidnight, getBoundaryMinutes } from '../helpers/timeHelpers
 
 export default function useNewBlockValidation(values, blocks, currentDay) {
 
-  const [errors, setErrors] = useState({
-    noProject: true,
-    endBeforeStart: false,
-    conflicts: []
-  })
+  const [errors, setErrors] = useState({})
   const [formIsValid, setFormIsValid] = useState(false)
 
   // If the values, blocks, or current day change, re-validate everything.
@@ -40,18 +36,17 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
     .filter(conflict => conflict.start || conflict.end)
     [0];
 
-    setErrors({
-      noProject: !values.project,
-      endBeforeStart: (newBlockStart >= newBlockEnd),
-      conflict
-    })
+    // If there are any validation errors, store them in an object.
+    const newErrors = {};
+    if (!values.project)              newErrors.noProject = true;
+    if (newBlockStart >= newBlockEnd) newErrors.endBeforeStart = true;
+    if (conflict)                     newErrors.conflict = conflict;
 
+    setErrors(newErrors)
   }, [values, blocks, currentDay])
 
   useEffect(() => {
-    const valid = Object.values(errors)
-      .filter(error => !!error) // Keep truthy values (indicating an error exists)
-      .length === 0;
+    const valid = Object.values(errors).length === 0;
     console.log('form valid: ', valid)
     setFormIsValid(valid);
   }, [errors])
