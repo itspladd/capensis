@@ -1,6 +1,6 @@
 const SETTINGS = {
   LANGUAGES: {
-    EN_US: "EN-US"
+    EN_US: "EN_US"
   }
 }
 
