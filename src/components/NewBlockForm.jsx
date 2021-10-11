@@ -28,7 +28,7 @@ export default function NewBlockForm(props) {
   const [errors, formIsValid] = useNewBlockValidation(values, blocks, currentDay)
   const [showErrors, setShowErrors] = useState(false);
 
-  const lang = SETTINGS.LANGUAGES.EN_US;
+  const LANG = SETTINGS.LANGUAGES.EN_US;
   const currentDateText = currentDay.toDateString();
 
   // Make the options lists for the form <select> tags
@@ -56,6 +56,17 @@ export default function NewBlockForm(props) {
     return optionsList;
   }()
 
+  const makeErrorStrings = error => {
+
+  }
+
+  const errorList = () => {
+    return Object.keys(errors)
+                 .map(errorType => (
+                   <li>{STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType]}</li>
+                 ))
+  }
+
   const handleSubmit = async event => {
     event.preventDefault();
     if (!formIsValid) {
@@ -63,7 +74,7 @@ export default function NewBlockForm(props) {
     } else {
       setShowErrors(false);
       // Turn the raw values into ISO strings to send
-      const [startMins, endMins] = getBoundaryMinutes(values);
+      const [startMins, endMins] = getBoundaryMinutes({values});
       const startDateMs = currentDay.valueOf() + (startMins * 60 * 1000);
       const endDateMs = currentDay.valueOf() + (endMins * 60 * 1000);
       const startTime = new Date(startDateMs).toISOString();
@@ -113,7 +124,7 @@ export default function NewBlockForm(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {errors.conflicts.length !== 0 &&
+            {showErrors && errors.conflict
              (<small id="passwordHelpBlock" className="form-text text-muted">
              That start time conflicts with an existing Block!
              </small>)}
@@ -139,7 +150,7 @@ export default function NewBlockForm(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {errors.conflicts.length &&
+            {showErrors &&
              (<small id="passwordHelpBlock" className="form-text text-muted">
              That end time conflicts with an existing Block!
              </small>)}
