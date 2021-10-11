@@ -11,7 +11,6 @@ import SETTINGS from '../constants/settings'
 import STRINGS from '../constants/strings'
 
 import { getBoundaryMinutes } from '../helpers/timeHelpers'
-import { isCompositeComponentWithType } from 'react-dom/test-utils';
 
 export default function NewBlockForm(props) {
   const { show, handleClose, currentDay, projects, blocks, refreshBlocks } = props;
@@ -27,6 +26,7 @@ export default function NewBlockForm(props) {
   });
 
   const [errors, formIsValid] = useNewBlockValidation(values, blocks, currentDay)
+  const [showErrors, setShowErrors] = useState(false);
 
   const lang = SETTINGS.LANGUAGES.EN_US;
   const currentDateText = currentDay.toDateString();
@@ -55,24 +55,22 @@ export default function NewBlockForm(props) {
     }
     return optionsList;
   }()
+
   const handleSubmit = async event => {
     event.preventDefault();
     if (!formIsValid) {
-      console.log('Invalid. errors:', errors)
+      setShowErrors(true);
     } else {
+      setShowErrors(false);
       // Turn the raw values into ISO strings to send
       const [startMins, endMins] = getBoundaryMinutes(values);
       const startDateMs = currentDay.valueOf() + (startMins * 60 * 1000);
       const endDateMs = currentDay.valueOf() + (endMins * 60 * 1000);
       const startTime = new Date(startDateMs).toISOString();
       const endTime = new Date(endDateMs).toISOString();
-
       axios.post('/api/blocks', { startTime, endTime, project: values.project})
-           .then(res => {
-             console.log(res);
-             refreshBlocks()
-           })
-      handleClose();
+           .then(refreshBlocks)
+           .then(handleClose)
     }
   }
 
@@ -115,7 +113,7 @@ export default function NewBlockForm(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {errors.conflicts.length &&
+            {errors.conflicts.length !== 0 &&
              (<small id="passwordHelpBlock" className="form-text text-muted">
              That start time conflicts with an existing Block!
              </small>)}
@@ -155,10 +153,9 @@ export default function NewBlockForm(props) {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button 
+          <Button
             variant="primary"
-            onClick={handleSubmit}
-            disabled={!formIsValid}>
+            onClick={handleSubmit}>
             Submit
           </Button>
         </Modal.Footer>

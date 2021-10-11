@@ -36,6 +36,7 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
       console.log("badEnd", badEnd)
       return badStart || badEnd;
     }
+
     const conflicts = blocks.filter(blockIsToday)
     .filter(blockConflictsWithCurrentTime);
 
