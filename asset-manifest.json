@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/capensis/static/css/main.c27656eb.chunk.css",
-    "main.js": "/capensis/static/js/main.d5fcd284.chunk.js",
-    "main.js.map": "/capensis/static/js/main.d5fcd284.chunk.js.map",
+    "main.js": "/capensis/static/js/main.8f8402fc.chunk.js",
+    "main.js.map": "/capensis/static/js/main.8f8402fc.chunk.js.map",
     "runtime-main.js": "/capensis/static/js/runtime-main.b84be314.js",
     "runtime-main.js.map": "/capensis/static/js/runtime-main.b84be314.js.map",
     "static/css/2.818011ed.chunk.css": "/capensis/static/css/2.818011ed.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.818011ed.chunk.css",
     "static/js/2.e6288223.chunk.js",
     "static/css/main.c27656eb.chunk.css",
-    "static/js/main.d5fcd284.chunk.js"
+    "static/js/main.8f8402fc.chunk.js"
   ]
 }
