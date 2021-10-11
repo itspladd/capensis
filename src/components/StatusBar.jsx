@@ -2,7 +2,6 @@ import '../styles/StatusBar.css';
 
 export default function StatusBar(props) {
   const { currentSession, projects} = props;
-  console.log(projects, currentSession)
   const tracking = currentSession.id !== undefined;
   const projectsLoaded = projects[currentSession.project_id] !== undefined;
   const projectTitle = tracking && projectsLoaded && projects[currentSession.project_id].title
