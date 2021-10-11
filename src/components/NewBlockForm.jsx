@@ -155,7 +155,7 @@ export default function NewBlockForm(props) {
           </div>
         </form>
         </Modal.Body>
-          {showErrors && (
+          {showErrors && errorList.length !== 0 && (
             <Modal.Footer><ul>{errorList}</ul></Modal.Footer>
           )}
         <Modal.Footer>
