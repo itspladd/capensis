@@ -7,6 +7,10 @@ export default function useSessionTracking(username) {
   useEffect(() => {
     // When the username changes, ping the server to see if there's an open session.
     // If there is, load it into the state.
+    axios.get(`/api/sessions/current`)
+         .then(res => {
+           if(res.data[0]) setCurrentSession(res.data[0]);
+         })
   }, [username])
 
   const toggleSession = event => {
