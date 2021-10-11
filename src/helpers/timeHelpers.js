@@ -34,6 +34,15 @@ function getFormValuesBoundaryMinutes(values) {
   return [startMins, endMins]
 }
 
-export function getBoundaryMinutes({values}) {
+function getBlockBoundaryMinutes(block) {
+  const start = new Date(block.start_time);
+  const end = new Date(block.end_time);
+  const startMins = minutesSinceMidnight(start.getHours(), start.getMinutes())
+  const endMins = minutesSinceMidnight(end.getHours(), end.getMinutes())
+  return [startMins, endMins]
+}
+
+export function getBoundaryMinutes({values, block}) {
   if (values) return getFormValuesBoundaryMinutes(values);
+  if (block) return getBlockBoundaryMinutes(block)
 }
