@@ -1,9 +1,11 @@
+import { makeTimeString } from '../../../helpers/stringHelpers'
+
 const EN_US = {
   NEW_BLOCK_VALIDATION: {
     conflict: ({block}) => {
       const {title, start_time, end_time} = block;
-      const startStr = new Date(start_time).toLocaleTimeString();
-      const endStr = new Date(end_time).toLocaleTimeString();
+      const startStr = makeTimeString(start_time)
+      const endStr = makeTimeString(end_time)
       console.log(start_time)
       return `This time conflicts with another block: ${title}, ${startStr} - ${endStr}`
     },
