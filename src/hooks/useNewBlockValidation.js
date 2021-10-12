@@ -47,7 +47,6 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
 
   useEffect(() => {
     const valid = Object.values(errors).length === 0;
-    console.log('form valid: ', valid)
     setFormIsValid(valid);
   }, [errors])
 

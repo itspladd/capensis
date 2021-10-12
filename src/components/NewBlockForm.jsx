@@ -55,15 +55,17 @@ export default function NewBlockForm(props) {
     }
     return optionsList;
   }()
+
+  const makeErrorItem = (errorType) => {
+    return (
+        <li key={errorType}>
+          {STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType](errors[errorType])}
+        </li>
+    )
+  }
+
   const errorList = Object.keys(errors)
-                          .map(errorType => {
-                            console.log('making error list for :', errorType)
-                            console.log('using:', STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType])
-                            return (
-                   <li key={errorType}>
-                     {STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType](errors[errorType])}
-                   </li>
-                 )})
+                          .map(makeErrorItem)
 
   const handleSubmit = async event => {
     event.preventDefault();

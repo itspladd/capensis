@@ -6,7 +6,6 @@ const EN_US = {
       const {title, start_time, end_time} = block;
       const startStr = makeTimeString(start_time)
       const endStr = makeTimeString(end_time)
-      console.log(start_time)
       return `This time conflicts with another block: ${title}, ${startStr} - ${endStr}`
     },
     noProject: () => "You must select a project.",
