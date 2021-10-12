@@ -45,7 +45,7 @@ export default function LoginRegister(props) {
             <input className="form-control" name="loginPass" type="password" value={formValues.loginPass} onChange={handleFormChange}></input>
           </div>
           <div className="col-12">
-            <button class="btn btn-success">Login</button>
+            <button className="btn btn-success">Login</button>
           </div>
         </form>
       </div>
