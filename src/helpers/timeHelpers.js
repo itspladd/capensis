@@ -30,7 +30,6 @@ function getFormValuesBoundaryMinutes(values) {
   const endMinutes = Number(values.endMinute)
   const startMins = minutesSinceMidnight(startHours, startMinutes);
   const endMins = minutesSinceMidnight(endHours, endMinutes);
-  console.log(`getFormValuesBoundaryMinutes found: ${startMins}, ${endMins}`);
   return [startMins, endMins]
 }
 
