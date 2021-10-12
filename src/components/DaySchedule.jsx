@@ -8,6 +8,7 @@ export default function DaySchedule(props) {
   // Props:
   // blocks is an array of Block components.
   const { blocks, day, tomorrow, yesterday, showForm } = props;
+
   const dayMap = {
     0: "Sunday",
     1: "Monday",
@@ -18,9 +19,11 @@ export default function DaySchedule(props) {
     6: "Saturday"
   }
 
+  const dayString = day && day.toDateString();
+
   return(
     <div className="daySchedule">
-      <h3>{day.toDateString()}</h3>
+      <h3>{dayString}</h3>
       <Button variant="primary" onClick={showForm}>
         Make a new block
       </Button>
