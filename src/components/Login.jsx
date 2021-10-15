@@ -1,7 +1,7 @@
 import axios from 'axios';
 import useControlledForms from '../hooks/useControlledForms';
 
-export default function LoginRegister(props) {
+export default function Login(props) {
 
   const { setUsername } = props;
 
@@ -10,7 +10,7 @@ export default function LoginRegister(props) {
     rawPassword: ""
   });
 
-  const handleLogin = event => {
+  const handleSubmit = event => {
     event.preventDefault();
     const { username, rawPassword } = formValues;
     axios.post(`/api/login`, {username, rawPassword})
@@ -21,7 +21,7 @@ export default function LoginRegister(props) {
   return (
       <div className="login m-2">
         <form className="row row-cols-sm-auto g-3 align-items-center"
-          onSubmit={handleLogin}>
+          onSubmit={handleSubmit}>
           <div className="col-12">
             <label className="form-label" htmlFor="username">Username: </label>
           </div>

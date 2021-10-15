@@ -10,7 +10,7 @@ export default function Register(props) {
     rawPassword: ""
   });
 
-  const handleRegister = event => {
+  const handleSubmit = event => {
     event.preventDefault();
     const { username, rawPassword } = formValues;
     axios.post(`/api/users`, {username, rawPassword})
@@ -20,7 +20,7 @@ export default function Register(props) {
   return (
     <div className="register m-2">
       <form className="row row-cols-sm-auto g-3 align-items-center"
-        onSubmit={handleRegister}>
+        onSubmit={handleSubmit}>
         <div className="col-12">
           <label className="form-label" htmlFor="username">Username: </label>
         </div>
