@@ -31,7 +31,7 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
 
     // Get a single conflict object (if it exists)
     // See previous function for object structure
-    const conflict = blocks.filter(blockIsToday)
+    const conflict = blocks && blocks.filter(blockIsToday)
     .map(makeConflictObject)
     .filter(conflict => conflict.start || conflict.end)
     [0];

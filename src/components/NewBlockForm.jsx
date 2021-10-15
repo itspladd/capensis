@@ -29,10 +29,10 @@ export default function NewBlockForm(props) {
   const [showErrors, setShowErrors] = useState(false);
 
   const LANG = SETTINGS.LANGUAGES.EN_US;
-  const currentDateText = currentDay.toDateString();
+  const currentDateText = currentDay && currentDay.toDateString();
 
   // Make the options lists for the form <select> tags
-  const projectOptions = Object.values(projects).reverse().map(project => (
+  const projectOptions = projects && Object.values(projects).reverse().map(project => (
     <option value={project.id} key={project.id}>{project.title}</option>
   ));
 

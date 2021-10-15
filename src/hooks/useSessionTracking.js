@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export default function useSessionTracking(username) {
-  const [currentSession, setCurrentSession] = useState({});
+  const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
     // When the username changes, ping the server to see if there's an open session.
@@ -22,14 +22,14 @@ export default function useSessionTracking(username) {
       // Get the project ID from the block. Cast it to a number for comparison later.
       const projectId = Number(block.getAttribute('projectid'))
       // If we have a session running already, ping the API to stop it.
-      if (currentSession.id) {
+      if (currentSession) {
         axios.patch(`/api/sessions`, { session_id: currentSession.id })
       }
 
       // If the input matches the currently-tracked session, just stop
       // the current session without starting a new one.
-      if (projectId === currentSession.project_id) {
-        setCurrentSession({});
+      if (currentSession && projectId === currentSession.project_id) {
+        setCurrentSession(null);
       } else {
         // Otherwise, ping the API to start a new session and start tracking.
         axios.post(`/api/sessions`, { project_id: projectId })

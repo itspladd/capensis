@@ -59,7 +59,7 @@ export default function ProjectList(props) {
     setShowNewProjectForm(false)
   }
 
-  const projectItems = Object.values(projects).map(project => (
+  const projectItems = projects && Object.values(projects).map(project => (
     <ProjectListItem
       {...project}
       selected={ project.id === selectedProject}
