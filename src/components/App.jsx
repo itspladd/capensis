@@ -13,8 +13,9 @@ import {
 // Custom components
 import Header from './Header';
 import StatusBar from './StatusBar';
+import Login from './Login'
+import Register from './Register'
 import NewBlockForm from './NewBlockForm';
-import LoginRegister from './LoginRegister';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
@@ -53,7 +54,10 @@ export default function App() {
 
       {/* If there's no valid login: */}
       {!loading && !username &&
-        <LoginRegister setUsername={setUsername} />
+        <>
+          <Login setUsername={setUsername} />
+          <Register setUsername={setUsername} />
+        </>
       }
 
       {/* If we've successfully logged in: */}
