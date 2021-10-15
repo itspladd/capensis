@@ -6,14 +6,14 @@ export default function Register(props) {
   const { setUsername } = props;
 
   const [formValues, handleFormChange] = useControlledForms({
-    registerUsername: "",
-    registerPass: ""
+    username: "",
+    rawPassword: ""
   });
 
   const handleRegister = event => {
     event.preventDefault();
-    const { registerUsername, registerPass } = formValues;
-    axios.post(`/api/users`, {username: registerUsername, rawPassword: registerPass})
+    const { username, rawPassword } = formValues;
+    axios.post(`/api/users`, {username, rawPassword})
          .then(res => setUsername(res.data.username))
   }
 
@@ -22,16 +22,17 @@ export default function Register(props) {
       <form className="row row-cols-sm-auto g-3 align-items-center"
         onSubmit={handleRegister}>
         <div className="col-12">
-          <label className="form-label" htmlFor="registerUsername">Username: </label>
+          <label className="form-label" htmlFor="username">Username: </label>
         </div>
         <div className="col-12">
-          <input className="form-control" name="registerUsername" type="text" value={formValues.registerUsername} onChange={handleFormChange}></input>
+          <input
+            className="form-control" name="username" type="text" value={formValues.username} onChange={handleFormChange}></input>
         </div>
         <div className="col-12">
-          <label className="form-label" htmlFor="registerPass">Password: </label>
+          <label className="form-label" htmlFor="rawPassword">Password: </label>
         </div>
         <div className="col-12">
-          <input className="form-control" name="registerPass" type="password" value={formValues.registerPass} onChange={handleFormChange}></input>
+          <input className="form-control" name="rawPassword" type="password" value={formValues.rawPassword} onChange={handleFormChange}></input>
         </div>
         <div className="col-12">
           <button className="btn btn-success">Register</button>
