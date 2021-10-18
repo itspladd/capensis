@@ -6,7 +6,7 @@ import Button from 'react-bootstrap/Button'
 
 export default function Login(props) {
 
-  const { setUsername } = props;
+  const { login } = props;
 
   const [formValues, handleFormChange] = useControlledForms({
     formLoginUsername: "",
@@ -17,7 +17,7 @@ export default function Login(props) {
     event.preventDefault();
     const { formLoginUsername, formLoginPassword } = formValues;
     axios.post(`/api/login`, {username: formLoginUsername, rawPassword:formLoginPassword})
-         .then(res => setUsername(res.data.username))
+         .then(res => login(res.data.username))
   }
 
   return (

@@ -13,8 +13,8 @@ import {
 // Custom components
 import Header from './Header';
 import StatusBar from './StatusBar';
-import Login from './Login'
-import Register from './Register'
+import NoAuthUser from './NoAuthUser'
+
 import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
@@ -30,7 +30,7 @@ import usePopupModal from '../hooks/usePopupModal';
 export default function App() {
 
 
-  const [loading, username, setUsername, logout] = useAuthentication();
+  const [loading, username, login, logout] = useAuthentication();
   const [blocks, refreshBlocks, currentDay, changeDay] = useWeeklyBlocks(username);
   const [currentSession, toggleSession] = useSessionTracking(username);
   const [showForm, closeForm, show] = usePopupModal();
@@ -54,10 +54,7 @@ export default function App() {
 
       {/* If there's no valid login: */}
       {!loading && !username &&
-        <>
-          <Login setUsername={setUsername} />
-          <Register setUsername={setUsername} />
-        </>
+        <NoAuthUser login={login} />
       }
 
       {/* If we've successfully logged in: */}
