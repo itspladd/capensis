@@ -1,6 +1,9 @@
 import axios from 'axios';
 import useControlledForms from '../hooks/useControlledForms';
 
+import Form from 'react-bootstrap/Form'
+import Button from 'react-bootstrap/Button'
+
 export default function Login(props) {
 
   const { setUsername } = props;
@@ -17,8 +20,24 @@ export default function Login(props) {
          .then(res => setUsername(res.data.username))
   }
 
-
   return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="username">
+        <Form.Label>Username</Form.Label>
+        <Form.Control onChange={handleFormChange} type="text" placeholder="Username" />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="rawPassword">
+        <Form.Label>Password</Form.Label>
+        <Form.Control onChange={handleFormChange} type="password" placeholder="Password" />
+      </Form.Group>
+      <Button variant="success" type="submit" >
+        Submit
+      </Button>
+    </Form>
+  )
+
+  /* Old implementation with basic forms
+  * return (
       <div className="login m-2">
         <form className="row row-cols-sm-auto g-3 align-items-center"
           onSubmit={handleSubmit}>
@@ -39,5 +58,5 @@ export default function Login(props) {
           </div>
         </form>
       </div>
-  )
+  ) */
 }
