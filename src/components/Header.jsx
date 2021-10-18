@@ -1,11 +1,13 @@
 // Router components
 import { Link, NavLink } from "react-router-dom";
 
+import '../styles/Header.css';
+
 export default function Header(props) {
   const { username, handleLogout, currentSession } = props;
 
   return(
-    <div className="navbar navbar-expand-sm navbar-light bg-info">
+    <div className="Header navbar navbar-expand-sm navbar-light bg-info">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">Capensis</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

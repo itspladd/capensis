@@ -1,4 +1,9 @@
 .App {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  background-color:aliceblue;
+  height: 100%;
 }
 
 .App-logo {
@@ -21,6 +26,14 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.App-body {
+
+}
+
+.App-footer {
+
 }
 
 .App-link {
