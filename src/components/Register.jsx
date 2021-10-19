@@ -21,6 +21,7 @@ export default function Register(props) {
 
   return (
     <Form className="registerForm">
+      <h4>Register</h4>
       <Form.Group className="mb-3" controlId="formRegisterUsername">
         <Form.Label>Username</Form.Label>
         <Form.Control onChange={handleFormChange} type="text" placeholder="Username" />
@@ -30,7 +31,7 @@ export default function Register(props) {
         <Form.Control onChange={handleFormChange} type="password" placeholder="Password" />
       </Form.Group>
       <Button variant="success" type="submit" onClick={handleSubmit}>
-        Register
+        Create account
       </Button>
     </Form>
   )

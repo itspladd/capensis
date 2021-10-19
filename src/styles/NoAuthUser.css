@@ -1,15 +1,30 @@
 .NoAuthUser {
-  width: 50%;
+  width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 4em;
+  border: 1px black dashed;
 }
 
 #NoAuth_welcome {
   text-align: center;
 }
 
-h1.appName {
+.appName {
+  font-family: 'Yellowtail', cursive;
+  font-size: 4em;
+  color: #1034A6;
+}
 
+.authSwitch {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.authSwitch > p {
+  margin-bottom: 0;
 }

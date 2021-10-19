@@ -20,6 +20,7 @@ import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
 import Reports from './Reports';
+import Footer from './Footer';
 
 // Custom hooks
 import useAuthentication from '../hooks/useAuthentication'
@@ -95,6 +96,7 @@ export default function App() {
           </Router>
         </>
       }
+      <Footer />
     </div>
   );
 }
