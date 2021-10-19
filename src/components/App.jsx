@@ -73,26 +73,28 @@ export default function App() {
               blocks={blocks}
               refreshBlocks={refreshBlocks}
             />
-            <Switch>
-              <Route exact path={["/", "/schedule"]}>
-                <DaySchedule
-                  blocks={blocks}
-                  day={currentDay}
-                  tomorrow={() => changeDay(1)}
-                  yesterday={() => changeDay(-1)}
-                  showForm={showForm}
-                />
-              </Route>
-              <Route exact path="/week" >
-                <WeekSchedule />
-              </Route>
-              <Route exact path="/projects" >
-                <ProjectList projects={projects} setProjects={setProjects} />
-              </Route>
-              <Route exact path="/reports" >
-                <Reports projects={projects} />
-              </Route>
-            </Switch>
+            <div className="App-body">
+              <Switch>
+                <Route exact path={["/", "/schedule"]}>
+                  <DaySchedule
+                    blocks={blocks}
+                    day={currentDay}
+                    tomorrow={() => changeDay(1)}
+                    yesterday={() => changeDay(-1)}
+                    showForm={showForm}
+                  />
+                </Route>
+                <Route exact path="/week" >
+                  <WeekSchedule />
+                </Route>
+                <Route exact path="/projects" >
+                  <ProjectList projects={projects} setProjects={setProjects} />
+                </Route>
+                <Route exact path="/reports" >
+                  <Reports projects={projects} />
+                </Route>
+              </Switch>
+            </div>
           </Router>
         </>
       }
