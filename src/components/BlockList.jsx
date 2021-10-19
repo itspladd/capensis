@@ -1,14 +1,11 @@
 import Block from './Block'
 
+import { getFifteenMinuteUnits } from '../helpers/timeHelpers'
+
 export default function BlockList(props) {
   const { blocks, day } = props;
 
-  const getFifteenMinuteUnits = (start, end) => {
-    const lengthMs = new Date(end) - new Date(start);
-    const lengthMins = lengthMs / 1000 / 60;
-    const fifteenMinuteUnits = lengthMins / 15;
-    return fifteenMinuteUnits;
-  }
+  
 
   const blocksForDay = blocks && day &&
     blocks
