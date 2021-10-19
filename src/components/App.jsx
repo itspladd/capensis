@@ -13,7 +13,7 @@ import {
 // Custom components
 import Header from './Header';
 import StatusBar from './StatusBar';
-import NoAuthUser from './NoAuthUser'
+import Authentication from './Authentication'
 
 import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
@@ -55,7 +55,7 @@ export default function App() {
 
       {/* If there's no valid login: */}
       {!loading && !username &&
-        <NoAuthUser login={login} />
+        <Authentication login={login} />
       }
 
       {/* If we've successfully logged in: */}

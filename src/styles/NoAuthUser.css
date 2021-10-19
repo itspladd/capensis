@@ -1,14 +1,23 @@
-.NoAuthUser {
+.Authentication {
   width: 70%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 4em;
-  border: 1px black dashed;
 }
 
-#NoAuth_welcome {
+#Authentication_background {
+  height:70%;
+  padding: 2em;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #aabeff;
+  border-radius: 0.5em;
+}
+
+#Authentication_welcome {
   text-align: center;
 }
 
@@ -16,15 +25,16 @@
   font-family: 'Yellowtail', cursive;
   font-size: 4em;
   color: #1034A6;
+  margin-top: -1rem;
 }
 
-.authSwitch {
+.Authentication_switch {
   display: flex;
   justify-content: center;
   gap: 0.5em;
   align-items: center;
 }
 
-.authSwitch > p {
+.Authentication_switch > p {
   margin-bottom: 0;
 }
