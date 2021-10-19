@@ -9,16 +9,6 @@ export default function DaySchedule(props) {
   // blocks is an array of Block components.
   const { blocks, day, tomorrow, yesterday, showForm } = props;
 
-  const dayMap = {
-    0: "Sunday",
-    1: "Monday",
-    2: "Tuesday",
-    3: "Wednesday",
-    4: "Thursday",
-    5: "Friday",
-    6: "Saturday"
-  }
-
   const dayString = day && day.toDateString();
 
   return(
