@@ -8,7 +8,7 @@ export default function StatusBar(props) {
 
   const bgColor = () => {
     if (tracking) return 'bg-success text-light';
-    if (!tracking) return 'bg-light';
+    if (!tracking) return 'bg-secondary text-light';
   }
 
   return (
