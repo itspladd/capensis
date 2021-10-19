@@ -79,8 +79,8 @@ export default function App() {
                   <DaySchedule
                     blocks={blocks}
                     day={currentDay}
-                    tomorrow={() => changeDay(1)}
-                    yesterday={() => changeDay(-1)}
+                    goToTomorrow={() => changeDay(1)}
+                    goToYesterday={() => changeDay(-1)}
                     showForm={showForm}
                   />
                 </Route>

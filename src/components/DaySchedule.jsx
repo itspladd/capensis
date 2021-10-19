@@ -7,7 +7,7 @@ export default function DaySchedule(props) {
 
   // Props:
   // blocks is an array of Block components.
-  const { blocks, day, tomorrow, yesterday, showForm } = props;
+  const { blocks, day, goToTomorrow, goToYesterday, showForm } = props;
 
   const dayString = day && day.toDateString();
 
@@ -18,16 +18,16 @@ export default function DaySchedule(props) {
         Make a new block
       </Button>
         <div className="dayScheduleInternal mt-2">
-          <button 
+          <button
             className="btn btn-primary"
-            onClick={yesterday}>{`<--`}</button>
-          <BlockList 
+            onClick={goToYesterday}>{`<--`}</button>
+          <BlockList
             blocks={blocks}
             day={day}
           />
-          <button 
+          <button
             className="btn btn-primary"
-            onClick={tomorrow}>
+            onClick={goToTomorrow}>
               {`-->`}
           </button>
       </div>
