@@ -7,12 +7,17 @@ export default function Block(props) {
   const startTimeStr = makeTimeString(start_time)
   const endTimeStr = makeTimeString(end_time)
 
+  // Is this block a placeholder?
+  const placeholder = project_id === -1;
+
+  const blockClass = placeholder ? "block_placeholder" : "block"
 
   return(
-    <li className="block list-group-item"
+    <li className={blockClass + " list-group-item"}
       projectid={project_id}
+      style={{height: length + "rem"}}
     >
-      <h5>{title}</h5>
+      {!placeholder && <h5>{title}</h5>}
       {startTimeStr} to {endTimeStr}
     </li>
   )
