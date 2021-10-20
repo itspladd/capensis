@@ -28,6 +28,9 @@ import useWeeklyBlocks from '../hooks/useWeeklyBlocks';
 import useSessionTracking from '../hooks/useSessionTracking';
 import usePopupModal from '../hooks/usePopupModal';
 
+// Helper functions
+import { blockIsOnDay } from '../helpers/timeHelpers';
+
 export default function App() {
 
 
@@ -37,6 +40,7 @@ export default function App() {
   const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
 
+  // Load new projects when the username changes
   useEffect(() => {
     axios.get('/api/projects')
          .then(res => {
@@ -77,7 +81,7 @@ export default function App() {
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
                   <DaySchedule
-                    blocks={blocks}
+                    blocks={blocks.filter(block => blockIsOnDay(block, currentDay))}
                     day={currentDay}
                     goToTomorrow={() => changeDay(1)}
                     goToYesterday={() => changeDay(-1)}

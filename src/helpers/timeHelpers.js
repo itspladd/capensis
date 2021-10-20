@@ -52,3 +52,8 @@ export function getFifteenMinuteUnits(start, end) {
   const fifteenMinuteUnits = lengthMins / 15;
   return fifteenMinuteUnits;
 }
+
+// Determines if a block's start_time date matches the input date.
+export function blockIsOnDay(block, day) {
+  return new Date(block.start_time).getDate() === day.getDate();
+}
