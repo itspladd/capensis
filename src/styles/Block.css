@@ -5,4 +5,15 @@
 .block_placeholder {
   font-size: .75rem;
   padding: 0rem;
+  background-color: transparent;
+  color: transparent;
+  border: none;
+}
+
+.block_placeholder:hover {
+  font-size: .75rem;
+  padding: 0rem;
+  background-color: transparent;
+  color: black;
+  border: 1px black dashed;
 }
