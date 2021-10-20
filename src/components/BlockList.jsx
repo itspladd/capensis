@@ -1,3 +1,4 @@
+import '../styles/BlockList.css'
 import Block from './Block'
 
 import { getFifteenMinuteUnits } from '../helpers/timeHelpers'
