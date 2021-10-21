@@ -11,7 +11,7 @@ export default function ScheduleBar(props) {
     return (
       <li className="ScheduleBarSection"
         key={hour}>
-        { am ? hour : hour-12 }:00 { am ? "AM" : "PM"}
+        { am || hour === 12 ? hour : hour-12 }:00 { am ? "AM" : "PM"}
       </li>
     )
   }
@@ -29,10 +29,8 @@ export default function ScheduleBar(props) {
   }
 
   return (
-    <div>
-      <ul className="ScheduleBar">
-        {makeScheduleElements(startHour, endHour)}
-      </ul>
-    </div>
+    <ul className="ScheduleBar">
+      {makeScheduleElements(startHour, endHour)}
+    </ul>
   )
 }
