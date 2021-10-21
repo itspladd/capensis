@@ -2,6 +2,7 @@ import '../styles/DaySchedule.css';
 
 import Button from 'react-bootstrap/Button';
 import BlockList from './BlockList'
+import ScheduleBar from './ScheduleBar'
 import { useEffect, useState } from 'react';
 
 // Helpers
@@ -81,6 +82,7 @@ export default function DaySchedule(props) {
           <button
             className="btn btn-primary"
             onClick={goToYesterday}>{`<--`}</button>
+          <ScheduleBar />
           <BlockList
             blocks={blocksWithPlaceholders}
             day={day}
