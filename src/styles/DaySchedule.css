@@ -2,11 +2,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 66%;
+}
+
+.dayScheduleHeader {
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 }
 
 .dayScheduleInternal {
+  width: 100%;
   display: flex;
   justify-content:center;
-  width: 66%;
-  border-top: 1px solid rgba(0,0,0,.125);
+  border: 1px solid rgba(0,0,0,.125);
 }
