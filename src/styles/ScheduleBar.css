@@ -8,8 +8,10 @@
 
 .ScheduleBarSection {
   font-size: small;
+  text-align: right;
   height: 4rem;
-  padding-top: 0;
-  padding-right: .2rem;
+  padding: 0 .1rem 0 0;
   background-color: transparent;
+  overflow-x: visible;
+  white-space: nowrap;
 }

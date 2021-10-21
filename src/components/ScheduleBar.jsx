@@ -11,7 +11,7 @@ export default function ScheduleBar(props) {
     return (
       <li className="ScheduleBarSection list-group-item"
         key={hour}>
-        { am || hour === 12 ? hour : hour-12 }:00 { am ? "AM" : "PM"}
+        { am || hour === 12 ? hour : hour-12 } { am ? "AM" : "PM"}
       </li>
     )
   }
