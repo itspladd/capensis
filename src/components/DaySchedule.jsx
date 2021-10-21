@@ -6,9 +6,17 @@ import ScheduleBar from './ScheduleBar'
 import { useEffect, useState } from 'react';
 
 // Helpers
-import { makeTimeString } from '../helpers/stringHelpers'
+import { 
+  makeTimeString,
+  makeWeekDayString,
+  makeDateString } from '../helpers/stringHelpers'
+
+// Constants
+import SETTINGS from '../constants/settings'
+import STRINGS from '../constants/strings'
 
 export default function DaySchedule(props) {
+  const LANG = STRINGS[SETTINGS.LANGUAGES.EN_US].TAG;
 
   // Props:
   // blocks is an array of Block components.
@@ -16,7 +24,8 @@ export default function DaySchedule(props) {
 
   const [blocksWithPlaceholders, setBlocksWithPlaceholders] = useState([]);
 
-  const dayString = day && day.toDateString();
+  const dayString = makeWeekDayString(LANG, day)
+  const dateString = makeDateString(LANG, day)
   const earliestHour = 6;
   const latestHour = 20;
 
@@ -74,24 +83,33 @@ export default function DaySchedule(props) {
 
   return(
     <div className="daySchedule">
-      <h3>{dayString}</h3>
-      <Button variant="primary" onClick={showForm}>
-        Make a new block
-      </Button>
+      <div className="dayScheduleHeader">
+        <Button
+          variant="primary"
+          onClick={goToYesterday}>
+          {`<--`}
+        </Button>
+        <div>
+          <p>
+            <h3>{dayString}</h3>
+            <small className="text-muted">{dateString}</small>
+          </p>
+          <Button variant="primary" onClick={showForm}>
+            Make a new block
+          </Button>
+        </div>
+        <Button
+          variant="primary"
+          onClick={goToTomorrow}>
+          {`-->`}
+        </Button>
+      </div>
         <div className="dayScheduleInternal mt-2">
-          <button
-            className="btn btn-primary"
-            onClick={goToYesterday}>{`<--`}</button>
           <ScheduleBar />
           <BlockList
             blocks={blocksWithPlaceholders}
             day={day}
           />
-          <button
-            className="btn btn-primary"
-            onClick={goToTomorrow}>
-              {`-->`}
-          </button>
       </div>
     </div>
   )
