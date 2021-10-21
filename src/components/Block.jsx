@@ -15,10 +15,11 @@ export default function Block(props) {
 
   return(
     <li className={"list-group-item " + backgroundClass}
-      projectid={project_id}
       style={{height: length + "rem"}}
     >
-      <div className={blockClass}
+      <div
+        className={blockClass}
+        projectid={project_id}
       >
         {!placeholder && <h5>{title}</h5>}
         {startTimeStr} to {endTimeStr}
