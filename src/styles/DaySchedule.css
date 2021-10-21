@@ -3,12 +3,13 @@
   flex-direction: column;
   align-items: center;
   width: 66%;
+  height: 100%;
 }
 
 .dayScheduleHeader {
   display: flex;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .dayScheduleInternal {
@@ -16,4 +17,5 @@
   display: flex;
   justify-content:center;
   border: 1px solid rgba(0,0,0,.125);
+  overflow: scroll;
 }
