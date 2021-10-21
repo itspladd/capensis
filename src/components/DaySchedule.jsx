@@ -84,23 +84,25 @@ export default function DaySchedule(props) {
   return(
     <div className="daySchedule">
       <div className="dayScheduleHeader">
-        <h3>{dayString}</h3>
-        <small className="text-muted">{dateString}</small>
+        <div className="dayScheduleHeader_internal">
+          <Button
+            variant="primary"
+            onClick={goToYesterday}>
+            {`<`}
+          </Button>
+          <Button
+            variant="primary"
+            onClick={goToTomorrow}>
+            {`>`}
+          </Button>
+          <h3>{dayString}</h3>
+          <small className="text-muted">{dateString}</small>
+        </div>
         <Button variant="primary" onClick={showForm}>
-          Make a new block
-        </Button>
-        <Button
-          variant="primary"
-          onClick={goToYesterday}>
-          {`<--`}
-        </Button>
-        <Button
-          variant="primary"
-          onClick={goToTomorrow}>
-          {`-->`}
-        </Button>
+            Make a new block
+          </Button>
       </div>
-      <div className="dayScheduleInternal mt-2">
+      <div className="dayScheduleInternal mt-1">
         <ScheduleBar />
         <BlockList
           blocks={blocksWithPlaceholders}
