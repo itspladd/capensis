@@ -95,8 +95,10 @@ export default function DaySchedule(props) {
             onClick={goToTomorrow}>
             {`>`}
           </Button>
-          <h3>{dayString}</h3>
-          <small className="text-muted">{dateString}</small>
+          <div className="dayScheduleHeader_date">
+            <h3>{dayString}</h3>
+            <small className="text-muted">{dateString}</small>
+          </div>
         </div>
         <Button variant="primary" onClick={showForm}>
             New Block
