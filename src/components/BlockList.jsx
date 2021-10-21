@@ -17,7 +17,7 @@ export default function BlockList(props) {
     ))
 
   return (
-    <ul className="blockList list-group ms-2 me-2">
+    <ul className="blockList list-group">
       { blocksForDay }
     </ul>
   )
