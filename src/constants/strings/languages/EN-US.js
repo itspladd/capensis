@@ -1,6 +1,7 @@
 import { makeTimeString } from '../../../helpers/stringHelpers'
 
 const EN_US = {
+  TAG: "EN-US",
   NEW_BLOCK_VALIDATION: {
     conflict: ({block}) => {
       const {title, start_time, end_time} = block;
