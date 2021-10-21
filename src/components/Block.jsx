@@ -2,18 +2,27 @@ import '../styles/Block.css'
 import { makeTimeString } from '../helpers/stringHelpers'
 
 export default function Block(props) {
-  const { title, project_id, length, day, start_time, end_time } = props;
+  const { title, project_id, length, start_time, end_time } = props;
 
   const startTimeStr = makeTimeString(start_time)
   const endTimeStr = makeTimeString(end_time)
 
+  // Is this block a placeholder?
+  const placeholder = project_id === -1;
+
+  const blockClass = placeholder ? "block_placeholder" : "block"
+  const backgroundClass = placeholder ? "block_placeholder_background" : "block_background"
 
   return(
-    <li className="block list-group-item"
+    <li className={"list-group-item " + backgroundClass}
       projectid={project_id}
+      style={{height: length + "rem"}}
     >
-      <h5>{title}</h5>
-      {startTimeStr} to {endTimeStr}
+      <div className={blockClass}
+      >
+        {!placeholder && <h5>{title}</h5>}
+        {startTimeStr} to {endTimeStr}
+      </div>
     </li>
   )
 }

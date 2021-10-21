@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import Block from '../components/Block';
-
 import { getLastSunday, makeZeroDate } from '../helpers/timeHelpers'
 
 // Ensures that the app always has the Blocks for the current week.
@@ -17,13 +15,13 @@ export default function useWeeklyBlocks(username) {
   // Uses an array of block objects from the API to create Block components.
 
 
-  // Loads blocks from the API, generates Block components, and sets state.
+  // A function to load blocks from the API and store them in state.
   const loadUserBlocks = () => {
     axios.get(`/api/blocks/week`)
     .then(res => setBlocks(res.data))
   }
 
-  // Compare two input days. If one is in a different week than the other,
+  // Compares two input days. If one is in a different week than the other,
   // return true.
   const checkForNewWeek = (current, newDay) => {
     const currentSunday = getLastSunday(current);

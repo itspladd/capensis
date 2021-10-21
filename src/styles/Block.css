@@ -1,3 +1,23 @@
 .block {
   background-color: rgb(187, 187, 255);
+  height: 100%;
+  border: 1px solid rgba(0,0,0,.125);
+  border-width: 0px 0px 1px;
+  border-radius: .3rem;
+}
+
+.block_placeholder {
+  font-size: .75rem;
+  padding: 0rem;
+  background-color: transparent;
+  color: transparent;
+  height: 100%;
+}
+
+.block_placeholder:hover {
+  font-size: .75rem;
+  padding: 0rem;
+  background-color: transparent;
+  color: black;
+  border: 1px black dashed;
 }

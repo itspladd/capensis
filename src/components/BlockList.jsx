@@ -1,29 +1,23 @@
+import '../styles/BlockList.css'
 import Block from './Block'
+
+import { getFifteenMinuteUnits } from '../helpers/timeHelpers'
 
 export default function BlockList(props) {
   const { blocks, day } = props;
 
-  const getFifteenMinuteUnits = (start, end) => {
-    const lengthMs = new Date(end) - new Date(start);
-    const lengthMins = lengthMs / 1000 / 60;
-    const fifteenMinuteUnits = lengthMins / 15;
-    return fifteenMinuteUnits;
-  }
-
   const blocksForDay = blocks && day &&
     blocks
-    .filter(block => new Date(block.start_time).getDate() === day.getDate())
     .map(block => (
       <Block
         {...block}
         key={block.id}
-        day={new Date(block.start_time)}
         length={getFifteenMinuteUnits(block.start_time, block.end_time)}
       />
     ))
 
   return (
-    <ul className="blockList list-group ms-2 me-2">
+    <ul className="blockList list-group list-group-flush">
       { blocksForDay }
     </ul>
   )

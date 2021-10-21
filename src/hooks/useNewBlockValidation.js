@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { minutesSinceMidnight, getBoundaryMinutes } from '../helpers/timeHelpers'
+import { blockIsOnDay, getBoundaryMinutes } from '../helpers/timeHelpers'
 
 
 export default function useNewBlockValidation(values, blocks, currentDay) {
@@ -11,8 +11,6 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
   // If the values, blocks, or current day change, re-validate everything.
   useEffect(() => {
     const [newBlockStart, newBlockEnd] = getBoundaryMinutes({values})
-
-    const blockIsToday = block => new Date(block.start_time).getDate() === currentDay.getDate();
 
     /* Turns a block into an object as follows:
     { block: the block in question,
@@ -31,7 +29,7 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
 
     // Get a single conflict object (if it exists)
     // See previous function for object structure
-    const conflict = blocks && blocks.filter(blockIsToday)
+    const conflict = blocks && blocks.filter(block => blockIsOnDay(block, currentDay))
     .map(makeConflictObject)
     .filter(conflict => conflict.start || conflict.end)
     [0];

@@ -28,6 +28,9 @@ import useWeeklyBlocks from '../hooks/useWeeklyBlocks';
 import useSessionTracking from '../hooks/useSessionTracking';
 import usePopupModal from '../hooks/usePopupModal';
 
+// Helper functions
+import { blockIsOnDay } from '../helpers/timeHelpers';
+
 export default function App() {
 
 
@@ -37,6 +40,7 @@ export default function App() {
   const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
 
+  // Load new projects when the username changes
   useEffect(() => {
     axios.get('/api/projects')
          .then(res => {
@@ -73,26 +77,28 @@ export default function App() {
               blocks={blocks}
               refreshBlocks={refreshBlocks}
             />
-            <Switch>
-              <Route exact path={["/", "/schedule"]}>
-                <DaySchedule
-                  blocks={blocks}
-                  day={currentDay}
-                  tomorrow={() => changeDay(1)}
-                  yesterday={() => changeDay(-1)}
-                  showForm={showForm}
-                />
-              </Route>
-              <Route exact path="/week" >
-                <WeekSchedule />
-              </Route>
-              <Route exact path="/projects" >
-                <ProjectList projects={projects} setProjects={setProjects} />
-              </Route>
-              <Route exact path="/reports" >
-                <Reports projects={projects} />
-              </Route>
-            </Switch>
+            <div className="App-body">
+              <Switch>
+                <Route exact path={["/", "/schedule"]}>
+                  <DaySchedule
+                    blocks={blocks.filter(block => blockIsOnDay(block, currentDay))}
+                    day={currentDay}
+                    goToTomorrow={() => changeDay(1)}
+                    goToYesterday={() => changeDay(-1)}
+                    showForm={showForm}
+                  />
+                </Route>
+                <Route exact path="/week" >
+                  <WeekSchedule />
+                </Route>
+                <Route exact path="/projects" >
+                  <ProjectList projects={projects} setProjects={setProjects} />
+                </Route>
+                <Route exact path="/reports" >
+                  <Reports projects={projects} />
+                </Route>
+              </Switch>
+            </div>
           </Router>
         </>
       }
