@@ -1,4 +1,12 @@
 .ScheduleBar {
   list-style-type: none;
   padding: 0px;
+  margin-bottom: 0px;
+  font-size: 0.9rem;
+}
+
+.ScheduleBarSection {
+  height: 4rem;
+  border: 1px solid grey;
+  border-width: 1px 0px 0px 0px;
 }
