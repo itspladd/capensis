@@ -1,0 +1,13 @@
+.loading {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading>p {
+  font-size: 2rem;
+  font-family: 'Yellowtail', cursive;
+  color: #1034A6;
+}
