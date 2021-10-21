@@ -99,7 +99,7 @@ export default function DaySchedule(props) {
           <small className="text-muted">{dateString}</small>
         </div>
         <Button variant="primary" onClick={showForm}>
-            Make a new block
+            New Block
           </Button>
       </div>
       <div className="dayScheduleInternal mt-1">
