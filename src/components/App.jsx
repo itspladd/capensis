@@ -11,6 +11,7 @@ import {
 } from "react-router-dom";
 
 // Custom components
+import Loading from './Loading'
 import Header from './Header';
 import StatusBar from './StatusBar';
 import Authentication from './Authentication'
@@ -55,7 +56,7 @@ export default function App() {
       onClick={toggleSession}
     >
       {/* If we haven't finished trying to log in: */}
-      {loading && <p>Currently loading...</p>}
+      {loading && <Loading />}
 
       {/* If there's no valid login: */}
       {!loading && !username &&

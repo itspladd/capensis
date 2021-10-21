@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import Login from './Login'
 import Register from './Register'
 
-import '../styles/NoAuthUser.css';
+import '../styles/Authentication.css';
 
 export default function Authentication(props) {
   const {login} = props
