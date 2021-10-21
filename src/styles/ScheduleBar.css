@@ -9,4 +9,7 @@
 .ScheduleBarSection {
   font-size: small;
   height: 4rem;
+  padding-top: 0;
+  padding-right: .2rem;
+  background-color: transparent;
 }
