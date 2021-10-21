@@ -86,12 +86,12 @@ export default function DaySchedule(props) {
       <div className="dayScheduleHeader">
         <div className="dayScheduleHeader_internal">
           <Button
-            variant="primary"
+            variant="info"
             onClick={goToYesterday}>
             {`<`}
           </Button>
           <Button
-            variant="primary"
+            variant="info"
             onClick={goToTomorrow}>
             {`>`}
           </Button>
