@@ -3,3 +3,15 @@
   flex-direction: column;
   width: 100%;
 }
+
+.blockList > .list-group-item {
+  padding: 0;
+}
+
+.block_background+.block_background {
+  padding-top: .05rem;
+}
+
+.blockList > .block_background {
+  border-width: 0px;
+}

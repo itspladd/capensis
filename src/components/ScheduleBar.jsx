@@ -9,7 +9,7 @@ export default function ScheduleBar(props) {
     const { hour } = props;
     const am = hour < 12;
     return (
-      <li className="ScheduleBarSection"
+      <li className="ScheduleBarSection list-group-item"
         key={hour}>
         { am || hour === 12 ? hour : hour-12 }:00 { am ? "AM" : "PM"}
       </li>
@@ -29,7 +29,7 @@ export default function ScheduleBar(props) {
   }
 
   return (
-    <ul className="ScheduleBar">
+    <ul className="ScheduleBar list-group list-group-flush">
       {makeScheduleElements(startHour, endHour)}
     </ul>
   )

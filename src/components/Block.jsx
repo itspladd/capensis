@@ -11,14 +11,18 @@ export default function Block(props) {
   const placeholder = project_id === -1;
 
   const blockClass = placeholder ? "block_placeholder" : "block"
+  const backgroundClass = placeholder ? "block_placeholder_background" : "block_background"
 
   return(
-    <li className={blockClass + " list-group-item"}
+    <li className={"list-group-item " + backgroundClass}
       projectid={project_id}
       style={{height: length + "rem"}}
     >
-      {!placeholder && <h5>{title}</h5>}
-      {startTimeStr} to {endTimeStr}
+      <div className={blockClass}
+      >
+        {!placeholder && <h5>{title}</h5>}
+        {startTimeStr} to {endTimeStr}
+      </div>
     </li>
   )
 }
