@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NoAuthUser from '../NoAuthUser';
+import Authentication from '../Authentication';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<NoAuthUser />, div)
+  ReactDOM.render(<Authentication />, div)
 })
