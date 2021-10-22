@@ -6,8 +6,7 @@ import axios from 'axios';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 // Custom components
@@ -69,9 +68,8 @@ export default function App() {
           <Router basename="/capensis">
             <Header username={username} handleLogout={logout} currentSession={currentSession} />
             <StatusBar currentSession={currentSession} projects={projects} />
-            <NewBlockForm 
+            <NewBlockForm
               show={show}
-              handleShow={showForm}
               handleClose={closeForm}
               currentDay={currentDay}
               projects={projects}

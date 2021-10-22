@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button"
 import '../styles/Header.css';
 
 export default function Header(props) {
-  const { username, handleLogout, currentSession } = props;
+  const { username, handleLogout } = props;
 
   return(
     <Navbar className="navbar" variant="dark" expand="sm">

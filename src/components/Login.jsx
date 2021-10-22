@@ -3,7 +3,6 @@ import useControlledForms from '../hooks/useControlledForms';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import Card from 'react-bootstrap/Card'
 
 export default function Login(props) {
 
