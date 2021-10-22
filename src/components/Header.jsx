@@ -12,7 +12,7 @@ export default function Header(props) {
   return(
     <Navbar className="navbar" variant="dark" expand="sm">
       <Container>
-        <Navbar.Brand href="/">Capensis</Navbar.Brand>
+        <LinkContainer to="/"><Navbar.Brand href="/">Capensis</Navbar.Brand></LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
