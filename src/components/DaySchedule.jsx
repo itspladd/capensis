@@ -83,7 +83,7 @@ export default function DaySchedule(props) {
 
   return(
     <div className="daySchedule">
-      <div className="dayScheduleHeader">
+      <div className="dayScheduleHeader p-1">
         <div className="dayScheduleHeader_internal">
           <Button
             variant="info"

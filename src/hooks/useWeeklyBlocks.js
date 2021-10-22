@@ -7,7 +7,6 @@ import { getLastSunday, makeZeroDate } from '../helpers/timeHelpers'
 export default function useWeeklyBlocks(username) {
   const today = new Date();
   makeZeroDate(today);
-  const sunday = getLastSunday(today);
 
   const [currentDay, setCurrentDay] = useState(today);
   const [blocks, setBlocks] = useState([]);

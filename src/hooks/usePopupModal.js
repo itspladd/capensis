@@ -4,14 +4,8 @@ export default function usePopupModal() {
 
   const [show, setShow] = useState(false);
 
-  const closeForm = () => setShow(false);
-  const showForm = () => setShow(true);
+  const showModal = () => setShow(true);
+  const closeModal = () => setShow(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Submit the form and close it
-    setShow(false);
-  }
-
-  return [showForm, closeForm, show]
+  return [showModal, closeModal, show]
 }

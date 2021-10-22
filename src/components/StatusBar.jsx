@@ -12,7 +12,7 @@ export default function StatusBar(props) {
   }
 
   return (
-    <div className={`statusBar mb-2 ${bgColor()}`}>
+    <div className={`statusBar ${bgColor()}`}>
       { loading &&
         `Loading...`
       }
