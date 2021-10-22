@@ -12,7 +12,7 @@ export default function StatusBar(props) {
   }
 
   return (
-    <div className={`statusBar mb-2 border-top border-info ${bgColor()}`}>
+    <div className={`statusBar mb-2 ${bgColor()}`}>
       { loading &&
         `Loading...`
       }

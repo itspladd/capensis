@@ -1,39 +1,31 @@
 // Router components
-import { Link, NavLink } from "react-router-dom";
-
+import { LinkContainer } from "react-router-bootstrap";
+import Container from "react-bootstrap/Container"
+import Navbar from "react-bootstrap/Navbar"
+import Nav from "react-bootstrap/Nav"
+import Button from "react-bootstrap/Button"
 import '../styles/Header.css';
 
 export default function Header(props) {
   const { username, handleLogout, currentSession } = props;
 
   return(
-    <div className="Header navbar navbar-expand-sm navbar-light bg-info">
-      <div className="container-fluid">
-        <Link className="navbar-brand" to="/">Capensis</Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/schedule">Schedule</NavLink>
-            </li>
-            {/* <li className="nav-item">
-              <NavLink className="nav-link" to="/week">Week</NavLink>
-            </li> */}
-            <li className="nav-item">
-              <NavLink to="/projects" className="nav-link">Projects</NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/reports">Reports</NavLink>
-            </li>
-          </ul>
-        </div>
-        <div className="d-flex">
-          <span className="navbar-text me-2">Logged in as {username}</span>
-          <button className="btn btn-outline-dark" onClick={handleLogout}>Logout</button>
-        </div>
-      </div>
-    </div>
+    <Navbar className="navbar" variant="dark" expand="sm">
+      <Container>
+        <Navbar.Brand href="/">Capensis</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto">
+            <LinkContainer to="/schedule"><Nav.Link>Schedule</Nav.Link></LinkContainer>
+            <LinkContainer to="/projects"><Nav.Link>Projects</Nav.Link></LinkContainer>
+            <LinkContainer to="/reports"><Nav.Link>Reports</Nav.Link></LinkContainer>
+          </Nav>
+          <Navbar.Text>
+            <span className="me-2">Logged in as {username}</span>
+            <Button onClick={handleLogout}>Logout</Button>
+          </Navbar.Text>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   )
 }
