@@ -24,7 +24,7 @@ export default function ScheduleBar(props) {
     const numSections = end - start;
     const sections = new Array(numSections)
       .fill(undefined) // Gotta do this first, or .map won't actually do anything
-      .map((e, index) => <ScheduleBarSection hour={start + index} />);
+      .map((e, index) => <ScheduleBarSection key={index} hour={start + index} />);
     return sections;
   }
 
