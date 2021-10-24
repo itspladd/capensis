@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button'
 
 import Login from './Login'
 import Register from './Register'
+import Logo from './Logo';
 
 import '../styles/Authentication.css';
 
@@ -25,6 +26,8 @@ export default function Authentication(props) {
     <div className="Authentication">
       <div id="Authentication_background">
         <div id="Authentication_welcome">
+          <Logo className="auth-logo" hareOnly scale={2}
+          />
           <p className="appName">Capensis</p>
           <p className="welcomeMessage">A super simple scheduler and time-tracker.</p>
         </div>
