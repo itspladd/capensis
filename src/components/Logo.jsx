@@ -1,8 +1,9 @@
 import "../styles/Logo.css"
 
 export default function Logo(props) {
-  const { className, scale, hareOnly } = props;
+  const { className, hareOnly } = props;
 
+  const scale = props.scale || 1;
   const baseWidth = 77;
   const baseHeight = hareOnly ? 48 : 65
 

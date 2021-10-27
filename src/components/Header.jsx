@@ -6,13 +6,17 @@ import Nav from "react-bootstrap/Nav"
 import Button from "react-bootstrap/Button"
 import '../styles/Header.css';
 
+import Logo from '../components/Logo'
+
 export default function Header(props) {
   const { username, handleLogout } = props;
 
   return(
     <Navbar className="navbar" variant="dark" expand="sm">
       <Container>
-        <LinkContainer to="/"><Navbar.Brand href="/">Capensis</Navbar.Brand></LinkContainer>
+        <LinkContainer to="/schedule">
+          <Navbar.Brand href="/"><Logo className="nav-logo" scale="0.75"/></Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
