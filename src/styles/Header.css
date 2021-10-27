@@ -1,3 +1,8 @@
 .navbar {
   background-color: #1034A6;
 }
+
+.navbar-brand {
+  font-family: Yellowtail, cursive;
+  font-size: 2rem;
+}
