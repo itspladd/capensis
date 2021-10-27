@@ -1,0 +1,22 @@
+.reportBar {
+  width: 100%;
+  background-color: rgb(191, 191, 255);
+  border-radius: .5rem;
+  border: 3px solid rgba(0,0,0,.125);
+}
+
+.reportBar-inner {
+  background-image: radial-gradient(circle at left, transparent 0 25%, rgba(255, 255, 255, 0.623) 75%, transparent 100%);
+  background-size: 8rem 8rem;
+  animation: 2s linear pulse infinite;
+}
+
+@keyframes pulse {
+  0% {
+    background-position-x: -4rem;
+  }
+
+  100% {
+    background-position-x: 4rem;
+  }
+}
