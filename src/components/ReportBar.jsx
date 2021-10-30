@@ -15,7 +15,8 @@ export default function ReportBar(props) {
 
   return (
     <div className="reportBar" style={style}>
-      <div className="reportBar-inner">{getPercentage(progress, goal)}</div>
+      <div className="reportBar-inner"
+        style={{width: `${getPercentage(progress, goal)}%`}}>{getPercentage(progress, goal)}</div>
     </div>
   )
 }
