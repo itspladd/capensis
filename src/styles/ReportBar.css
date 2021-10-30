@@ -2,28 +2,41 @@
   width: 100%;
   background: rgb(0, 0, 0, 0.5);
   border-radius: .5rem;
-  border: 0.2rem solid rgba(0,0,0,.1);
   overflow: hidden;
+  box-shadow: inset .1rem .1rem .2rem;
 }
 
 .reportBar-inner {
   height: 1.5rem;
   border-radius: 0 .75rem .75rem 0;
-  background-image: linear-gradient(80deg, 
-    transparent 20%,
-  rgba(0,0,0, .20) 50%,
-    transparent 80%);
-  background-size: 200%;
+  background-size: 15rem;
   background-position: 50%;
-  animation: 5s linear pulse infinite;
+  animation: 1.5s linear pulse infinite;
+
+}
+
+.reportBar-inner.dark {
+  background-image: linear-gradient(80deg, 
+  transparent 5%,
+  rgba(255,255,255, .12) 50%,
+  transparent 95%),
+  linear-gradient(rgba(255,255,255, .6), rgba(0,0,0, .2));
+}
+
+.reportBar-inner.light {
+  background-image: linear-gradient(80deg, 
+  transparent 5%,
+rgba(0,0,0, .05) 50%,
+  transparent 95%),
+  linear-gradient(rgba(255,255,255, .6), rgba(0,0,0, .2));;
 }
 
 @keyframes pulse {
   0% {
-    background-position: 200%;
+    background-position: 15rem;
   }
 
   100% {
-    background-position: 0%;
+    background-position: 0rem;
   }
 }

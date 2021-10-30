@@ -26,5 +26,5 @@ Half.args = {
 Full.args = {
   progress: 100,
   goal: 100,
-  color: "#0000ff"
+  color: "#ff0000"
 }

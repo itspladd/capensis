@@ -1,8 +1,13 @@
 import '../styles/ReportBar.css';
 
+import Color from 'colorjs.io';
+
 
 export default function ReportBar(props) {
   const {color="#1034A6", progress, goal} = props
+  const barColor = new Color(color);
+  const barBackground = new Color(color);
+  barBackground.alpha = .25;
 
   const percent = (num, denom) => {
     const percent = (num/denom) * 100;
@@ -17,20 +22,23 @@ export default function ReportBar(props) {
   }
 
   const innerWidth = fudgePercentage(percent(progress, goal));
+  console.log("lightness:", barColor.lightness)
+  const colorType = barColor.lightness > 30 ? "light" : "dark"
 
   const outerBarStyle = {
-    backgroundColor: `${color}66`
+    backgroundColor: `${barBackground.toString()}`
   }
 
   const innerBarStyle = {
-    backgroundColor: color,
+    backgroundColor: barColor.toString(),
     width: `${innerWidth}%`
   }
 
   return (
     <div className="reportBar" style={outerBarStyle}>
-      <div className="reportBar-inner"
+      <div className={`reportBar-inner ${colorType}`}
         style={innerBarStyle}>
+          hello
         </div>
     </div>
   )
