@@ -15,12 +15,12 @@ export const Overfilled = Template.bind({});
 
 Unfilled.args = {
   progress: 0,
-  goal: 100
+  goal: 420
 }
 
 Half.args = {
-  progress: 50,
-  goal: 100,
+  progress: 330,
+  goal: 660,
   color: "#00ff00"
 }
 

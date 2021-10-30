@@ -5,6 +5,7 @@ import Color from 'colorjs.io';
 
 export default function ReportBar(props) {
   const {color="#1034A6", progress, goal} = props
+  const overfilled = progress > goal;
   const barColor = new Color(color);
   const barBackground = new Color(color);
   barBackground.alpha = .25; // Lighten the background color
@@ -21,7 +22,10 @@ export default function ReportBar(props) {
     return percent
   }
 
-  const innerWidth = fudgePercentage(percent(progress, goal));
+  const innerWidth = () => {
+    const percentWidth = overfilled ? percent(goal, progress) : percent(progress, goal);
+    return fudgePercentage(percentWidth);
+  };
 
   // Is the bar color relatively light or dark?
   const colorType = barColor.lightness > 30 ? "light" : "dark"
@@ -32,13 +36,14 @@ export default function ReportBar(props) {
 
   const innerBarStyle = {
     backgroundColor: barColor.toString(),
-    width: `${innerWidth}%`
+    width: `${innerWidth()}%`
   }
 
   return (
     <div className="reportBar" style={outerBarStyle}>
       <div className={`reportBar-inner ${colorType}`}
         style={innerBarStyle}>
+          {`${innerWidth()}, ${overfilled}`}
         </div>
     </div>
   )
