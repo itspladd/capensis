@@ -3,6 +3,9 @@ import '../styles/ReportBar.css';
 import Color from 'colorjs.io';
 import classNames from 'classnames';
 
+// Helpers
+import { percent, fudgePercentage } from '../helpers/numberHelpers'
+
 export default function ReportBar(props) {
   const {color="#1034A6", progress, goal} = props
 
@@ -13,25 +16,15 @@ export default function ReportBar(props) {
 
   barBackground.alpha = overfilled ? 1 : .25; // Lighten the background color
 
-  const percent = (num, denom) => {
-    const percent = (num/denom) * 100;
-    return Math.round(percent*10) / 10;
-  }
-
-  // Fudge the numbers a bit for CSS width-niceness.
-  const fudgePercentage = percent => {
-    if (percent < 1) return 1;
-    if (percent === 100) return 101;
-    return percent
-  }
-
   const innerWidth = () => {
     const percentWidth = overfilled ? percent(goal, progress) : percent(progress, goal);
     return fudgePercentage(percentWidth);
   };
+  const innerBarWidth = `${innerWidth()}%`;
 
-  // Is the bar color relatively light or dark?
-  const colorType = barColor.lightness > 30 ? "light" : "dark"
+  const headerWidth = overfilled ? innerBarWidth : "100%";
+  const footerWidth = overfilled ? "100%" : innerBarWidth;
+
 
   const outerBarStyle = {
     backgroundColor: `${barBackground.toString()}`
@@ -39,7 +32,7 @@ export default function ReportBar(props) {
 
   const innerBarStyle = {
     backgroundColor: barColor.toString(),
-    width: `${innerWidth()}%`
+    width: innerBarWidth
   }
 
   const outerBarClass = classNames("reportBar", {
@@ -55,15 +48,19 @@ export default function ReportBar(props) {
   return (
     <div className="report-item">
       <div className="report-item-header">
-        <p>Project</p>
-        <p>Progress</p>
-        <p>Goal</p>
+        <div className="report-item-header__spacer" style={{width: headerWidth}}>
+          <p>Project</p>
+          <p>Target: {goal} hours</p>
+        </div>
       </div>
       <div className={outerBarClass} style={outerBarStyle}>
         <div className={innerBarClass}
           style={innerBarStyle}>
           </div>
       </div>
+      <p className="report-item-footer" style={{width: footerWidth}}>
+        Tracked: {progress} hours
+      </p>
     </div>
   )
 }
