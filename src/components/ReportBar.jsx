@@ -1,14 +1,17 @@
 import '../styles/ReportBar.css';
 
 import Color from 'colorjs.io';
-
+import classNames from 'classnames';
 
 export default function ReportBar(props) {
   const {color="#1034A6", progress, goal} = props
-  const overfilled = progress > goal;
+
   const barColor = new Color(color);
   const barBackground = new Color(color);
-  barBackground.alpha = .25; // Lighten the background color
+
+  const overfilled = progress > goal;
+
+  barBackground.alpha = overfilled ? 1 : .25; // Lighten the background color
 
   const percent = (num, denom) => {
     const percent = (num/denom) * 100;
@@ -39,9 +42,19 @@ export default function ReportBar(props) {
     width: `${innerWidth()}%`
   }
 
+  const outerBarClass = classNames("reportBar", {
+    overfilled
+  });
+
+  const innerBarClass = classNames("reportBar-inner", {
+    light: barColor.lightness > 30,
+    dark: barColor.lightness <= 30,
+    overfilled
+  })
+
   return (
-    <div className="reportBar" style={outerBarStyle}>
-      <div className={`reportBar-inner ${colorType}`}
+    <div className={outerBarClass} style={outerBarStyle}>
+      <div className={innerBarClass}
         style={innerBarStyle}>
           {`${innerWidth()}, ${overfilled}`}
         </div>
