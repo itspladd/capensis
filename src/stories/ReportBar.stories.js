@@ -14,8 +14,7 @@ export const Full = Template.bind({});
 
 Unfilled.args = {
   progress: 0,
-  goal: 100,
-  color: "#ff0000"
+  goal: 100
 }
 
 Half.args = {

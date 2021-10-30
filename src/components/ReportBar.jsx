@@ -2,7 +2,7 @@ import '../styles/ReportBar.css';
 
 
 export default function ReportBar(props) {
-  const {color, progress, goal} = props
+  const {color="#111111", progress, goal} = props
 
   const percent = (num, denom) => {
     const percent = (num/denom) * 100;

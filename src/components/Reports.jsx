@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
-import ReportBar from 'ReportBar'
+import ReportBar from './ReportBar'
 
 export default function Reports(props) {
   const { projects } = props;
@@ -36,7 +36,6 @@ export default function Reports(props) {
       <ReportBar
         progress={5}
         goal={10000}
-        color="red"
       />
     </div>
   )
