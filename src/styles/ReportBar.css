@@ -6,17 +6,23 @@
 }
 
 .reportBar-inner {
-  background-image: radial-gradient(circle at left, transparent 0 25%, rgba(255, 255, 255, 0.623) 75%, transparent 100%);
-  background-size: 8rem 8rem;
-  animation: 2s linear pulse infinite;
+  background-image: linear-gradient(80deg, 
+    transparent 20%,
+  rgba(0,0,0, .20) 40%,
+    transparent 60%,
+  rgba(0,0,0, .20) 80%,
+    transparent 100%);
+  background-size: 200%;
+  background-position: 50%;
+  animation: 5s linear pulse infinite;
 }
 
 @keyframes pulse {
   0% {
-    background-position-x: -4rem;
+    background-position: 200%;
   }
 
   100% {
-    background-position-x: 4rem;
+    background-position: 0%;
   }
 }
