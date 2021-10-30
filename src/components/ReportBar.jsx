@@ -7,7 +7,7 @@ import classNames from 'classnames';
 import { percent, fudgePercentage } from '../helpers/numberHelpers'
 
 export default function ReportBar(props) {
-  const {color="#1034A6", progress, goal} = props
+  const {color="#1034A6", title, progress, goal} = props
 
   const barColor = new Color(color);
   const barBackground = new Color(color);
@@ -49,7 +49,7 @@ export default function ReportBar(props) {
     <div className="report-item">
       <div className="report-item-header">
         <div className="report-item-header__spacer" style={{width: headerWidth}}>
-          <p>Project</p>
+          <p>{title}</p>
           <p>Target: {goal} hours</p>
         </div>
       </div>
