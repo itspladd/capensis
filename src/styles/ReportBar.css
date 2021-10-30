@@ -14,11 +14,10 @@
   margin: 0;
 }
 
-
 .report-item-footer {
   margin: .2rem 0;
   text-align: right;
-  min-width: 10%;
+  min-width: fit-content;
 }
 
 .report-item-header__spacer {
