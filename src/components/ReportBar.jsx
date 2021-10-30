@@ -9,14 +9,21 @@ export default function ReportBar(props) {
     return Math.round(percent*1000) / 1000;
   }
 
-  const style = {
-    backgroundColor: color
+  const outerBarStyle = {
+    backgroundColor: `${color}66`
+  }
+
+  const innerBarStyle = {
+    backgroundColor: color,
+    width: `${getPercentage(progress, goal) || 1}%`
   }
 
   return (
-    <div className="reportBar" style={style}>
+    <div className="reportBar" style={outerBarStyle}>
       <div className="reportBar-inner"
-        style={{width: `${getPercentage(progress, goal)}%`}}>{getPercentage(progress, goal)}</div>
+        style={innerBarStyle}>
+
+        </div>
     </div>
   )
 }
