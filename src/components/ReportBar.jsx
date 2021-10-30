@@ -7,7 +7,7 @@ export default function ReportBar(props) {
   const {color="#1034A6", progress, goal} = props
   const barColor = new Color(color);
   const barBackground = new Color(color);
-  barBackground.alpha = .25;
+  barBackground.alpha = .25; // Lighten the background color
 
   const percent = (num, denom) => {
     const percent = (num/denom) * 100;
@@ -22,7 +22,8 @@ export default function ReportBar(props) {
   }
 
   const innerWidth = fudgePercentage(percent(progress, goal));
-  console.log("lightness:", barColor.lightness)
+
+  // Is the bar color relatively light or dark?
   const colorType = barColor.lightness > 30 ? "light" : "dark"
 
   const outerBarStyle = {
@@ -38,7 +39,6 @@ export default function ReportBar(props) {
     <div className="reportBar" style={outerBarStyle}>
       <div className={`reportBar-inner ${colorType}`}
         style={innerBarStyle}>
-          hello
         </div>
     </div>
   )
