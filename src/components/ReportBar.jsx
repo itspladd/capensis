@@ -53,11 +53,17 @@ export default function ReportBar(props) {
   })
 
   return (
-    <div className={outerBarClass} style={outerBarStyle}>
-      <div className={innerBarClass}
-        style={innerBarStyle}>
-          {`${innerWidth()}, ${overfilled}`}
-        </div>
+    <div className="report-item">
+      <div className="report-item-header">
+        <p>Project</p>
+        <p>Progress</p>
+        <p>Goal</p>
+      </div>
+      <div className={outerBarClass} style={outerBarStyle}>
+        <div className={innerBarClass}
+          style={innerBarStyle}>
+          </div>
+      </div>
     </div>
   )
 }
