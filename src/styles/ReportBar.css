@@ -1,35 +1,6 @@
 .report-item {
   display: flex;
   flex-direction: column;
-}
-
-.report-item-header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.report-item-header p {
-  padding: .2rem;
-  margin: 0;
-}
-
-.report-item-footer {
-  margin: .2rem 0;
-  text-align: right;
-  min-width: fit-content;
-}
-
-.report-item-header__spacer {
-  display: flex;
-  justify-content: space-between;
-}
-
-.reportBar {
-  width: 100%;
-  border-radius: .5rem;
-  overflow: hidden;
-  box-shadow: inset 0rem .05rem .1rem rgb(0,0,0,0.5);
   --light-to-dark-vertical: linear-gradient(rgba(255,255,255, .5), rgba(0,0,0, .2));
   --dark-wavy-pattern: linear-gradient(80deg, transparent 5%, rgba(0,0,0, .1) 50%, transparent 95%);
   --dark-wavy-accent: linear-gradient(30deg, transparent 30%, rgba(255,255,255, .1) 60%, rgba(0,0,0, .05) 80%, transparent 90%);
@@ -38,21 +9,68 @@
   --flow-animation: 3s cubic-bezier(.25,.4,.86,.73) pulse infinite;
   --flow-reverse-fast: 2s cubic-bezier(.25,.4,.86,.73) reverse infinite pulse;
   --extend-animation: .9s ease-out 0s 1 extend;
+  --background-size: 30rem;
+}
+
+.report-item small {
+  color:rgb(90, 90, 90);
+  font-size: .9rem;
+}
+
+.report-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.report-item-project {
+  font-size: 1.3rem;
+  border-radius: 5px 5px 0 0;
+  padding: .2rem 1rem;
+  margin: 0;
+  background-image: var(--dark-wavy-pattern), var(--dark-wavy-accent);
+  background-size: var(--background-size);
+  z-index: 0;
+  border-bottom: 1px solid rgb(0,0,0,0.25);
+}
+
+.report-item-project strong {
+  color: rgb(95, 95, 95);
+}
+
+.report-item-goal {
+  padding: 0 0 .2rem .2rem;
+  margin: 0;
+}
+
+.report-item-footer {
+  margin: .2rem 0;
+  text-align: right;
+  min-width: fit-content;
+  max-width: 100%;
+}
+
+.reportBar {
+  width: 100%;
+  border-radius: 0 .5rem .5rem .5rem;
+  overflow: hidden;
+  box-shadow: inset 0rem .05rem .1rem rgb(0,0,0,0.5);
+
 }
 
 .reportBar.overfilled {
   box-shadow: none;
-  border-radius: .5rem .75rem .75rem .5rem;
+  border-radius: 0 .75rem .75rem .5rem;
   background-color: rgb(255, 217, 0)!important;
   background-image: var(--light-to-dark-vertical), var(--dark-wavy-pattern);
-  background-size: 30rem;
+  background-size: var(--background-size);
   animation: var(--flow-reverse-fast);
 }
 
 .reportBar-inner {
   height: 1.5rem;
   border-radius: 0 .75rem .75rem 0;
-  background-size: 30rem;
+  background-size: var(--background-size);
   background-position: 50%;
   animation: var(--extend-animation), var(--flow-animation);
   }
@@ -73,7 +91,7 @@
 
 @keyframes pulse {
   0% {
-    background-position: 30rem;
+    background-position: var(--background-size);
   }
 
   100% {

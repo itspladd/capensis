@@ -14,7 +14,7 @@ export default function ReportBar(props) {
 
   const overfilled = progress > goal;
 
-  barBackground.alpha = overfilled ? 1 : .25; // Lighten the background color
+  barBackground.alpha = .25; // Lighten the background color
 
   const innerWidth = () => {
     const percentWidth = overfilled ? percent(goal, progress) : percent(progress, goal);
@@ -35,6 +35,11 @@ export default function ReportBar(props) {
     width: innerBarWidth
   }
 
+  const projectStyle = {
+    backgroundColor: barColor.toString(),
+    color: barColor.toString()
+  }
+
   const outerBarClass = classNames("reportBar", {
     overfilled
   });
@@ -47,11 +52,9 @@ export default function ReportBar(props) {
 
   return (
     <div className="report-item">
-      <div className="report-item-header">
-        <div className="report-item-header__spacer" style={{width: headerWidth}}>
-          <p>{title}</p>
-          <p>Target: {goal} hours</p>
-        </div>
+      <div className="report-item-header" style={{width: headerWidth}}>
+        <p className="report-item-project" style={projectStyle}><strong>{title}</strong></p>
+        <p className="report-item-goal"><small><strong>Goal:</strong> {goal} hours</small></p>
       </div>
       <div className={outerBarClass} style={outerBarStyle}>
         <div className={innerBarClass}
@@ -59,7 +62,7 @@ export default function ReportBar(props) {
           </div>
       </div>
       <p className="report-item-footer" style={{width: footerWidth}}>
-        Tracked: {progress} hours
+        <small><strong>Tracked:</strong> {progress} hours</small>
       </p>
     </div>
   )
