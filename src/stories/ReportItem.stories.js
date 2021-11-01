@@ -1,11 +1,13 @@
-import ReportBar from '../components/ReportBar';
+import Color from 'colorjs.io';
+
+import ReportItem from '../components/ReportItem';
 
 export default {
-  component: ReportBar,
-  title: 'Components/ReportBar'
+  component: ReportItem,
+  title: 'Components/ReportItem'
 };
 
-const Template = args => <ReportBar {...args} />;
+const Template = args => <ReportItem {...args} />;
 
 export const Unfilled = Template.bind({});
 export const Half = Template.bind({});

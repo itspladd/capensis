@@ -1,0 +1,19 @@
+@keyframes pulse {
+  0% {
+    background-position: var(--background-size);
+  }
+
+  100% {
+    background-position: 0rem;
+  }
+}
+
+@keyframes extend {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
