@@ -22,17 +22,19 @@ export default function ReportItem(props) {
 
   const projectStyle = {
     backgroundColor: color.toString(),
-    color: color.toString(),
-
   }
 
   return (
     <div className={`report-item ${style} ${overfilled && 'overfilled'}`}>
       <div className="report-item-header" style={{width: headerWidth}}>
-        <p className="report-item-project" style={projectStyle}><strong>{title}</strong></p>
-        <p className="report-item-goal"><small><strong>Goal:</strong> {goal} hours</small></p>
+        <p className={`report-item-project ${style}`} style={projectStyle}>
+          <strong>{title}</strong>
+        </p>
+        <p className="report-item-goal">
+          <small><strong>Goal:</strong> {goal} hours</small>
+        </p>
       </div>
-      <ProgressBar color={color} overfilled style={style} percent={progressPercent} />
+      <ProgressBar color={color} overfilled={overfilled} style={style} percent={progressPercent} />
       <p className="report-item-footer" style={{width: footerWidth}}>
         <small><strong>Tracked:</strong> {progress} hours</small>
       </p>

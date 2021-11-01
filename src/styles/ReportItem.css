@@ -6,10 +6,10 @@
   --dark-wavy-accent: linear-gradient(30deg, transparent 30%, rgba(255,255,255, .1) 60%, rgba(0,0,0, .05) 80%, transparent 90%);
   --light-wavy-pattern: linear-gradient(80deg, transparent 5%, rgba(255,255,255, .12) 50%, transparent 95%);
   --light-wavy-accent: linear-gradient(30deg, transparent 30%, rgba(255,255,255, .1) 60%, rgba(0,0,0, .2) 80%, transparent 90%);
-  --flow-animation: 3s cubic-bezier(.25,.4,.86,.73) pulse infinite;
-  --flow-reverse-fast: 2s cubic-bezier(.25,.4,.86,.73) reverse infinite pulse;
-  --extend-animation: .9s ease-out 0s 1 extend;
-  --background-size: 30rem;
+  --anim-flow: 3s cubic-bezier(.25,.4,.86,.73) flow infinite;
+  --anim-flow-reverse-fast: 2s cubic-bezier(.25,.4,.86,.73) reverse infinite flow;
+  --anim-extend: .9s ease-out 0s 1 extend;
+  --flow-width: 30rem;
 }
 
 .report-item small {
@@ -29,7 +29,7 @@
   padding: .2rem 1rem;
   margin: 0;
   background-image: var(--dark-wavy-pattern), var(--dark-wavy-accent);
-  background-size: var(--background-size);
+  background-size: var(--flow-width);
   z-index: 0;
   border-bottom: 1px solid rgb(0,0,0,0.25);
 }
@@ -54,42 +54,22 @@
   max-width: 100%;
 }
 
-.reportBar {
-  width: 100%;
-  border-radius: 0 .5rem .5rem .5rem;
-  overflow: hidden;
-  box-shadow: inset 0rem .05rem .1rem rgb(0,0,0,0.5);
-
-}
-
-.reportBar.overfilled {
-  box-shadow: none;
-  border-radius: 0 .75rem .75rem .5rem;
-  background-color: rgb(255, 217, 0)!important;
-  background-image: var(--light-to-dark-vertical), var(--dark-wavy-pattern);
-  background-size: var(--background-size);
-  animation: var(--flow-reverse-fast);
-}
-
-.reportBar-inner {
-  height: 1.5rem;
-  border-radius: 0 .75rem .75rem 0;
-  background-size: var(--background-size);
-  background-position: 50%;
-  animation: var(--extend-animation), var(--flow-animation);
+@keyframes flow {
+  0% {
+    background-position: var(--flow-width);
   }
 
-.reportBar-inner.dark {
-  background-image: var(--light-wavy-pattern), var(--light-wavy-accent), var(--light-to-dark-vertical);
+  100% {
+    background-position: 0rem;
+  }
 }
 
-.reportBar-inner.light {
-  background-image: var(--dark-wavy-pattern), var(--dark-wavy-accent), var(--light-to-dark-vertical);
-}
+@keyframes extend {
+  0% {
+    transform: translateX(-100%);
+  }
 
-.reportBar-inner.overfilled {
-  border-radius: 0 .5rem .5rem 0;
-  border-right: .1rem solid rgb(255, 217, 0, .3);
-  animation: var(--flow-animation);
+  100% {
+    transform: translateX(0);
+  }
 }
-
