@@ -1,4 +1,4 @@
-import Color from 'colorjs.io';
+import COLORS from '../constants/colors'
 
 import ReportItem from '../components/ReportItem';
 
@@ -24,19 +24,19 @@ Half.args = {
   title: "React",
   progress: 330,
   goal: 660,
-  color: "#00ff00"
+  color: COLORS.GREEN
 }
 
 Full.args = {
   title: "Gaming",
   progress: 100,
   goal: 100,
-  color: "#ff0000"
+  color: COLORS.RED
 }
 
 Overfilled.args = {
   title: "Being Rad",
   progress: 130,
   goal: 100,
-  color: "#ff00ff"
+  color: COLORS.PURPLE
 }

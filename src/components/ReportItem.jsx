@@ -2,13 +2,13 @@ import '../styles/ReportItem.css';
 
 import ProgressBar from './ProgressBar'
 
-import Color from 'colorjs.io';
+import COLORS from '../constants/colors'
 
 // Helpers
 import { percent, fudgePercentage } from '../helpers/numberHelpers'
 
 export default function ReportItem(props) {
-  const {color= new Color("#1034A6"), title, progress, goal} = props
+  const {color = COLORS.EGYPT_BLUE, title, progress, goal} = props
 
   const style = color.lightness > 30 ? "light" : "dark";
 
