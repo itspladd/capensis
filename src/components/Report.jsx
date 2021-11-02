@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 
+import '../styles/Report.css';
+
 import Loading from './Loading'
 import ReportItem from './ReportItem'
 
