@@ -9,4 +9,8 @@ const Template = args => <SessionItem {...args} />;
 
 export const Default = Template.bind({});
 
-Default.args = {}
+Default.args = {
+  id: 5,
+  title: "React",
+  start_time: 
+}

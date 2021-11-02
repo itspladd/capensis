@@ -24,7 +24,7 @@ import Footer from './Footer';
 
 // Custom hooks
 import useAuthentication from '../hooks/useAuthentication'
-import useWeeklyBlocks from '../hooks/useWeeklyBlocks';
+import useWeeklyData from '../hooks/useWeeklyData';
 import useSessionTracking from '../hooks/useSessionTracking';
 import usePopupModal from '../hooks/usePopupModal';
 
@@ -35,7 +35,7 @@ export default function App() {
 
 
   const [loading, username, login, logout] = useAuthentication();
-  const [blocks, refreshBlocks, currentDay, changeDay] = useWeeklyBlocks(username);
+  const [blocks, refreshBlocks, currentDay, changeDay] = useWeeklyData(username);
   const [currentSession, toggleSession] = useSessionTracking(username);
   const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
