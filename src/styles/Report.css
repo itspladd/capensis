@@ -1,4 +1,30 @@
 .report {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 3rem;
+  width: 75%;
+}
+
+.report ul {
+  margin-top: 1rem;
+  padding-left: 0;
+}
+
+.report-header {
+  display: flex;
+  align-items: flex-end;
+  gap: .2rem;
+}
+
+.report-header h3 {
+  margin-bottom: 0;
+  margin: 0 .6rem 0 .3rem;
+}
+
+
+.report-empty {
   display: flex;
   flex-direction: column;
   justify-content: center;

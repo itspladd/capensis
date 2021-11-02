@@ -3,23 +3,27 @@ import { useEffect, useState } from "react"
 
 import '../styles/Report.css';
 
+import Button from 'react-bootstrap/Button'
+
 import Loading from './Loading'
 import ReportItem from './ReportItem'
 
+import { makeWeekString } from '../helpers/stringHelpers'
+
 export default function Report(props) {
-  const { projects, day } = props;
+  const { projects, day, lastWeek, nextWeek } = props;
 
   const [reportData, setReportData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
 
   useEffect(() => {
-    axios.get(`/api/reports/week`)
+    axios.get(`/api/reports/week?date=${day.toISOString()}`)
          .then(res => setReportData(res.data))
          .catch(err => setError(err))
          .finally(() => setLoading(false))
 
-  }, [projects])
+  }, [projects, day])
 
   const report = reportData.map(project => {
     // Totals are returned in seconds.
@@ -39,20 +43,32 @@ export default function Report(props) {
   })
 
   return (
-    <div className="report container">
+    <div className="report">
+      <div class="report-header">
+          <Button
+            variant="info"
+            onClick={lastWeek}>
+            {`<`}
+          </Button>
+          <Button
+            variant="info"
+            onClick={nextWeek}>
+            {`>`}
+          </Button>
+          <h3>{makeWeekString('EN-US', day)}</h3>
+          <span className="text-muted">{day.getFullYear()}</span>
+        </div>
       {loading && <Loading>Loading report...</Loading>}
       {!loading && error && <p>{error.message}</p>}
       {!loading && !error && reportData.length > 0 && (
-      <div>
         <ul>
           {report}
         </ul>
-      </div>)}
+        )}
       {!loading && !error && !reportData.length && (
-      <>
-        <p>Nothing to report.</p>
-        <p>Go schedule some projects!</p>
-      </>)}
+      <div className="report-empty">
+        <p>You don't have anything scheduled this week!</p>
+      </div>)}
     </div>
   )
 }
