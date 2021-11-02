@@ -3,7 +3,6 @@
   border-radius: 0 .5rem .5rem .5rem;
   overflow: hidden;
   box-shadow: inset 0rem .05rem .1rem rgb(0,0,0,0.5);
-
 }
 
 .progressbar-outer.overfilled {
@@ -12,7 +11,7 @@
   background-color: rgb(255, 217, 0)!important;
   background-image: var(--light-to-dark-vertical), var(--dark-wavy-pattern);
   background-size: var(--flow-width);
-  animation: var(--flow-reverse-fast);
+  animation: var(--anim-flow-reverse-fast);
 }
 
 .progressbar-inner {

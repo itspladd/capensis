@@ -3,7 +3,6 @@ import '../styles/ProgressBar.css'
 
 export default function ProgressBar(props) {
   const { color, style, percent, overfilled } = props;
-  const overfilledStr = overfilled ? 'overfilled' : '';
   const background = color.clone();
   background.alpha = .25; // Lighten the background color
 
@@ -17,9 +16,9 @@ export default function ProgressBar(props) {
   }
 
   return (
-    <div className={`progressbar-outer ${style} ${overfilledStr}`}
+    <div className={`progressbar-outer ${style} ${overfilled}`}
          style={outerBarStyle}>
-      <div className={`progressbar-inner ${style} ${overfilledStr}`}
+      <div className={`progressbar-inner ${style} ${overfilled}`}
         style={innerBarStyle}>
         </div>
     </div>

@@ -13,6 +13,7 @@ export default function ReportItem(props) {
   const style = color.lightness > 30 ? "light" : "dark";
 
   const overfilled = progress > goal;
+  const overfilledStr = overfilled ? 'overfilled' : '';
 
   const rawWidth = overfilled ? percent(goal, progress) : percent(progress, goal);
   const progressPercent = `${fudgePercentage(rawWidth)}%`;
@@ -25,7 +26,7 @@ export default function ReportItem(props) {
   }
 
   return (
-    <div className={`report-item ${style} ${overfilled && 'overfilled'}`}>
+    <div className={`report-item ${style} ${overfilledStr}`}>
       <div className="report-item-header" style={{width: headerWidth}}>
         <p className={`report-item-project ${style}`} style={projectStyle}>
           <strong>{title}</strong>
@@ -34,7 +35,7 @@ export default function ReportItem(props) {
           <small><strong>Goal:</strong> {goal} hours</small>
         </p>
       </div>
-      <ProgressBar color={color} overfilled={overfilled} style={style} percent={progressPercent} />
+      <ProgressBar color={color} overfilled={overfilledStr} style={style} percent={progressPercent} />
       <p className="report-item-footer" style={{width: footerWidth}}>
         <small><strong>Tracked:</strong> {progress} hours</small>
       </p>
