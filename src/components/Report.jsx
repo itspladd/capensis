@@ -32,6 +32,8 @@ export default function Report(props) {
       <ReportItem
         key={project_id}
         title={projectName}
+        progress={sessionHours}
+        goal={blockHours}
       />
     )
   })
@@ -40,10 +42,12 @@ export default function Report(props) {
     <div className="report container">
       {loading && <Loading>Loading report...</Loading>}
       {!loading && error && <p>{error.message}</p>}
-      {!loading && !error && reportData.length === 0 && (
-      <ul>
-        {report}
-      </ul>)}
+      {!loading && !error && reportData.length > 0 && (
+      <div>
+        <ul>
+          {report}
+        </ul>
+      </div>)}
       {!loading && !error && !reportData.length && (
       <>
         <p>Nothing to report.</p>

@@ -37,7 +37,7 @@ export default function ReportItem(props) {
       </div>
       <ProgressBar color={color} overfilled={overfilledStr} style={style} percent={progressPercent} />
       <p className="report-item-footer" style={{width: footerWidth}}>
-        <small><strong>Tracked:</strong> {progress} hours</small>
+        <small><strong>Tracked:</strong> {Math.round(progress*100)/100} hours</small>
       </p>
     </div>
   )
