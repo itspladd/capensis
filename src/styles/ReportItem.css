@@ -1,0 +1,75 @@
+.report-item {
+  display: flex;
+  flex-direction: column;
+  --light-to-dark-vertical: linear-gradient(rgba(255,255,255, .5), rgba(0,0,0, .2));
+  --dark-wavy-pattern: linear-gradient(80deg, transparent 5%, rgba(0,0,0, .1) 50%, transparent 95%);
+  --dark-wavy-accent: linear-gradient(30deg, transparent 30%, rgba(255,255,255, .1) 60%, rgba(0,0,0, .05) 80%, transparent 90%);
+  --light-wavy-pattern: linear-gradient(80deg, transparent 5%, rgba(255,255,255, .12) 50%, transparent 95%);
+  --light-wavy-accent: linear-gradient(30deg, transparent 30%, rgba(255,255,255, .1) 60%, rgba(0,0,0, .2) 80%, transparent 90%);
+  --anim-flow: 3s cubic-bezier(.25,.4,.86,.73) flow infinite;
+  --anim-flow-reverse-fast: 2s cubic-bezier(.25,.4,.86,.73) reverse infinite flow;
+  --anim-extend: .9s ease-out 0s 1 extend;
+  --flow-width: 30rem;
+}
+
+.report-item small {
+  color:rgb(90, 90, 90);
+  font-size: .9rem;
+}
+
+.report-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.report-item-project {
+  font-size: 1.3rem;
+  border-radius: 5px 5px 0 0;
+  padding: .2rem 1rem;
+  margin: 0;
+  background-image: var(--dark-wavy-pattern), var(--dark-wavy-accent);
+  background-size: var(--flow-width);
+  z-index: 0;
+  border-bottom: 1px solid rgb(0,0,0,0.25);
+}
+
+.report-item-project.light {
+  color: rgb(95, 95, 95);
+}
+
+.report-item-project.dark {
+  color: rgb(218, 218, 218);
+}
+
+.report-item-goal {
+  padding: 0 0 .2rem .2rem;
+  margin: 0;
+}
+
+.report-item-footer {
+  margin: .2rem 0;
+  text-align: right;
+  min-width: fit-content;
+  max-width: 100%;
+}
+
+@keyframes flow {
+  0% {
+    background-position: var(--flow-width);
+  }
+
+  100% {
+    background-position: 0rem;
+  }
+}
+
+@keyframes extend {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}

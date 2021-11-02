@@ -3,11 +3,18 @@ const msDayMultiplier = 1000*60*60*24;
 
 // Given a Date object, return a Date object of the last Sunday.
 export function getLastSunday(date) {
-// Get Sunday for this week.
-const daysSinceSunday = date.getDay(); // Returns 0 for sunday, 1 for Monday, etc
-const msSinceSunday = msDayMultiplier * daysSinceSunday;
-const lastSundayMs = date.valueOf() - msSinceSunday;
-return new Date(lastSundayMs);
+  // Get Sunday for this week.
+  const daysSinceSunday = date.getDay(); // Returns 0 for sunday, 1 for Monday, etc
+  const msSinceSunday = msDayMultiplier * daysSinceSunday;
+  const lastSundayMs = date.valueOf() - msSinceSunday;
+  return new Date(lastSundayMs);
+}
+
+export function getNextSaturday(date) {
+  const daysUntilSaturday = 6 - date.getDay();
+  const msUntilSaturday = msDayMultiplier * daysUntilSaturday;
+  const nextSaturdayMs = date.valueOf() + msUntilSaturday;
+  return new Date(nextSaturdayMs);
 }
 
 // Set h/min/s/ms of a given date to 0.

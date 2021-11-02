@@ -9,7 +9,7 @@ import {
   Route
 } from "react-router-dom";
 
-// Custom components
+// Components
 import Loading from './Loading'
 import Header from './Header';
 import StatusBar from './StatusBar';
@@ -19,7 +19,7 @@ import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
-import Reports from './Reports';
+import Report from './Report';
 import Footer from './Footer';
 
 // Custom hooks
@@ -55,7 +55,7 @@ export default function App() {
       onClick={toggleSession}
     >
       {/* If we haven't finished trying to log in: */}
-      {loading && <Loading />}
+      {loading && <Loading>Loading...</Loading>}
 
       {/* If there's no valid login: */}
       {!loading && !username &&
@@ -94,7 +94,12 @@ export default function App() {
                   <ProjectList projects={projects} setProjects={setProjects} />
                 </Route>
                 <Route exact path="/reports" >
-                  <Reports projects={projects} />
+                  <Report
+                    projects={projects}
+                    day={currentDay}
+                    lastWeek={() => changeDay(-7)}
+                    nextWeek={() => changeDay(7)}
+                  />
                 </Route>
               </Switch>
             </div>
