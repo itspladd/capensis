@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/capensis/static/css/main.b60717db.chunk.css",
+    "main.css": "/capensis/static/css/main.6ed25873.chunk.css",
     "main.js": "/capensis/static/js/main.1ccda4be.chunk.js",
     "main.js.map": "/capensis/static/js/main.1ccda4be.chunk.js.map",
     "runtime-main.js": "/capensis/static/js/runtime-main.b84be314.js",
@@ -10,14 +10,14 @@
     "static/js/2.442ecffc.chunk.js.map": "/capensis/static/js/2.442ecffc.chunk.js.map",
     "index.html": "/capensis/index.html",
     "static/css/2.818011ed.chunk.css.map": "/capensis/static/css/2.818011ed.chunk.css.map",
-    "static/css/main.b60717db.chunk.css.map": "/capensis/static/css/main.b60717db.chunk.css.map",
+    "static/css/main.6ed25873.chunk.css.map": "/capensis/static/css/main.6ed25873.chunk.css.map",
     "static/js/2.442ecffc.chunk.js.LICENSE.txt": "/capensis/static/js/2.442ecffc.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b84be314.js",
     "static/css/2.818011ed.chunk.css",
     "static/js/2.442ecffc.chunk.js",
-    "static/css/main.b60717db.chunk.css",
+    "static/css/main.6ed25873.chunk.css",
     "static/js/main.1ccda4be.chunk.js"
   ]
 }
