@@ -94,7 +94,12 @@ export default function App() {
                   <ProjectList projects={projects} setProjects={setProjects} />
                 </Route>
                 <Route exact path="/reports" >
-                  <Report projects={projects} day={currentDay}/>
+                  <Report
+                    projects={projects}
+                    day={currentDay}
+                    lastWeek={() => changeDay(-7)}
+                    nextWeek={() => changeDay(7)}
+                  />
                 </Route>
               </Switch>
             </div>
