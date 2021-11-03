@@ -10,7 +10,7 @@ import useNewBlockValidation from '../hooks/useNewBlockValidation';
 import SETTINGS from '../constants/settings'
 import STRINGS from '../constants/strings'
 
-import { getBoundaryMinutes, makeZeroDate } from '../helpers/timeHelpers'
+import { getBoundaryMinutes } from '../helpers/timeHelpers'
 
 export default function NewBlockForm(props) {
   const { show, handleClose, currentDay, projects, blocks, refreshData } = props;
@@ -75,11 +75,6 @@ export default function NewBlockForm(props) {
       setShowErrors(false);
       // Turn the raw values into ISO strings to send
       const [startMins, endMins] = getBoundaryMinutes({values});
-/*       const zeroStart = makeZeroDate(new Date(currentDay)).valueOf();
-      const startDateMs = zeroStart + (startMins * 60 * 1000);
-      const endDateMs = zeroStart + (endMins * 60 * 1000);
-      const startTime = new Date(startDateMs).toISOString();
-      const endTime = new Date(endDateMs).toISOString(); */
       const startDate = new Date(currentDay);
       const endDate = new Date(currentDay);
       startDate.setHours(0, startMins);
