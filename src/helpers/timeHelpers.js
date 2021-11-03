@@ -17,6 +17,19 @@ export function getNextSaturday(date) {
   return new Date(nextSaturdayMs);
 }
 
+export function getTimeIntervalUnits(start, end) {
+  const startMs = new Date(start).valueOf();
+  const endMs = new Date(end).valueOf();
+  const ms = endMs - startMs;
+  const sRemaining = Math.floor(ms / 1000);
+  const s = sRemaining % 60;
+  const minsRemaining = (sRemaining - s) / 60;
+  const m = minsRemaining % 60;
+  const h = (minsRemaining - m) / 60;
+
+  return [h, m, s]
+}
+
 // Set h/min/s/ms of a given date to 0.
 export function makeZeroDate(date) {
   date.setHours(0);

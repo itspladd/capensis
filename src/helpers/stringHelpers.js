@@ -1,7 +1,15 @@
-import { getLastSunday, getNextSaturday } from './timeHelpers'
+import { getLastSunday, getNextSaturday, getTimeIntervalUnits } from './timeHelpers'
 
 export function makeTimeString(time) {
   return new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'});
+}
+
+export function makeTimeIntervalString(start, end, options) {
+  const { hours, minutes, seconds } = options;
+  const [h, m, s] = getTimeIntervalUnits(start, end)
+
+  if (seconds) {}
+  return [h, m, s]
 }
 
 export function makeWeekDayString(lang, time) {
