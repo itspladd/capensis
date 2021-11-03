@@ -10,6 +10,7 @@ export default function useWeeklyData(username) {
 
   const [currentDay, setCurrentDay] = useState(today);
   const [blocks, setBlocks] = useState([]);
+  const [sessions, setSessions] = useState([]);
 
   // Uses an array of block objects from the API to create Block components.
 
@@ -18,6 +19,11 @@ export default function useWeeklyData(username) {
   const loadUserBlocks = () => {
     axios.get(`/api/blocks/week`)
     .then(res => setBlocks(res.data))
+  }
+
+  const loadUserSessions = () => {
+    axios.get(`/api/sessions/week`)
+    .then(res => setSessions(res.data))
   }
 
   // Compares two input days. If one is in a different week than the other,
@@ -33,7 +39,10 @@ export default function useWeeklyData(username) {
   }
 
   // Load the current week's blocks any time the username changes
-  useEffect(loadUserBlocks, [username]);
+  useEffect(() => {
+    loadUserBlocks();
+    loadUserSessions();
+  }, [username]);
 
   // Change currentDay by given number of days
   // i.e. days = 1 gives next day, days = -1 gives prev day
@@ -46,6 +55,8 @@ export default function useWeeklyData(username) {
     if (newWeek) {
       axios.get(`/api/blocks/week?date=${newDay.toISOString()}`)
       .then(res => setBlocks(res.data))
+      axios.get(`/api/sessions/week?date=${newDay.toISOString()}`)
+      .then(res => setSessions(res.data))
     }
     setCurrentDay(newDay)
   }
