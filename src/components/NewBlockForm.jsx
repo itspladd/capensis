@@ -13,7 +13,7 @@ import STRINGS from '../constants/strings'
 import { getBoundaryMinutes } from '../helpers/timeHelpers'
 
 export default function NewBlockForm(props) {
-  const { show, handleClose, currentDay, projects, blocks, refreshBlocks } = props;
+  const { show, handleClose, currentDay, projects, blocks, refreshData } = props;
 
   const [values, handleChange] = useControlledForms({
     project: "",
@@ -80,7 +80,7 @@ export default function NewBlockForm(props) {
       const startTime = new Date(startDateMs).toISOString();
       const endTime = new Date(endDateMs).toISOString();
       axios.post('/api/blocks', { startTime, endTime, project: values.project})
-           .then(refreshBlocks)
+           .then(refreshData)
            .then(handleClose)
     }
   }
