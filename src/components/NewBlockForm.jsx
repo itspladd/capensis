@@ -75,11 +75,17 @@ export default function NewBlockForm(props) {
       setShowErrors(false);
       // Turn the raw values into ISO strings to send
       const [startMins, endMins] = getBoundaryMinutes({values});
-      const zeroStart = makeZeroDate(new Date(currentDay)).valueOf();
+/*       const zeroStart = makeZeroDate(new Date(currentDay)).valueOf();
       const startDateMs = zeroStart + (startMins * 60 * 1000);
       const endDateMs = zeroStart + (endMins * 60 * 1000);
       const startTime = new Date(startDateMs).toISOString();
-      const endTime = new Date(endDateMs).toISOString();
+      const endTime = new Date(endDateMs).toISOString(); */
+      const startDate = new Date(currentDay);
+      const endDate = new Date(currentDay);
+      startDate.setHours(0, startMins);
+      endDate.setHours(0, endMins);
+      const startTime = startDate.toISOString();
+      const endTime = endDate.toISOString();
       axios.post('/api/blocks', { startTime, endTime, project: values.project})
            .then(refreshData)
            .then(handleClose)

@@ -12,10 +12,10 @@ export default function Block(props) {
 
   const blockClass = placeholder ? "block_placeholder" : "block"
   const backgroundClass = placeholder ? "block_placeholder_background" : "block_background"
-
+  const lengthStr = placeholder ? "1rem" : `${length}rem`
   return(
     <li className={"list-group-item " + backgroundClass}
-      style={{height: length + "rem"}}
+      style={{height: lengthStr}}
     >
       <div
         className={blockClass}

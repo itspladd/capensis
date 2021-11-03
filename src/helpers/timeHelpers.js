@@ -63,8 +63,10 @@ export function getBoundaryMinutes({values, block}) {
 }
 
 export function getFifteenMinuteUnits(start, end) {
-  const lengthMs = new Date(end) - new Date(start);
-  const lengthMins = lengthMs / 1000 / 60;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const lengthHours = endDate.getHours() - startDate.getHours();
+  const lengthMins = (endDate.getMinutes() - startDate.getMinutes()) + (lengthHours * 60)
   const fifteenMinuteUnits = lengthMins / 15;
   return fifteenMinuteUnits;
 }
