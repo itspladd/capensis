@@ -19,6 +19,7 @@ import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
+import SessionList from './SessionList'
 import Report from './Report';
 import Footer from './Footer';
 
@@ -77,7 +78,7 @@ export default function App() {
               currentDay={day}
               projects={projects}
               blocks={blocks}
-              refreshBlocks={refreshData}
+              refreshData={refreshData}
             />
             <div className="App-body mt-1">
               <Switch>
@@ -95,6 +96,9 @@ export default function App() {
                 </Route>
                 <Route exact path="/projects" >
                   <ProjectList projects={projects} setProjects={setProjects} />
+                </Route>
+                <Route exact path="/sessions">
+                  <SessionList sessions={sessions} />
                 </Route>
                 <Route exact path="/reports" >
                   <Report

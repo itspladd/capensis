@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { makeZeroDate } from '../helpers/timeHelpers'
+import { makeNoonDate } from '../helpers/timeHelpers'
 
 export default function useDay() {
   const today = new Date();
-  makeZeroDate(today);
+  makeNoonDate(today);
 
   const [day, setDay] = useState(today);
 

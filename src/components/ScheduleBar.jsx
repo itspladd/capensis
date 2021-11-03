@@ -2,8 +2,8 @@ import '../styles/ScheduleBar.css'
 
 export default function ScheduleBar(props) {
 
-  const startHour = 6;
-  const endHour = 20;
+  const startHour = 0;
+  const endHour = 24;
 
   const ScheduleBarSection = props => {
     const { hour } = props;

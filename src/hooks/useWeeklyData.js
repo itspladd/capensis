@@ -9,6 +9,8 @@ export default function useWeeklyData(username, weekMs) {
   // A function to load blocks from the API and store them in state.
   const loadWeeklyData = () => {
     const sundayStr = new Date(weekMs).toISOString();
+    console.log('loading weekly data...')
+    console.log('sundayStr is:', sundayStr)
     axios.get(`/api/blocks/week?date=${sundayStr}`)
       .then(res => setBlocks(res.data))
     axios.get(`/api/sessions/week?date=${sundayStr}`)
