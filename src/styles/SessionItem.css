@@ -1,0 +1,26 @@
+.session-item {
+  display: flex;
+  text-align: left;
+  gap: 1rem;
+}
+
+.session-item.header {
+  display: flex;
+  text-align: left;
+  gap: 1rem;
+  font-size: 1.2rem;
+  border-bottom: 2px solid rgba(0,0,0,.3)
+}
+
+.session-item-title {
+  flex: 1 0;
+}
+
+.session-item-time {
+  margin: 0;
+  flex: 3 0;
+}
+
+.session-item-date {
+  flex: 2 0;
+}
