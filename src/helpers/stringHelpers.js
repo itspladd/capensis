@@ -2,6 +2,9 @@ import { getLastSunday, getNextSaturday } from './timeHelpers'
 
 // Gives time in H:MM AM/PM format, for humans to read.
 export function makeTimeString(time) {
+  if (time.length === 5) {
+    return `${time} ${time.split[0] < 12 ? 'AM' : 'PM'}`
+  }
   return new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'})
 }
 

@@ -15,6 +15,8 @@ export default function SessionList(props) {
 
   const [selected, setSelected] = useState(null)
   const [times, handleTimesChange, setTimes] = useControlledForms({ start_time: "", end_time: ""})
+  const [submitStatus, setSubmitStatus] = useState({});
+  const [successStatus, setSuccessStatus] = useState({});
 
   const select = session => {
     const { id, start_time, end_time } = session;
@@ -27,6 +29,38 @@ export default function SessionList(props) {
     }
   }
 
+  const clearSubmission = id => {
+    const newSubmits = { ...submitStatus };
+    delete newSubmits[id];
+    setSubmitStatus(newSubmits)
+  }
+
+  const clearSuccess = id => {
+    const newSuccess = { ...successStatus };
+    delete newSuccess[id];
+    setSuccessStatus(newSuccess);
+  }
+
+  const onSubmit = (event, refDate, id) => {
+    event.preventDefault();
+    // Validate the times
+    const { start_time, end_time } = times;
+    const [startH, startM] = start_time.split(":");
+    const [endH, endM] = end_time.split(":");
+    const startDate = new Date(refDate).setHours(startH, startM);
+    const endDate = new Date(refDate).setHours(endH, endM);
+    if (startDate < endDate) {
+      // Update the submitting state
+      setSubmitStatus(prev => ({...prev, [id]: { start_time, end_time }}));
+      setSelected(null)
+      setTimeout(() => {
+        clearSubmission(id);
+        setSuccessStatus(prev => ({...prev, [id]: true}))
+        setTimeout(() => clearSuccess(id), 3000);
+      }, 2000)
+    }
+  }
+
   const sessionList = sessions.map(session => {
     return (
         <SessionItem
@@ -34,7 +68,10 @@ export default function SessionList(props) {
           editing = {session.id === selected}
           edit = {() => select(session)}
           handleChange = {handleTimesChange}
+          handleSubmit = {(e) => onSubmit(e, new Date(session.start_time), session.id)}
           formTimes = {times}
+          submitting = {submitStatus[session.id]}
+          success = {successStatus[session.id]}
           key = {session.id}
         />
     )

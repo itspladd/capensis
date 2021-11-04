@@ -3,7 +3,14 @@
   align-items: center;
   text-align: left;
   gap: 1rem;
-  transition: height 3s;
+}
+
+.session-item.submitting {
+  background-color: red;
+}
+
+.session-item.success {
+  background-color: green;
 }
 
 .session-item p {
