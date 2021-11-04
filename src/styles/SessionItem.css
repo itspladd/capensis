@@ -1,7 +1,13 @@
 .session-item {
   display: flex;
+  align-items: center;
   text-align: left;
   gap: 1rem;
+  transition: height 3s;
+}
+
+.session-item p {
+  margin: 0;
 }
 
 .session-item.header {
@@ -17,10 +23,32 @@
 }
 
 .session-item-time {
-  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  gap: .3rem;
   flex: 3 0;
 }
 
 .session-item-date {
   flex: 2 0;
+}
+
+.session-item-hint {
+  opacity: 0%;
+}
+
+.session-item:hover .session-item-hint {
+  opacity: 66%;
+}
+
+.session-item input {
+  border: 0px solid rgba(0,0,0, .125);
+  background-color: rgba(0, 140, 255, 0.1);
+  border-radius: .5rem;
+  padding: 0 0.2rem 0 0.4rem;
+}
+
+.session-item input:focus {
+  outline:none;
+  box-shadow:0 0 .5rem blue
 }
