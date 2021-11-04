@@ -17,8 +17,6 @@ export default function SessionList(props) {
     return (
         <SessionItem
           {...session}
-          ref = {target}
-          onHover={() => console.log('beans')}
           key = {session.id}
         />
     )
