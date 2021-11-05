@@ -27,10 +27,8 @@ Perhaps you'd like to better understand how much time you're *really* spending o
 - Create a list of projects you'd like to track
 - Use the interactive schedule to schedule blocks of time for each project
 - Click on a block to start and stop time tracking!
-- Capensis keeps track of how much time you've scheduled versus how much time you've tracked
-- At any time, you can view reports of your progress, grouped by week!
-
-# 📷  Screenshots
+- Capensis keeps track of how much time you've scheduled versus how much time you've tracked.
+- At any time, you can view reports of your progress, grouped by week. The reports make it easy to see which goals you've met, which goals still need work, and which goals you've overshot!
 
 # 🧰 Installation
 
