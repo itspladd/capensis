@@ -8,9 +8,7 @@
   padding: .25rem .75rem;
 }
 
-.session-item-content {
-  flex-basis: 1 0;
-}
+
 
 .session-item.submitting {
   background-color: red;
@@ -20,33 +18,39 @@
   background-color: rgb(158, 206, 158);
 }
 
-.session-item p {
-  margin: 0;
-}
-
 .session-item.header {
   display: flex;
   text-align: left;
-  gap: 1rem;
   font-size: 1.2rem;
   border-bottom: 2px solid rgba(0,0,0,.3);
 }
 
-.session-item-title {
+.session-item-content {
+  flex: 5 0;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+.session-item-status {
   flex: 1 0;
 }
 
+.session-item-title {
+  flex: 2 0;
+}
+
 .session-item-date {
-  flex: 3 0;
+  flex: 2 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: .75rem;
 }
 
 .session-item-time {
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: flex-start;
   gap: .3rem;
   flex: 3 0;
   min-width: fit-content;
@@ -69,23 +73,25 @@
 @media (min-width: 568px) {
   .session-item {
     flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .session-item-content {
+    display: flex;
+    flex: 11 0;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .session-item-status {
+    flex: 1 0;
+    text-align: end;
   }
 
   .session-item-date {
     justify-content: left;
     gap: .5rem;
-  }
-
-  .session-item-status {
-    opacity: 0%;
-    min-width: fit-content;
-  }
-
-  .session-item-status {
-    display: none;
-  }
-
-  .session-item:hover .session-item-status {
-    display: flex;
   }
 }
