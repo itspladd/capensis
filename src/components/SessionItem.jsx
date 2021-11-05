@@ -1,9 +1,10 @@
-import { makeTimeString, makeWeekDayString, makeDateString } from '../helpers/stringHelpers'
+import { makeTimeString, makeWeekDayString, makeDateString, makeShortDateString, makeShortWeekdayString } from '../helpers/stringHelpers'
 import { getTimeIntervalUnits } from '../helpers/timeHelpers'
 
 import '../styles/SessionItem.css'
 
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
+import Button from 'react-bootstrap/Button'
 
 import useControlledForms from '../hooks/useControlledForms'
 
@@ -42,10 +43,23 @@ export default function SessionItem(props) {
     success
   })
 
+  const status = "stable";
+  const statusComponent = {
+    stable: <Button variant="outline-secondary" size="sm" onClick={edit}>Edit</Button>,
+    submitting: "Submitting...",
+    success: "Success!",
+    failure: "Submit failed."
+  }
+
+
   return(
-    <ListGroupItem as="a" className={className} action onClick={edit}>
-        <strong className="session-item-title">{title}</strong>
-        <span className="session-item-date">{makeWeekDayString(LANG, start_time)}, {makeDateString(LANG, start_time)}</span>
+    <ListGroupItem as="a" className={className}>
+      <div className="session-item-content">
+        {title && <strong className="session-item-title">{title}</strong>}
+        <div className="session-item-date">
+            <strong>{makeWeekDayString(LANG, start_time)}</strong>
+            <span>{makeDateString(LANG, start_time)}</span>
+        </div>
         <div className="session-item-time">
           {stable &&
             <>
@@ -53,11 +67,6 @@ export default function SessionItem(props) {
               <span>{makeTimeString(start_time)} to {makeTimeString(end_time)}</span>
               <span className="text-muted"> ({makeDurationFromTimestamps(start_time, end_time)})</span>
             </div>
-            {success ?
-              (<span className="session-item-success">Submitted!</span>)
-              :
-              (<span className="session-item-hint">Click to modify</span>)
-            }
             </>
           }
           {editing &&
@@ -80,6 +89,10 @@ export default function SessionItem(props) {
             <span className="submit-message">Submitting...</span>
             </>
           }
+        </div>
+      </div>
+        <div className="session-item-status">
+          {statusComponent[status]}
         </div>
     </ListGroupItem>
   )

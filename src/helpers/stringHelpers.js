@@ -21,11 +21,25 @@ export function makeWeekDayString(lang, time) {
   return new Date(time).toLocaleDateString(lang, { weekday: 'long' });
 }
 
+export function makeShortWeekdayString(lang, time) {
+  if (!lang || !time) {
+    return "";
+  }
+  return new Date(time).toLocaleDateString(lang, { weekday: 'short' });
+}
+
 export function makeDateString(lang, time) {
   if (!lang || !time) {
     return "";
   }
   return new Date(time).toLocaleDateString(lang, { month: 'long', year: 'numeric', day:'numeric' });
+}
+
+export function makeShortDateString(lang, time) {
+  if (!lang || !time) {
+    return "";
+  }
+  return new Date(time).toLocaleDateString(lang, { month: '2-digit', year: '2-digit', day:'numeric' });
 }
 
 export function makeWeekString(lang, time) {

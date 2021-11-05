@@ -1,8 +1,15 @@
 .session-item {
   display: flex;
+  flex-flow: row;
+  justify-content: space-between;
   align-items: center;
-  text-align: left;
-  gap: 1rem;
+  text-align: center;
+  row-gap: 0.25rem;
+  padding: .25rem .75rem;
+}
+
+.session-item-content {
+  flex-basis: 1 0;
 }
 
 .session-item.submitting {
@@ -10,7 +17,7 @@
 }
 
 .session-item.success {
-  background-color: green;
+  background-color: rgb(158, 206, 158);
 }
 
 .session-item p {
@@ -22,31 +29,30 @@
   text-align: left;
   gap: 1rem;
   font-size: 1.2rem;
-  border-bottom: 2px solid rgba(0,0,0,.3)
+  border-bottom: 2px solid rgba(0,0,0,.3);
 }
 
 .session-item-title {
   flex: 1 0;
 }
 
+.session-item-date {
+  flex: 3 0;
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
 .session-item-time {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: .3rem;
   flex: 3 0;
+  min-width: fit-content;
 }
 
-.session-item-date {
-  flex: 2 0;
-}
 
-.session-item-hint {
-  opacity: 0%;
-}
-
-.session-item:hover .session-item-hint {
-  opacity: 66%;
-}
 
 .session-item input {
   border: 0px solid rgba(0,0,0, .125);
@@ -57,5 +63,29 @@
 
 .session-item input:focus {
   outline:none;
-  box-shadow:0 0 .5rem blue
+  box-shadow:0 0 .5rem blue;
+}
+
+@media (min-width: 568px) {
+  .session-item {
+    flex-direction: row;
+  }
+
+  .session-item-date {
+    justify-content: left;
+    gap: .5rem;
+  }
+
+  .session-item-status {
+    opacity: 0%;
+    min-width: fit-content;
+  }
+
+  .session-item-status {
+    display: none;
+  }
+
+  .session-item:hover .session-item-status {
+    display: flex;
+  }
 }
