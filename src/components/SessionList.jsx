@@ -70,6 +70,7 @@ export default function SessionList(props) {
           {...session}
           editing = {session.id === selected}
           edit = {() => select(session)}
+          cancel = {() => select(null)}
           handleChange = {handleTimesChange}
           handleSubmit = {(e) => onSubmit(e, new Date(session.start_time), session.id)}
           formTimes = {times}

@@ -11,7 +11,7 @@ import classNames from 'classnames';
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { title, formTimes, handleChange, handleSubmit, start_time, end_time, submitTimes, status, edit } = props;
+  const { title, formTimes, handleChange, handleSubmit, start_time, end_time, submitTimes, status, edit, cancel } = props;
 
   const makeDurationFromTimestamps = (start, end) => {
     const [h, m, s] = getTimeIntervalUnits(start, end)
@@ -44,7 +44,12 @@ export default function SessionItem(props) {
 
   const statusComponent = {
     stable: <Button variant="outline-secondary" size="sm" onClick={edit}>Edit</Button>,
-    editing: <Button form="session-item__form" variant="success" size="sm" type="submit">Save</Button>,
+    editing: (
+      <>
+        <Button form="session-item__form" variant="success" size="sm" type="submit">Save</Button>
+        <Button onClick={cancel} variant="danger" size="sm" >Cancel</Button>
+      </>
+    ),
     submitting: "Submitting...",
     success: "Success!",
     failure: "Submit failed."
@@ -58,7 +63,7 @@ export default function SessionItem(props) {
         {title && <strong className="session-item-title">{title}</strong>}
         <div className="session-item-date">
             <strong>{makeWeekDayString(LANG, start_time)}</strong>
-            <span>{makeDateString(LANG, start_time)}</span>
+            <span className="text-muted">{makeDateString(LANG, start_time)}</span>
         </div>
         <div className="session-item-time">
           {status === "stable" &&
