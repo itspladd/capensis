@@ -26,8 +26,8 @@ Editing.args = {
   start_time: "2021-11-02T01:22:15.822Z",
   end_time: "2021-11-02T02:10:17.013Z",
   formTimes: {
-    start_time: "01:22",
-    end_time: "02:10"
+    start_time: "11:22",
+    end_time: "15:10"
   },
   status: "editing"
 }

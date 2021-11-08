@@ -34,7 +34,7 @@ export default function SessionItem(props) {
       m += 60;
     }
     const hours = h ? `${h}h ` : '';
-    const mins = `${m}m `
+    const mins = `${m}m`
     return hours + mins
   }
 
@@ -71,11 +71,14 @@ export default function SessionItem(props) {
           }
           {status === "editing" &&
             <form className="session-item__form" onSubmit={handleSubmit}>
-              <label className="visually-hidden" htmlFor="start_time">Starting time</label>
-              <input id="start_time" type="time" onChange={handleChange} value={formTimes.start_time} />
-              <span> to </span>
-              <label className="visually-hidden" htmlFor="end_time">Ending time</label>
-              <input id="end_time" type="time" onChange={handleChange} value={formTimes.end_time} />
+              <fieldset>
+                <label htmlFor="start_time">Start</label>
+                <input id="start_time" type="time" onChange={handleChange} value={formTimes.start_time} max={formTimes.end_time} />
+              </fieldset>
+              <fieldset>
+                <label htmlFor="end_time">End</label>
+                <input id="end_time" type="time" onChange={handleChange} value={formTimes.end_time} min={formTimes.start_time}/>
+              </fieldset>
               <span className="text-muted"> ({makeDurationFromHHMM(formTimes.start_time, formTimes.end_time)})</span>
             </form>
           }
@@ -90,7 +93,7 @@ export default function SessionItem(props) {
           }
         </div>
       </div>
-        <div className="session-item-status">
+        <div className={`session-item-status ${status}`}>
           {statusComponent[status]}
         </div>
     </ListGroupItem>
