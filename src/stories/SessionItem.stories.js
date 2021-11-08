@@ -8,11 +8,26 @@ export default {
 const Template = args => <SessionItem {...args} />;
 
 export const Default = Template.bind({});
+export const Editing = Template.bind({});
 
 Default.args = {
   id: 5,
   project_id: 3,
   title: "",
   start_time: "2021-11-02T01:22:15.822Z",
-  end_time: "2021-11-02T02:10:17.013Z"
+  end_time: "2021-11-02T02:10:17.013Z",
+  status: "stable"
+}
+
+Editing.args = {
+  id: 5,
+  project_id: 3,
+  title: "",
+  start_time: "2021-11-02T01:22:15.822Z",
+  end_time: "2021-11-02T02:10:17.013Z",
+  formTimes: {
+    start_time: "01:22",
+    end_time: "02:10"
+  },
+  status: "editing"
 }

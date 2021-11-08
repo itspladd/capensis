@@ -6,15 +6,12 @@ import '../styles/SessionItem.css'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
 import Button from 'react-bootstrap/Button'
 
-import useControlledForms from '../hooks/useControlledForms'
-
 import classNames from 'classnames';
-import { useEffect } from 'react'
 
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { title, formTimes, handleChange, handleSubmit, start_time, end_time, editing, edit, submitting, success } = props;
+  const { title, formTimes, handleChange, handleSubmit, start_time, end_time, submitTimes, status, edit } = props;
 
   const makeDurationFromTimestamps = (start, end) => {
     const [h, m, s] = getTimeIntervalUnits(start, end)
@@ -28,29 +25,32 @@ export default function SessionItem(props) {
     // Get numbers from HH:MM strings
     const [startH, startM] = start.split(':').map(str => Number(str))
     const [endH, endM] = end.split(':').map(str => Number(str))
-    const h = endH - startH;
-    const m = endM - startM;
+    let h = endH - startH;
+    let m = endM - startM;
+    // Account for negative minutes value
+    // e.g. 2h -40m becomes 1h 20m (same number of minutes but in normal time terms)
+    if (m < 0) {
+      h--;
+      m += 60;
+    }
     const hours = h ? `${h}h ` : '';
     const mins = `${m}m `
     return hours + mins
   }
 
-
-  const stable = !submitting && !editing;
-
   const className = classNames('session-item', {
-    submitting,
-    success
+    [status]: true
   })
 
-  const status = "stable";
   const statusComponent = {
     stable: <Button variant="outline-secondary" size="sm" onClick={edit}>Edit</Button>,
+    editing: <Button form="session-item__form" variant="success" size="sm" type="submit">Save</Button>,
     submitting: "Submitting...",
     success: "Success!",
     failure: "Submit failed."
   }
 
+  // Statuses and their components
 
   return(
     <ListGroupItem as="a" className={className}>
@@ -61,7 +61,7 @@ export default function SessionItem(props) {
             <span>{makeDateString(LANG, start_time)}</span>
         </div>
         <div className="session-item-time">
-          {stable &&
+          {status === "stable" &&
             <>
             <div>
               <span>{makeTimeString(start_time)} to {makeTimeString(end_time)}</span>
@@ -69,7 +69,7 @@ export default function SessionItem(props) {
             </div>
             </>
           }
-          {editing &&
+          {status === "editing" &&
             <form className="session-item__form" onSubmit={handleSubmit}>
               <label className="visually-hidden" htmlFor="start_time">Starting time</label>
               <input id="start_time" type="time" onChange={handleChange} value={formTimes.start_time} />
@@ -77,14 +77,13 @@ export default function SessionItem(props) {
               <label className="visually-hidden" htmlFor="end_time">Ending time</label>
               <input id="end_time" type="time" onChange={handleChange} value={formTimes.end_time} />
               <span className="text-muted"> ({makeDurationFromHHMM(formTimes.start_time, formTimes.end_time)})</span>
-              <button type="submit">Submit</button>
             </form>
           }
-          {submitting &&
+          {status === "submitting" &&
             <>
             <div>
-              <span>{makeTimeString(submitting.start_time)} to {makeTimeString(submitting.end_time)}</span>
-              <span className="text-muted"> ({makeDurationFromHHMM(submitting.start_time, submitting.end_time)})</span>
+              <span>{makeTimeString(submitTimes.start_time)} to {makeTimeString(submitTimes.end_time)}</span>
+              <span className="text-muted"> ({makeDurationFromHHMM(submitTimes.start_time, submitTimes.end_time)})</span>
             </div>
             <span className="submit-message">Submitting...</span>
             </>

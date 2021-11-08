@@ -62,6 +62,9 @@ export default function SessionList(props) {
   }
 
   const sessionList = sessions.map(session => {
+
+    const status = 
+
     return (
         <SessionItem
           {...session}
@@ -70,7 +73,7 @@ export default function SessionList(props) {
           handleChange = {handleTimesChange}
           handleSubmit = {(e) => onSubmit(e, new Date(session.start_time), session.id)}
           formTimes = {times}
-          submitting = {submitStatus[session.id]}
+          submitTimes = {submitStatus[session.id]}
           success = {successStatus[session.id]}
           key = {session.id}
         />
