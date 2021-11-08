@@ -6,6 +6,8 @@ import '../styles/SessionItem.css'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
 import Button from 'react-bootstrap/Button'
 
+import Loading from './Loading'
+
 import classNames from 'classnames';
 
 const LANG = 'EN-US'
@@ -16,9 +18,8 @@ export default function SessionItem(props) {
   const makeDurationFromTimestamps = (start, end) => {
     const [h, m, s] = getTimeIntervalUnits(start, end)
     const hours = h ? `${h}h ` : '';
-    const mins = `${m}m `
-    const secs = `${s}s`
-    return hours + mins + secs;
+    const mins = `${m}m`
+    return hours + mins;
   }
 
   const makeDurationFromHHMM = (start, end) => {
@@ -50,8 +51,8 @@ export default function SessionItem(props) {
         <Button onClick={cancel} variant="danger" size="sm" >Cancel</Button>
       </>
     ),
-    submitting: "Submitting...",
-    success: "Success!",
+    submitting: <Loading iconOnly>Saving...</Loading>,
+    success: <div className="success-icon"><span className="visually-hidden">Success!</span></div>,
     failure: "Submit failed."
   }
 
@@ -66,7 +67,7 @@ export default function SessionItem(props) {
             <span className="text-muted">{makeDateString(LANG, start_time)}</span>
         </div>
         <div className="session-item-time">
-          {status === "stable" &&
+          {(status === "stable" || status === "success") &&
             <>
             <div>
               <span>{makeTimeString(start_time)} to {makeTimeString(end_time)}</span>
@@ -77,7 +78,7 @@ export default function SessionItem(props) {
           {status === "editing" &&
             <form className="session-item__form" onSubmit={handleSubmit}>
               <fieldset>
-                <label htmlFor="start_time">Start</label>
+                <label  htmlFor="start_time">Start</label>
                 <input id="start_time" type="time" onChange={handleChange} value={formTimes.start_time} max={formTimes.end_time} />
               </fieldset>
               <fieldset>
@@ -93,7 +94,6 @@ export default function SessionItem(props) {
               <span>{makeTimeString(submitTimes.start_time)} to {makeTimeString(submitTimes.end_time)}</span>
               <span className="text-muted"> ({makeDurationFromHHMM(submitTimes.start_time, submitTimes.end_time)})</span>
             </div>
-            <span className="submit-message">Submitting...</span>
             </>
           }
         </div>
