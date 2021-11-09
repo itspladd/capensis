@@ -7,6 +7,7 @@
   row-gap: 0.25rem;
   padding: .25rem 0 .25rem .75rem;
   overflow: hidden;
+  min-height: 2.5rem;
 }
 
 .session-item form {
@@ -117,6 +118,7 @@
   .session-item {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     text-align: left;
   }
 
@@ -125,6 +127,7 @@
     flex: 11 0;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: center;
     gap: .75rem;
   }
 
@@ -133,7 +136,8 @@
     text-align: end;
     flex-direction: row;
     justify-content: space-around;
-
+    gap: .5rem;
+    margin-right: .5rem;
   }
 
   .session-item-status button {
@@ -143,6 +147,7 @@
     transition: all .15s;
     border-radius: .2rem;
     flex: 1 0;
+    width: 4rem;
   }
 
   .session-item-status button:focus {
@@ -154,6 +159,12 @@
   }
 
   .session-item-date {
+    justify-content: left;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .editing .session-item-date {
     flex-direction: column;
     justify-content: left;
     gap: .5rem;

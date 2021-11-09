@@ -23,7 +23,7 @@ export default function SessionList(props) {
         <div className="session-item-content">
           <strong className="session-item-title">Project</strong>
           <strong className="session-item-date">Date</strong>
-          <strong className="session-item-time">Time (click to edit)</strong>
+          <strong className="session-item-time">Time</strong>
         </div>
         <div className="session-item-status"></div>
       </ListGroup.Item>
