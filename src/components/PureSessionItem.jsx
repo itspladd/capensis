@@ -34,6 +34,7 @@ export default function PureSessionItem(props) {
       </>
     ),
     submitting: <Loading iconOnly>Saving...</Loading>,
+    deleting: "",
     success: <SuccessIcon />,
     failure: "Submit failed."
   }
@@ -61,10 +62,10 @@ export default function PureSessionItem(props) {
               </fieldset>
             </form>
             :
-            <div>
+            <>
               <span>{makeTimeString(start)} to {makeTimeString(end)}</span>
               <span className="text-muted">({duration})</span>
-            </div>
+            </>
           }
         </div>
       </div>

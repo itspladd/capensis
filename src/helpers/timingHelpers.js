@@ -1,4 +1,4 @@
-export function delayPromise(delay = 500, callback = () => {}) {
+export function delayAction(callback = () => {}, delay = 500) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       resolve(callback())

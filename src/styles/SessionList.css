@@ -1,5 +1,11 @@
 .session-list {
-  width: 80%;
+  width: 100%;
   overflow: scroll;
   transition: all .5s;
+}
+
+@media (min-width: 568px) {
+  .session-list {
+    width: 80%;
+  }
 }

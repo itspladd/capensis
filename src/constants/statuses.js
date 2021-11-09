@@ -3,6 +3,7 @@ const STATUSES = {
   EDITING: "editing",
   SUBMITTING: "submitting",
   DELETING: "deleting",
+  CONFIRM: "confirm",
   SUCCESS: "success",
   FAILURE: "failure"
 }

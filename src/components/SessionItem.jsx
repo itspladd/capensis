@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 // Helpers
-import { delayPromise } from '../helpers/timingHelpers'
+import { delayAction } from '../helpers/timingHelpers'
 import { makeHHMMTimeString, } from '../helpers/stringHelpers'
 
 // Hooks
@@ -38,8 +38,7 @@ export default function SessionItem(props) {
       // Update the submitting state
       setStatus(() => STATUSES.SUBMITTING)
       axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
-        .then(() => delayPromise())
-        .then(refreshData)
+        .then(() => delayAction(refreshData))
         .then(() => setStatus(STATUSES.SUCCESS))
         .catch(() => setStatus(STATUSES.ERROR))
     }
@@ -48,8 +47,7 @@ export default function SessionItem(props) {
   const handleDelete = (event, id) => {
     event.preventDefault();
     axios.delete(`/api/sessions/${id}`)
-      .then(() => setStatus(STATUSES.DELETED))
-      .then(refreshData)
+      .then(() => setStatus(STATUSES.DELETING))
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
@@ -62,7 +60,6 @@ export default function SessionItem(props) {
   return (
     <PureSessionItem
       status={status}
-      title={title}
       refDay={start_time}
       start={times.start}
       end={times.end}
