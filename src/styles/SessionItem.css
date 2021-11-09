@@ -131,10 +131,35 @@
   .session-item-status {
     flex: 1 0;
     text-align: end;
+    flex-direction: row;
+    justify-content: space-around;
+
+  }
+
+  .session-item-status button {
+    padding: .25rem;
+    border-right: 0;
+    box-shadow: 1px 0rem;
+    transition: all .15s;
+    border-radius: .2rem;
+    flex: 1 0;
+  }
+
+  .session-item-status button:focus {
+    margin-left: inherit;
+  }
+
+  .session-item-status button:hover {
+    margin-left: inherit;
   }
 
   .session-item-date {
+    flex-direction: column;
     justify-content: left;
     gap: .5rem;
+  }
+
+  .session-item form {
+    flex-direction: column;
   }
 }

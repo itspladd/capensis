@@ -1,11 +1,11 @@
-import SessionItem from '../components/SessionItem';
+import PureSessionItem from '../components/PureSessionItem';
 
 export default {
-  component: SessionItem,
-  title: 'Components/SessionItem'
+  component: PureSessionItem,
+  title: 'Components/PureSessionItem'
 };
 
-const Template = args => <SessionItem {...args} />;
+const Template = args => <PureSessionItem {...args} />;
 
 export const Default = Template.bind({});
 export const Editing = Template.bind({});
@@ -16,8 +16,9 @@ Default.args = {
   id: 5,
   project_id: 3,
   title: "",
-  start_time: "2021-11-02T01:22:15.822Z",
-  end_time: "2021-11-02T02:10:17.013Z",
+  refDay: "2021-11-02T01:22:15.822Z",
+  start: "10:45",
+  end: "15:20",
   status: "stable"
 }
 
@@ -25,12 +26,9 @@ Editing.args = {
   id: 5,
   project_id: 3,
   title: "",
-  start_time: "2021-11-02T01:22:15.822Z",
-  end_time: "2021-11-02T02:10:17.013Z",
-  formTimes: {
-    start_time: "11:22",
-    end_time: "15:10"
-  },
+  refDay: "2021-11-02T01:22:15.822Z",
+  start: "10:45",
+  end: "15:20",
   status: "editing"
 }
 
@@ -38,12 +36,9 @@ Submitting.args = {
   id: 5,
   project_id: 3,
   title: "",
-  start_time: "2021-11-02T01:22:15.822Z",
-  end_time: "2021-11-02T02:10:17.013Z",
-  submitTimes: {
-    start_time: "11:22",
-    end_time: "15:10"
-  },
+  refDay: "2021-11-02T01:22:15.822Z",
+  start: "10:45",
+  end: "15:20",
   status: "submitting"
 }
 
@@ -51,7 +46,8 @@ Success.args = {
   id: 5,
   project_id: 3,
   title: "",
-  start_time: "2021-11-02T11:22:15.822Z",
-  end_time: "2021-11-02T15:10:17.013Z",
+  refDay: "2021-11-02T01:22:15.822Z",
+  start: "10:45",
+  end: "15:20",
   status: "success"
 }

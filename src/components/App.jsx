@@ -98,7 +98,7 @@ export default function App() {
                   <ProjectList projects={projects} setProjects={setProjects} />
                 </Route>
                 <Route exact path="/sessions">
-                  <SessionList sessions={sessions} />
+                  <SessionList sessions={sessions} refreshData={refreshData} />
                 </Route>
                 <Route exact path="/reports" >
                   <Report
