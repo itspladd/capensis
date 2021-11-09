@@ -1,12 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
+
+// Helpers
+import { delayPromise } from '../helpers/timingHelpers'
 import { makeHHMMTimeString, } from '../helpers/stringHelpers'
 
+// Hooks
 import useControlledForms from '../hooks/useControlledForms'
 
-
+// Components
 import PureSessionItem from './PureSessionItem'
 
+// Constants
 import STATUSES from '../constants/statuses'
 
 const LANG = 'EN-US'
@@ -20,11 +25,6 @@ export default function SessionItem(props) {
     end: makeHHMMTimeString(end_time)
   })
 
-  const setSelfClearingSuccess = () => {
-    setStatus(STATUSES.SUCCESS);
-    setTimeout(() => setStatus(STATUSES.STABLE), 3000);
-  }
-
   const handleSubmit = (event, id) => {
     event.preventDefault();
     // Validate the times
@@ -36,14 +36,29 @@ export default function SessionItem(props) {
     end.setHours(endH, endM);
     if (start < end) {
       // Update the submitting state
-      setStatus(STATUSES.SUBMITTING);
+      setStatus(() => STATUSES.SUBMITTING)
       axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
+        .then(() => delayPromise())
         .then(refreshData)
-        .then(setSelfClearingSuccess)
+        .then(() => setStatus(STATUSES.SUCCESS))
         .catch(() => setStatus(STATUSES.ERROR))
     }
   }
-  console.log(times)
+
+  const handleDelete = (event, id) => {
+    event.preventDefault();
+    axios.delete(`/api/sessions/${id}`)
+      .then(() => setStatus(STATUSES.DELETED))
+      .then(refreshData)
+      .catch(() => setStatus(STATUSES.ERROR))
+  }
+
+  useEffect(() => {
+    console.log(status)
+    status === STATUSES.SUCCESS &&
+    setTimeout(() => setStatus(STATUSES.STABLE), 3500)
+  }, [status])
+
   return (
     <PureSessionItem
       status={status}
@@ -53,6 +68,7 @@ export default function SessionItem(props) {
       end={times.end}
       changeTimes={changeTimes}
       submit={(e) => handleSubmit(e, id)}
+      deleteItem={(e) => handleDelete(e, id)}
       setStatus={setStatus}
     >
     </PureSessionItem>

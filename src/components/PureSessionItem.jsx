@@ -6,13 +6,14 @@ import STATUSES from '../constants/statuses'
 
 import Button from 'react-bootstrap/Button'
 import Loading from './Loading'
+import SuccessIcon from './SuccessIcon'
 
 import '../styles/SessionItem.css'
 
 const LANG = "EN-US"
 
 export default function PureSessionItem(props) {
-  const { status, title, start, end, refDay, changeTimes, submit, setStatus } = props;
+  const { status, title, start, end, refDay, changeTimes, submit, deleteItem, setStatus } = props;
 
   const duration = makeDurationFromHHMM(start, end);
   const weekday = makeWeekDayString(LANG, refDay);
@@ -20,7 +21,12 @@ export default function PureSessionItem(props) {
 
   // Statuses and their components
   const statusComponents = {
-    stable: <Button variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</Button>,
+    stable: (
+      <>
+      <Button variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</Button>
+      <Button variant="outline-danger" size="sm" onClick={deleteItem}>Delete</Button>
+      </>
+    ),
     editing: (
       <>
         <Button onClick={submit} variant="success" size="sm" type="submit">Save</Button>
@@ -28,10 +34,9 @@ export default function PureSessionItem(props) {
       </>
     ),
     submitting: <Loading iconOnly>Saving...</Loading>,
-    success: <div className="success-icon"><span className="visually-hidden">Success!</span></div>,
+    success: <SuccessIcon />,
     failure: "Submit failed."
   }
-  console.log(start)
 
   return (
     <ListGroupItem as="a" className={`session-item ${status}`}>

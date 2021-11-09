@@ -1,4 +1,5 @@
 .session-list {
   width: 80%;
   overflow: scroll;
+  transition: all .5s;
 }
