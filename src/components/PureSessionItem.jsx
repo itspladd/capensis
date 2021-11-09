@@ -1,3 +1,4 @@
+import { forwardRef } from 'react'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
 
 import { makeDurationFromHHMM, makeWeekDayString, makeDateString, makeTimeString } from '../helpers/stringHelpers'
@@ -12,8 +13,19 @@ import '../styles/SessionItem.css'
 
 const LANG = "EN-US"
 
-export default function PureSessionItem(props) {
-  const { status, title, start, end, refDay, changeTimes, submit, deleteItem, setStatus } = props;
+const PureSessionItem = forwardRef((props, ref) => {
+  const {
+    status,
+    id,
+    title,
+    start,
+    end,
+    refDay,
+    changeTimes,
+    submit,
+    deleteItem,
+    setStatus,
+  } = props;
 
   const duration = makeDurationFromHHMM(start, end);
   const weekday = makeWeekDayString(LANG, refDay);
@@ -40,8 +52,8 @@ export default function PureSessionItem(props) {
   }
 
   return (
-    <ListGroupItem as="a" className={`session-item ${status}`}>
-      <div className="session-item-content">
+    <ListGroupItem as="a" href={`#${id}`} className={`session-item ${status}`}>
+      <div ref={ref} className="session-item-content">
         {title && <strong className="session-item-title">{title}</strong>}
         <div className="session-item-date">
             <strong>{weekday}</strong>
@@ -72,4 +84,6 @@ export default function PureSessionItem(props) {
       <div className={`session-item-status ${status}`}>
         {statusComponents[status]}
       </div>
-  </ListGroupItem>)}
+  </ListGroupItem>)})
+
+  export default PureSessionItem;

@@ -170,6 +170,10 @@
   }
 }
 
+.session-item.deleting {
+  animation: slide-left .3s forwards, collapse .3s .2s forwards;
+}
+
 @keyframes slide-left {
   100% {
     opacity: 0;

@@ -1,7 +1,8 @@
 .session-list {
   width: 100%;
   overflow: scroll;
-  transition: all .5s;
+  transition: all 3s;
+  scroll-behavior: smooth;
 }
 
 @media (min-width: 568px) {

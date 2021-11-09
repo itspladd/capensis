@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 
 // Helpers
@@ -17,13 +17,14 @@ import STATUSES from '../constants/statuses'
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { title, id, start_time, end_time, refreshData } = props;
+  const { id, start_time, end_time, refreshData, scrollToMe } = props;
 
   const [status, setStatus] = useState(STATUSES.STABLE);
   const [times, changeTimes] = useControlledForms({
     start: makeHHMMTimeString(start_time),
     end: makeHHMMTimeString(end_time)
   })
+  const scrollTarget = useRef(null)
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
@@ -39,6 +40,7 @@ export default function SessionItem(props) {
       setStatus(() => STATUSES.SUBMITTING)
       axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
         .then(() => delayAction(refreshData))
+        .then(() => delayAction(() => scrollToMe(scrollTarget)))
         .then(() => setStatus(STATUSES.SUCCESS))
         .catch(() => setStatus(STATUSES.ERROR))
     }
@@ -48,6 +50,7 @@ export default function SessionItem(props) {
     event.preventDefault();
     axios.delete(`/api/sessions/${id}`)
       .then(() => setStatus(STATUSES.DELETING))
+      .then(() => delayAction(refreshData))
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
@@ -67,6 +70,9 @@ export default function SessionItem(props) {
       submit={(e) => handleSubmit(e, id)}
       deleteItem={(e) => handleDelete(e, id)}
       setStatus={setStatus}
+      id={id}
+      scrollToMe={scrollToMe}
+      ref={scrollTarget}
     >
     </PureSessionItem>
   )
