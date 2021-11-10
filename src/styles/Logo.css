@@ -1,6 +1,8 @@
+@import './global.css';
+
 .auth-logo {
   padding-left: 2rem;
-  fill: #1034A6;
+  fill: var(--egypt-blue);
 }
 
 .nav-logo {

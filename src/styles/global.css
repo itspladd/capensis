@@ -1,0 +1,23 @@
+html {
+  --egypt-blue: #1034A6;
+  --anim-delete: slide-left .3s forwards, collapse .3s .2s forwards;
+}
+
+@keyframes slide-left {
+  100% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes collapse {
+  100% {
+    height: 0;
+    min-height: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-width: 0;
+  }
+}

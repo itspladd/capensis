@@ -1,3 +1,5 @@
+@import './global.css';
+
 .loading {
   height: 100%;
   display: flex;
@@ -9,5 +11,5 @@
 .loading>p {
   font-size: 2rem;
   font-family: 'Yellowtail', cursive;
-  color: #1034A6;
+  color: var(--egypt-blue);
 }
