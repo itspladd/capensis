@@ -26,14 +26,17 @@ export default function DaySchedule(props) {
 
   const dayString = makeWeekDayString(LANG, day)
   const dateString = makeDateString(LANG, day)
-  const earliestHour = 6;
-  const latestHour = 20;
+  const earliestHour = 0;
+  const latestHour = 23;
+  const latestMinutes = 59;
 
   // Generate placeholder blocks for this day, for padding out the schedule
   useEffect(() => {
     const newBlocks = [];
     let currentTime = new Date(day);
-    currentTime.setHours(earliestHour)
+    currentTime.setHours(earliestHour);
+    const finalTime = new Date(day);
+    finalTime.setHours(latestHour, latestMinutes);
 
     // Create all placeholder blocks that occur before the current Block
     blocks.forEach(block => {
@@ -62,7 +65,7 @@ export default function DaySchedule(props) {
     })
 
     // Finally, fill in any placeholders that go after the final block of the day
-    while(currentTime.getHours() < latestHour) {
+    while(currentTime < finalTime) {
       // Make the placeholder block data
       const placeholderBlock = {
         id: `p${currentTime.getHours()}${currentTime.getMinutes() || "00"}`,

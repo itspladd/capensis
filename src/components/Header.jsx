@@ -22,6 +22,7 @@ export default function Header(props) {
           <Nav className="me-auto">
             <LinkContainer to="/schedule"><Nav.Link>Schedule</Nav.Link></LinkContainer>
             <LinkContainer to="/projects"><Nav.Link>Projects</Nav.Link></LinkContainer>
+            <LinkContainer to="/sessions"><Nav.Link>Sessions</Nav.Link></LinkContainer>
             <LinkContainer to="/reports"><Nav.Link>Reports</Nav.Link></LinkContainer>
           </Nav>
           <Navbar.Text>

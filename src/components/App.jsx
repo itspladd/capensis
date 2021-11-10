@@ -19,12 +19,15 @@ import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
+import Sessions from './Sessions';
 import Report from './Report';
 import Footer from './Footer';
 
 // Custom hooks
+import useDay from '../hooks/useDay';
+import useWeek from '../hooks/useWeek';
 import useAuthentication from '../hooks/useAuthentication'
-import useWeeklyBlocks from '../hooks/useWeeklyBlocks';
+import useWeeklyData from '../hooks/useWeeklyData';
 import useSessionTracking from '../hooks/useSessionTracking';
 import usePopupModal from '../hooks/usePopupModal';
 
@@ -33,9 +36,10 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 
 export default function App() {
 
-
+  const [day, changeDay] = useDay();
+  const [week] = useWeek(day)
   const [loading, username, login, logout] = useAuthentication();
-  const [blocks, refreshBlocks, currentDay, changeDay] = useWeeklyBlocks(username);
+  const [blocks, sessions, refreshData] = useWeeklyData(username, week);
   const [currentSession, toggleSession] = useSessionTracking(username);
   const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
@@ -43,11 +47,11 @@ export default function App() {
   // Load new projects when the username changes
   useEffect(() => {
     axios.get('/api/projects')
-         .then(res => {
-           const projectList = {};
-           res.data.projects.forEach(project => projectList[project.id] = project)
-           setProjects(projectList)
-         })
+      .then(res => {
+        const projectList = {};
+        res.data.projects.forEach(project => projectList[project.id] = project)
+        setProjects(projectList)
+      })
   }, [username])
 
   return (
@@ -71,17 +75,17 @@ export default function App() {
             <NewBlockForm
               show={show}
               handleClose={closeForm}
-              currentDay={currentDay}
+              currentDay={day}
               projects={projects}
               blocks={blocks}
-              refreshBlocks={refreshBlocks}
+              refreshData={refreshData}
             />
             <div className="App-body mt-1">
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
                   <DaySchedule
-                    blocks={blocks.filter(block => blockIsOnDay(block, currentDay))}
-                    day={currentDay}
+                    blocks={blocks.filter(block => blockIsOnDay(block, day))}
+                    day={day}
                     goToTomorrow={() => changeDay(1)}
                     goToYesterday={() => changeDay(-1)}
                     showForm={showForm}
@@ -93,10 +97,19 @@ export default function App() {
                 <Route exact path="/projects" >
                   <ProjectList projects={projects} setProjects={setProjects} />
                 </Route>
+                <Route exact path="/sessions">
+                  <Sessions 
+                    sessions={sessions}
+                    projects={projects}
+                    day={day}
+                    lastWeek={() => changeDay(-7)}
+                    nextWeek={() => changeDay(7)}
+                    refreshData={refreshData} />
+                </Route>
                 <Route exact path="/reports" >
                   <Report
                     projects={projects}
-                    day={currentDay}
+                    day={day}
                     lastWeek={() => changeDay(-7)}
                     nextWeek={() => changeDay(7)}
                   />

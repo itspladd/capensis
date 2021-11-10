@@ -12,5 +12,5 @@ export default function useControlledForms(fields) {
     })
   }
 
-  return [formValues, handleFormChange]
+  return [formValues, handleFormChange, setFormValues]
 }

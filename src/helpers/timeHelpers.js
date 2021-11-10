@@ -17,12 +17,34 @@ export function getNextSaturday(date) {
   return new Date(nextSaturdayMs);
 }
 
+export function getTimeIntervalUnits(start, end) {
+  const startMs = new Date(start).valueOf();
+  const endMs = new Date(end).valueOf();
+  const ms = endMs - startMs;
+  const sRemaining = Math.floor(ms / 1000);
+  const s = sRemaining % 60;
+  const minsRemaining = (sRemaining - s) / 60;
+  const m = minsRemaining % 60;
+  const h = (minsRemaining - m) / 60;
+
+  return [h, m, s]
+}
+
 // Set h/min/s/ms of a given date to 0.
 export function makeZeroDate(date) {
   date.setHours(0);
   date.setMinutes(0);
   date.setSeconds(0);
   date.setMilliseconds(0);
+  return date;
+}
+
+export function makeNoonDate(date) {
+  date.setHours(12);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  return date;
 }
 
 export function minutesSinceMidnight (hours, minutes) {
@@ -54,8 +76,10 @@ export function getBoundaryMinutes({values, block}) {
 }
 
 export function getFifteenMinuteUnits(start, end) {
-  const lengthMs = new Date(end) - new Date(start);
-  const lengthMins = lengthMs / 1000 / 60;
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const lengthHours = endDate.getHours() - startDate.getHours();
+  const lengthMins = (endDate.getMinutes() - startDate.getMinutes()) + (lengthHours * 60)
   const fifteenMinuteUnits = lengthMins / 15;
   return fifteenMinuteUnits;
 }
