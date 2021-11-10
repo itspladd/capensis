@@ -17,7 +17,7 @@ import STATUSES from '../constants/statuses'
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { id, start_time, end_time, refreshData, scrollToMe } = props;
+  const { id, start_time, end_time, refreshData } = props;
 
   const [status, setStatus] = useState(STATUSES.STABLE);
   const [times, changeTimes] = useControlledForms({
@@ -40,7 +40,7 @@ export default function SessionItem(props) {
       setStatus(() => STATUSES.SUBMITTING)
       axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
         .then(() => delayAction(refreshData))
-        .then(() => delayAction(() => scrollToMe(scrollTarget)))
+        .then(() => delayAction(() => scrollTarget.current.scrollIntoView(false)))
         .then(() => setStatus(STATUSES.SUCCESS))
         .catch(() => setStatus(STATUSES.ERROR))
     }
@@ -71,7 +71,6 @@ export default function SessionItem(props) {
       deleteItem={(e) => handleDelete(e, id)}
       setStatus={setStatus}
       id={id}
-      scrollToMe={scrollToMe}
       ref={scrollTarget}
     >
     </PureSessionItem>

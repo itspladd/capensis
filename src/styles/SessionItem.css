@@ -11,6 +11,10 @@
   transition: all .3s;
 }
 
+.session-item:last-child {
+  margin-bottom: 2rem;
+}
+
 .session-item form {
   display: flex;
   flex-flow: row wrap;
@@ -109,12 +113,13 @@
   box-shadow:0 0 .5rem blue;
 }
 
-@media (min-width: 568px) {
+@media (min-width: 600px) {
   .session-item {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     text-align: left;
+    margin: 0 4rem;
   }
 
   .session-item-content {
@@ -170,8 +175,30 @@
   }
 }
 
-.session-item.deleting {
-  animation: slide-left .3s forwards, collapse .3s .2s forwards;
+@media (min-width: 875px) {
+
+  .session-item {
+    min-height: 3.5rem;
+  }
+
+  .session-item-content {
+    justify-content: flex-start;
+    gap: 2rem;
+  }
+
+  .session-item-date {
+    flex-direction: row;
+    flex: none;
+  }
+
+  .session-item-time {
+    flex: none;
+  }
+
+  .session-item form {
+    flex-direction: row;
+    margin-right: .5rem;
+  }
 }
 
 @keyframes slide-left {
