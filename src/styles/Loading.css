@@ -10,6 +10,6 @@
 
 .loading>p {
   font-size: 2rem;
-  font-family: 'Yellowtail', cursive;
+  font-family: var(--logo-font);
   color: var(--egypt-blue);
 }

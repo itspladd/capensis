@@ -1,6 +1,7 @@
 html {
   --egypt-blue: #1034A6;
   --anim-delete: slide-left .3s forwards, collapse .3s .2s forwards;
+  --logo-font: 'Yellowtail', cursive
 }
 
 @keyframes slide-left {

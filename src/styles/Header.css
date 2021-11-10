@@ -5,6 +5,6 @@
 }
 
 .navbar-brand {
-  font-family: Yellowtail, cursive;
+  font-family: var(--logo-font);
   font-size: 2rem;
 }
