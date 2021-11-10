@@ -1,0 +1,7 @@
+.sessions {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: scroll;
+  scroll-behavior: smooth;
+}

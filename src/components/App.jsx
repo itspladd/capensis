@@ -19,7 +19,7 @@ import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
-import SessionList from './SessionList'
+import Sessions from './Sessions';
 import Report from './Report';
 import Footer from './Footer';
 
@@ -98,7 +98,10 @@ export default function App() {
                   <ProjectList projects={projects} setProjects={setProjects} />
                 </Route>
                 <Route exact path="/sessions">
-                  <SessionList sessions={sessions} refreshData={refreshData} />
+                  <Sessions 
+                    sessions={sessions}
+                    projects={projects}
+                    refreshData={refreshData} />
                 </Route>
                 <Route exact path="/reports" >
                   <Report

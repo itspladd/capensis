@@ -5,7 +5,7 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import SessionItem from './SessionItem'
 
 export default function SessionList(props) {
-  const { sessions, refreshData } = props;
+  const { title, sessions, refreshData } = props;
 
   const sessionList = sessions.map(session => {
     return (
@@ -20,9 +20,14 @@ export default function SessionList(props) {
   return (
     <ListGroup className='session-list'>
       <ListGroup.Item className="session-item header">
-
+      {title}
       </ListGroup.Item>
-      {sessionList}
+      {sessionList.length ?
+        sessionList :
+        <ListGroup.Item className="session-item stable">
+          No time tracked for this project!
+        </ListGroup.Item>
+      }
     </ListGroup>
   )
 }

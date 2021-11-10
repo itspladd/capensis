@@ -1,13 +1,5 @@
 .session-list {
   width: 100%;
-  overflow: scroll;
   transition: all .3s;
-  scroll-behavior: smooth;
   margin-bottom: -15px;
-}
-
-@media (min-width: 568px) {
-  .session-list {
-    width: 100%;
-  }
 }
