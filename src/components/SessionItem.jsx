@@ -39,8 +39,8 @@ export default function SessionItem(props) {
       // Update the submitting state
       setStatus(() => STATUSES.SUBMITTING)
       axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
-        .then(() => delayAction(refreshData))
-        .then(() => delayAction(() => scrollTarget.current.scrollIntoView(false)))
+        .then(() => delayAction(refreshData)) // Give the submitting animation time to run
+        .then(() => scrollTarget.current.scrollIntoView(false))
         .then(() => setStatus(STATUSES.SUCCESS))
         .catch(() => setStatus(STATUSES.ERROR))
     }
@@ -50,7 +50,7 @@ export default function SessionItem(props) {
     event.preventDefault();
     axios.delete(`/api/sessions/${id}`)
       .then(() => setStatus(STATUSES.DELETING))
-      .then(() => delayAction(refreshData))
+      .then(() => delayAction(refreshData)) // Gives the delete animation time to run
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
