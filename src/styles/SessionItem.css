@@ -13,6 +13,11 @@
   transition: all .3s;
 }
 
+.session-item:focus, .session-item:focus-within {
+  box-shadow: inset 0 0 .2rem var(--egypt-blue);
+  outline: none;
+}
+
 .session-item:last-child {
   margin-bottom: 2rem;
 }
@@ -30,6 +35,10 @@
 
 
 /* Status-specific styles */
+.session-item.editing {
+  background-color: rgb(203, 255, 255);
+}
+
 .session-item.submitting {
   background-color: rgb(0, 255, 242);
 }
@@ -117,7 +126,7 @@
 
 .session-item input:focus {
   outline:none;
-  box-shadow:0 0 .5rem blue;
+  box-shadow:0 0 .5rem var(--egypt-blue);
 }
 
 @media (min-width: 600px) {

@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useRef, useImperativeHandle, useEffect } from 'react'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
 
 import { makeDurationFromHHMM, makeWeekDayString, makeDateString, makeTimeString } from '../helpers/stringHelpers'
@@ -13,7 +13,7 @@ import '../styles/SessionItem.css'
 
 const LANG = "EN-US"
 
-const PureSessionItem = forwardRef((props, ref) => {
+function PureSessionItem (props, ref) {
   const {
     status,
     id,
@@ -26,6 +26,23 @@ const PureSessionItem = forwardRef((props, ref) => {
     deleteItem,
     setStatus,
   } = props;
+
+  const scrollRef = useRef(null);
+  const inputRef = useRef(null);
+
+  useImperativeHandle(ref, () => ({
+    focusTime: () => {
+      inputRef.current.focus();
+    },
+    scroll: () => {
+      scrollRef.current.scrollIntoView(false);
+    }
+  }));
+
+  useEffect(() => {
+    document.activeElement.blur();
+    status === STATUSES.EDITING && inputRef.current.focus();
+  }, [status])
 
   const duration = makeDurationFromHHMM(start, end);
   const weekday = makeWeekDayString(LANG, refDay);
@@ -53,7 +70,7 @@ const PureSessionItem = forwardRef((props, ref) => {
 
   return (
     <ListGroupItem as="a" href={`#${id}`} className={`session-item ${status}`}>
-      <div ref={ref} className="session-item-content">
+      <div ref={scrollRef} className="session-item-content">
         {title && <strong className="session-item-title">{title}</strong>}
         <div className="session-item-date">
             <strong>{weekday}</strong>
@@ -64,8 +81,8 @@ const PureSessionItem = forwardRef((props, ref) => {
           {status === STATUSES.EDITING ?
             <form>
               <fieldset>
-                <label  htmlFor="start">Start</label>
-                <input id="start" type="time" onChange={changeTimes} value={start}/>
+                <label htmlFor="start">Start</label>
+                <input ref={inputRef} id="start" type="time" onChange={changeTimes} value={start}/>
               </fieldset>
               <fieldset>
                 <label htmlFor="end">End</label>
@@ -84,6 +101,8 @@ const PureSessionItem = forwardRef((props, ref) => {
       <div className={`session-item-status ${status}`}>
         {statusComponents[status]}
       </div>
-  </ListGroupItem>)})
+  </ListGroupItem>)
+  }
 
-  export default PureSessionItem;
+// eslint-disable-next-line no-func-assign
+export default PureSessionItem = forwardRef(PureSessionItem);

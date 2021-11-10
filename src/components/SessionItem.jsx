@@ -24,7 +24,17 @@ export default function SessionItem(props) {
     start: makeHHMMTimeString(start_time),
     end: makeHHMMTimeString(end_time)
   })
-  const scrollTarget = useRef(null)
+
+  /*
+  Refs:
+    `scrollTarget` is used to find the <a> element for dynamic scroll on refresh.
+    Since the position of the SessionItem might change when we refresh data,
+    we use this ref to scroll to the new location after refresh (so the user can see their change)
+
+    `timeInput` is used to find the first <input> element in a SessionItem
+    This is used to set focus on that item when the user clicks "edit"
+  */
+  const sessionItemRef = useRef(null)
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
@@ -40,7 +50,7 @@ export default function SessionItem(props) {
       setStatus(() => STATUSES.SUBMITTING)
       axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
         .then(() => delayAction(refreshData)) // Give the submitting animation time to run
-        .then(() => scrollTarget.current.scrollIntoView(false))
+        .then(() => sessionItemRef.current.scroll())
         .then(() => setStatus(STATUSES.SUCCESS))
         .catch(() => setStatus(STATUSES.ERROR))
     }
@@ -71,7 +81,7 @@ export default function SessionItem(props) {
       deleteItem={(e) => handleDelete(e, id)}
       setStatus={setStatus}
       id={id}
-      ref={scrollTarget}
+      ref={sessionItemRef}
     >
     </PureSessionItem>
   )
