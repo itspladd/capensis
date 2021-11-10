@@ -24,7 +24,7 @@ export default function SessionList(props) {
       </ListGroup.Item>
       {sessionList.length ?
         sessionList :
-        <ListGroup.Item className="session-item stable">
+        <ListGroup.Item className="session-item empty">
           No time tracked for this project!
         </ListGroup.Item>
       }

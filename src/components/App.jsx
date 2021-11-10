@@ -101,6 +101,9 @@ export default function App() {
                   <Sessions 
                     sessions={sessions}
                     projects={projects}
+                    day={day}
+                    lastWeek={() => changeDay(-7)}
+                    nextWeek={() => changeDay(7)}
                     refreshData={refreshData} />
                 </Route>
                 <Route exact path="/reports" >
