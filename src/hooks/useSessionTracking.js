@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
-export default function useSessionTracking(username) {
+export default function useSessionTracking(username, refreshData) {
   const [currentSession, setCurrentSession] = useState(null);
 
   useEffect(() => {
@@ -21,9 +21,11 @@ export default function useSessionTracking(username) {
     if (block) {
       // Get the project ID from the block. Cast it to a number for comparison later.
       const projectId = Number(block.getAttribute('projectid'))
+
       // If we have a session running already, ping the API to stop it.
       if (currentSession) {
         axios.patch(`/api/sessions`, { session_id: currentSession.id })
+          .then(refreshData)
       }
 
       // If the input matches the currently-tracked session, just stop
@@ -33,7 +35,7 @@ export default function useSessionTracking(username) {
       } else {
         // Otherwise, ping the API to start a new session and start tracking.
         axios.post(`/api/sessions`, { project_id: projectId })
-            .then(res => setCurrentSession(res.data))
+          .then(res => setCurrentSession(res.data))
       }
     }
 

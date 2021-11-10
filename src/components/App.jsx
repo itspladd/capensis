@@ -40,7 +40,7 @@ export default function App() {
   const [week] = useWeek(day)
   const [loading, username, login, logout] = useAuthentication();
   const [blocks, sessions, refreshData] = useWeeklyData(username, week);
-  const [currentSession, toggleSession] = useSessionTracking(username);
+  const [currentSession, toggleSession] = useSessionTracking(username, refreshData);
   const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
 

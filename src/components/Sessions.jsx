@@ -8,7 +8,6 @@ import '../styles/SessionsPage.css'
 export default function Sessions (props) {
   const { day, sessions=[], projects=[], refreshData, lastWeek, nextWeek } = props;
 
-
   const sessionsByProject = Object.values(projects)
     .map(project => (
       <SessionList
@@ -18,7 +17,6 @@ export default function Sessions (props) {
       >
       </SessionList>
     ))
-
 
   return (
     <section className="sessions">
