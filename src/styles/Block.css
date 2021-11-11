@@ -1,23 +1,40 @@
+@import './global.css';
+
 .block {
   background-color: rgb(187, 187, 255);
   height: 100%;
   border: 1px solid rgba(0,0,0,.125);
   border-width: 0px 0px 1px;
   border-radius: .3rem;
+  display: flex;
+  gap: .5rem;
+  padding-left: 0.5rem;
 }
 
-.block_placeholder {
-  font-size: .75rem;
-  padding: 0rem;
-  background-color: transparent;
-  color: transparent;
-  height: 100%;
+.block:last-child {
+  margin-bottom: 2rem;
+  border: 0;
 }
 
-.block_placeholder:hover {
-  font-size: .75rem;
-  padding: 0rem;
-  background-color: transparent;
-  color: black;
-  border: 1px black dashed;
+.block p {
+  margin: 0;
+}
+
+.block span {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+.block.spacer {
+  background-color: white;
+  border-radius: 0;
+  border-width: 0;
+}
+
+.block.spacer.hour-line {
+  border-width: 0 0 1px;
+}
+
+.block.spacer:hover {
+  box-shadow: var(--focus-shadow-inner);
 }
