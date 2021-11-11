@@ -1,23 +1,76 @@
+@import './global.css';
+
 .block {
   background-color: rgb(187, 187, 255);
   height: 100%;
   border: 1px solid rgba(0,0,0,.125);
   border-width: 0px 0px 1px;
   border-radius: .3rem;
+  display: flex;
+  align-items: flex-start;
+  padding: 0 0 0 0.5rem;
+  margin-right: .5rem;
 }
 
-.block_placeholder {
-  font-size: .75rem;
-  padding: 0rem;
-  background-color: transparent;
-  color: transparent;
-  height: 100%;
+.block:last-child {
+  margin-bottom: 2rem;
+  border: 0;
 }
 
-.block_placeholder:hover {
-  font-size: .75rem;
-  padding: 0rem;
-  background-color: transparent;
-  color: black;
-  border: 1px black dashed;
+.block.project:hover {
+  cursor:pointer;
+  box-shadow: var(--focus-shadow-inner)
+}
+
+/* Body style for shortest (15-minute) blocks */
+
+.block.short .block-body {
+  align-items: flex-start;
+  font-size: .7rem;
+}
+
+.block.short span {
+  font-size: .7rem;
+}
+
+/************************************/
+
+/* Body style for all other blocks */
+
+.block-body {
+  display: flex;
+  align-items: flex-end;
+  gap: .5rem;
+}
+
+.block-body p {
+  margin: 0;
+}
+
+.block-body span {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
+/************************************/
+
+/* Spacer styles */
+
+.block.spacer {
+  background-color: white;
+  border-radius: 0;
+  border-width: 0;
+  margin-right: 0;
+}
+
+.block.spacer.hour-end {
+  border-width: 0 0 1px;
+}
+
+.block.project + .hour-start {
+  border-width: 1px 0 0 0;
+}
+
+.block.spacer:hover {
+  box-shadow: var(--focus-shadow-inner);
 }

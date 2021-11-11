@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   width: 66%;
+  margin-bottom: -15px;
 }
 
 .dayScheduleHeader {

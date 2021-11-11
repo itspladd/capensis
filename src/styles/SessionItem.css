@@ -18,10 +18,6 @@
   outline: none;
 }
 
-.session-item:last-child {
-  margin-bottom: 2rem;
-}
-
 .session-item form {
   display: flex;
   flex-flow: row wrap;
