@@ -67,7 +67,7 @@ export default function SessionItem(props) {
   useEffect(() => {
     console.log(status)
     status === STATUSES.SUCCESS &&
-    setTimeout(() => setStatus(STATUSES.STABLE), 3500)
+    setTimeout(() => setStatus(STATUSES.STABLE), 2500)
   }, [status])
 
   return (

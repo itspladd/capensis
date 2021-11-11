@@ -1,3 +1,5 @@
+@import './global.css';
+
 .session-list {
   width: 100%;
   transition: all .3s;
@@ -5,5 +7,4 @@
 }
 
 .session-list:focus-within {
-  filter: drop-shadow(0 0 .2rem var(--egypt-blue));
 }

@@ -14,7 +14,7 @@
 }
 
 .session-item:focus, .session-item:focus-within {
-  box-shadow: inset 0 0 .2rem var(--egypt-blue);
+  box-shadow: var(--focus-shadow-inner);
   outline: none;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .session-item.success {
-  background-color: rgb(158, 206, 158);
+  background-color: rgb(170, 255, 170);
 }
 
 .session-item.deleting {
@@ -118,7 +118,7 @@
 
 .session-item input {
   border: 0px solid rgba(0,0,0, .125);
-  background-color: rgba(0, 140, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: .5rem;
   padding-left: 0.25rem;
   transition: all .15s;

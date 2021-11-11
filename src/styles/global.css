@@ -1,7 +1,17 @@
 html {
+  /* Colors */
   --egypt-blue: #1034A6;
+
+  /* Fonts */
+  --logo-font: 'Yellowtail', cursive;
+
+  /* Shadows */
+  --focus-shadow-outer: drop-shadow(0 0 .1rem var(--egypt-blue));
+  --focus-shadow-inner: inset 0 0 .15rem var(--egypt-blue);
+
+  /* Animations */
   --anim-delete: slide-left .3s forwards, collapse .3s .2s forwards;
-  --logo-font: 'Yellowtail', cursive
+  --anim-swipe-in-out: swipe .3s linear 1, swipe .3s linear 2s 1 forwards;
 }
 
 @keyframes slide-left {
@@ -20,5 +30,12 @@ html {
     padding-top: 0;
     padding-bottom: 0;
     border-width: 0;
+  }
+}
+
+@keyframes swipe {
+  0% {
+    opacity: 0%;
+    transform:  translate(5px, -5px) rotate(-45deg);
   }
 }
