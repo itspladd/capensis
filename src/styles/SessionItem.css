@@ -1,3 +1,5 @@
+@import './global.css';
+
 .session-item {
   display: flex;
   flex-flow: row;
@@ -9,6 +11,11 @@
   overflow: hidden;
   min-height: 5rem;
   transition: all .3s;
+}
+
+.session-item:focus, .session-item:focus-within {
+  box-shadow: var(--focus-shadow-inner);
+  outline: none;
 }
 
 .session-item:last-child {
@@ -28,16 +35,20 @@
 
 
 /* Status-specific styles */
+.session-item.editing {
+  background-color: rgb(203, 255, 255);
+}
+
 .session-item.submitting {
   background-color: rgb(0, 255, 242);
 }
 
 .session-item.success {
-  background-color: rgb(158, 206, 158);
+  background-color: rgb(170, 255, 170);
 }
 
 .session-item.deleting {
-  animation: slide-left .3s forwards, collapse .3s .2s forwards;
+  animation: var(--anim-delete);
 }
 /******************************/
 
@@ -107,7 +118,7 @@
 
 .session-item input {
   border: 0px solid rgba(0,0,0, .125);
-  background-color: rgba(0, 140, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
   border-radius: .5rem;
   padding-left: 0.25rem;
   transition: all .15s;
@@ -115,7 +126,7 @@
 
 .session-item input:focus {
   outline:none;
-  box-shadow:0 0 .5rem blue;
+  box-shadow:0 0 .5rem var(--egypt-blue);
 }
 
 @media (min-width: 600px) {
@@ -203,24 +214,5 @@
   .session-item form {
     flex-direction: row;
     margin-right: .5rem;
-  }
-}
-
-@keyframes slide-left {
-  100% {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-}
-
-@keyframes collapse {
-  100% {
-    height: 0;
-    min-height: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    padding-top: 0;
-    padding-bottom: 0;
-    border-width: 0;
   }
 }

@@ -1,5 +1,10 @@
+@import './global.css';
+
 .session-list {
   width: 100%;
   transition: all .3s;
   margin-bottom: -15px;
+}
+
+.session-list:focus-within {
 }
