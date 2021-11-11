@@ -82,7 +82,7 @@ export function makeDurationFromHHMM(start, end) {
 }
 
 // Takes in a 24h hour and returns AM or PM.
-export function AMorPM(hour) {
+export function amOrPm(hour) {
   return hour < 12 ? "am" : "pm"
 }
 
@@ -90,8 +90,8 @@ export function AMorPM(hour) {
   the start and end of a time interval.
 */
 export function intervalAMPM(hour1, hour2) {
-  if (AMorPM(hour1) === AMorPM(hour2)) {
-    return ["", AMorPM(hour1)];
+  if (amOrPm(hour1) === amOrPm(hour2)) {
+    return ["", amOrPm(hour1)];
   }
   return ["am", "pm"]
 }
