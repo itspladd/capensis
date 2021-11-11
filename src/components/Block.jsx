@@ -1,10 +1,10 @@
 import '../styles/Block.css'
-import { makeTimeString } from '../helpers/stringHelpers'
+import { makeTimeString, shortenHHMM } from '../helpers/stringHelpers'
 
 export default function Block(props) {
   const { title, project_id, length, start_time, end_time } = props;
 
-  const startTimeStr = makeTimeString(start_time)
+  const startTimeStr = shortenHHMM(makeTimeString(start_time))
   const endTimeStr = makeTimeString(end_time)
 
   // Is this block a placeholder?

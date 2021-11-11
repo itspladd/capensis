@@ -4,6 +4,7 @@
   flex-direction: column;
   overflow: scroll;
   scroll-behavior: smooth;
+  margin-bottom: -15px; /* Covers up the horizontal scrollbar. */
 }
 
 .sessions header {

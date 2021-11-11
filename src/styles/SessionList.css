@@ -3,8 +3,9 @@
 .session-list {
   width: 100%;
   transition: all .3s;
-  margin-bottom: -15px;
+  margin-bottom: .5rem;
 }
 
-.session-list:focus-within {
+.session-list:last-child {
+  margin-bottom: 2rem; /* Ensure enough room at bottom of scroll area */
 }

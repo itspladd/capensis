@@ -13,6 +13,11 @@ export function makeTimeString(time) {
   return new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'})
 }
 
+export function shortenHHMM(time) {
+  console.log(time.split(':')[1]);
+  return time.split(':')[1] === "00" ? time.split(':')[0] : time;
+}
+
 // Give time in HH:MM without AM or PM.
 export function makeHHMMTimeString(time) {
   return new Date(time).toLocaleTimeString([], 
