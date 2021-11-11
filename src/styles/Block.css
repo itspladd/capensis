@@ -7,8 +7,9 @@
   border-width: 0px 0px 1px;
   border-radius: .3rem;
   display: flex;
-  gap: .5rem;
-  padding-left: 0.5rem;
+  align-items: flex-start;
+  padding: 0 0 0 0.5rem;
+  margin-right: .5rem;
 }
 
 .block:last-child {
@@ -16,23 +17,58 @@
   border: 0;
 }
 
-.block p {
+.block.project:hover {
+  cursor:pointer;
+  box-shadow: var(--focus-shadow-inner)
+}
+
+/* Body style for shortest (15-minute) blocks */
+
+.block.short .block-body {
+  align-items: flex-start;
+  font-size: .7rem;
+}
+
+.block.short span {
+  font-size: .7rem;
+}
+
+/************************************/
+
+/* Body style for all other blocks */
+
+.block-body {
+  display: flex;
+  align-items: flex-end;
+  gap: .5rem;
+}
+
+.block-body p {
   margin: 0;
 }
 
-.block span {
+.block-body span {
   font-size: 0.8rem;
   margin: 0;
 }
+
+/************************************/
+
+/* Spacer styles */
 
 .block.spacer {
   background-color: white;
   border-radius: 0;
   border-width: 0;
+  margin-right: 0;
 }
 
-.block.spacer.hour-line {
+.block.spacer.hour-end {
   border-width: 0 0 1px;
+}
+
+.block.project + .hour-start {
+  border-width: 1px 0 0 0;
 }
 
 .block.spacer:hover {
