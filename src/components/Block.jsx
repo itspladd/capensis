@@ -1,11 +1,10 @@
 import '../styles/Block.css'
-import { makeTimeString, shortenHHMM } from '../helpers/stringHelpers'
+import { makeTimeString, makeShortIntervalString } from '../helpers/stringHelpers'
 
 export default function Block(props) {
   const { title, project_id, length, start_time, end_time } = props;
 
-  const startTimeStr = shortenHHMM(makeTimeString(start_time))
-  const endTimeStr = makeTimeString(end_time)
+  const interval = makeShortIntervalString(start_time, end_time);
 
   // Is this block a placeholder?
   const placeholder = project_id === -1;
@@ -22,7 +21,7 @@ export default function Block(props) {
         projectid={project_id}
       >
         {!placeholder && <h5>{title}</h5>}
-        {startTimeStr} to {endTimeStr}
+        {interval}
       </div>
     </li>
   )

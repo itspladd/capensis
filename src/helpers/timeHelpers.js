@@ -30,6 +30,11 @@ export function getTimeIntervalUnits(start, end) {
   return [h, m, s]
 }
 
+export function getHM(time) {
+  const obj = new Date(time);
+  return [obj.getHours(), obj.getMinutes()];
+}
+
 // Set h/min/s/ms of a given date to 0.
 export function makeZeroDate(date) {
   date.setHours(0);

@@ -1,21 +1,16 @@
-import { getLastSunday, getNextSaturday } from './timeHelpers'
+import { getLastSunday, getNextSaturday, getHM } from './timeHelpers'
 
 // Gives time in H:MM AM/PM format, for humans to read.
 export function makeTimeString(time) {
   if (time.length === 5) {
     const timeArr = time.split(":");
-    let amPm = timeArr[0] >= 12 ? "PM" : "AM"
+    let amPm = timeArr[0] >= 12 ? "pm" : "am"
 
     // -12 hours if we're at 13:00 or onward
     timeArr[0] -= timeArr[0] > 12 ? 12 : 0;
     return `${timeArr.join(":")} ${amPm}`
   }
   return new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'})
-}
-
-export function shortenHHMM(time) {
-  console.log(time.split(':')[1]);
-  return time.split(':')[1] === "00" ? time.split(':')[0] : time;
 }
 
 // Give time in HH:MM without AM or PM.
@@ -84,4 +79,29 @@ export function makeDurationFromHHMM(start, end) {
   const hours = h ? `${h}h ` : '';
   const mins = `${m}m`
   return hours + mins
+}
+
+// Takes in a 24h hour and returns AM or PM.
+export function AMorPM(hour) {
+  return hour < 12 ? "am" : "pm"
+}
+
+/* Return an array containing the two AM/PM strings to add to
+  the start and end of a time interval.
+*/
+export function intervalAMPM(hour1, hour2) {
+  if (AMorPM(hour1) === AMorPM(hour2)) {
+    return ["", AMorPM(hour1)];
+  }
+  return ["am", "pm"]
+}
+
+export function makeShortIntervalString(start, end) {
+  const [startH, startM] = getHM(start);
+  const [endH, endM] = getHM(end);
+  const [AMPM1, AMPM2] = intervalAMPM(startH, endH);
+
+  const startStr = `${startH}${startM ? ":" + startM : ""} ${AMPM1}`
+  const endStr = `${endH}${endM ? ":" + endM : ""} ${AMPM2}`
+  return `${startStr} – ${endStr}`
 }
