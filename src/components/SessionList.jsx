@@ -3,16 +3,22 @@ import '../styles/SessionList.css'
 import ListGroup from 'react-bootstrap/ListGroup'
 
 import SessionItem from './SessionItem'
+import STATUSES from '../constants/statuses'
 
 export default function SessionList(props) {
   const { title, sessions, refreshData } = props;
 
   const sessionList = sessions.map(session => {
+    const initialStatus =
+      !session.start_time ? STATUSES.PROJECT :
+      !session.end_time ? STATUSES.ACTIVE :
+      STATUSES.STABLE
     return (
       <SessionItem
         {...session}
         key = {session.id}
         refreshData = {refreshData}
+        initialStatus = {initialStatus}
       />
     )
   })
@@ -20,14 +26,9 @@ export default function SessionList(props) {
   return (
     <ListGroup className='session-list'>
       <ListGroup.Item className="session-item header">
-      {title}
+      { title }
       </ListGroup.Item>
-      {sessionList.length ?
-        sessionList :
-        <ListGroup.Item className="session-item empty">
-          No time tracked for this project!
-        </ListGroup.Item>
-      }
+      { sessionList }
     </ListGroup>
   )
 }
