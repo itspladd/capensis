@@ -72,6 +72,8 @@ export default function App() {
           <Router basename="/capensis">
             <Header username={username} handleLogout={logout} currentSession={currentSession} />
             <StatusBar currentSession={currentSession} projects={projects} />
+            {/* NewBlockForm is a popup modal, so it's always here,
+            but only displayed if "show" is true */}
             <NewBlockForm
               show={show}
               handleClose={closeForm}

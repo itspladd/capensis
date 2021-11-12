@@ -8,7 +8,7 @@ export default function useAuthentication() {
   // Attempt to authenticate the user if they've logged in previously.
   useEffect(() => {
     console.log('authenticating')
-    axios.post('/api/authenticate')
+    axios.post('/api/auth')
       .then(res => {
         setUsername(res.data.username)
         setLoading(false);
@@ -21,7 +21,7 @@ export default function useAuthentication() {
 
   const logout = event => {
     event.preventDefault();
-    axios.post(`/api/logout`)
+    axios.post(`/api/auth/logout`)
          .then(res => setUsername(res.data.username))
   }
 
