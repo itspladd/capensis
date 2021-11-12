@@ -70,7 +70,7 @@ export default function App() {
       {!loading && username &&
         <>
           <Router basename="/capensis">
-            <Header username={username} handleLogout={logout} currentSession={currentSession} />
+            <Header username={username} handleLogout={logout} />
             <StatusBar currentSession={currentSession} projects={projects} />
             {/* NewBlockForm is a popup modal, so it's always here,
             but only displayed if "show" is true */}
