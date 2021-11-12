@@ -70,7 +70,7 @@ function PureSessionItem (props, ref) {
   }
 
   return (
-    <ListGroupItem as="a" href={`#${id}`} className={`session-item ${status}`}>
+    <ListGroupItem as="a" className={`session-item ${status}`}>
       <div ref={scrollRef} className="session-item-content">
         {title && <strong className="session-item-title">{title}</strong>}
         <div className="session-item-date">
