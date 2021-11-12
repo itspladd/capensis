@@ -17,9 +17,9 @@ import STATUSES from '../constants/statuses'
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { id, start_time, end_time, refreshData } = props;
+  const { id, start_time, end_time, refreshData, initialStatus = STATUSES.STABLE } = props;
 
-  const [status, setStatus] = useState(STATUSES.STABLE);
+  const [status, setStatus] = useState(initialStatus);
   const [times, changeTimes] = useControlledForms({
     start: makeHHMMTimeString(start_time),
     end: makeHHMMTimeString(end_time)
