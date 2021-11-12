@@ -2,18 +2,14 @@ import Button from 'react-bootstrap/Button'
 import SessionList from './SessionList'
 
 import { makeWeekString } from '../helpers/stringHelpers'
+import { projectsWithSessions, projectsWithoutSessions } from '../helpers/projectHelpers'
 
 import '../styles/SessionsPage.css'
 
 export default function Sessions (props) {
   const { day, sessions=[], projects=[], refreshData, lastWeek, nextWeek } = props;
 
-  const sessionsByProject = Object.values(projects)
-    .filter(project => {
-      return sessions
-        .filter(session => session.project_id === project.id)
-        .length
-    })
+  const sessionListsByProject = projectsWithSessions(projects, sessions)
     .map(project => (
       <SessionList
       title={project.title}
@@ -22,10 +18,7 @@ export default function Sessions (props) {
       />
     ))
 
-  const untrackedProjects = Object.values(projects)
-    .filter(project => {
-      return sessions.filter(session => session.project_id !== project.id)
-    })
+  const untrackedProjects = projectsWithoutSessions(projects, sessions)
 
   return (
     <section className="sessions">
@@ -47,7 +40,7 @@ export default function Sessions (props) {
           <span className="text-muted">{makeWeekString('EN-US', day)}</span>
         </div>
       </header>
-      { sessionsByProject }
+      { sessionListsByProject }
       { untrackedProjects.length > 0 &&
         <SessionList
           title={"Untracked Projects"}
