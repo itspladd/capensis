@@ -12,6 +12,7 @@ export default function Sessions (props) {
   const sessionListsByProject = projectsWithSessions(projects, sessions)
     .map(project => (
       <SessionList
+      key={project.id}
       title={project.title}
       sessions={sessions.filter(session => session.project_id === project.id)}
       refreshData={refreshData}
