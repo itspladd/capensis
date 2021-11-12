@@ -13,7 +13,7 @@ export default function Block(props) {
 
   const lengthStr = spacer ? "1rem" : `${length}rem`
 
-  const blockClass = classNames("block", "list-group-item", {
+  const blockClass = classNames("block", "list-group-item", "session-toggler", {
     spacer,
     project: !spacer,
     short: length === 1,

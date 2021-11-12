@@ -15,12 +15,12 @@ export default function useSessionTracking(username, refreshData) {
 
   const toggleSession = event => {
     // Try to find the nearest "block" class element.
-    const block = event.target.closest('.block')
+    const toggleElement = event.target.closest('.session-toggler')
 
     // If there is one, then the user clicked on a block.
-    if (block) {
+    if (toggleElement) {
       // Get the project ID from the block. Cast it to a number for comparison later.
-      const projectId = Number(block.getAttribute('projectid'))
+      const projectId = Number(toggleElement.getAttribute('projectid'))
 
       // If we have a session running already, ping the API to stop it.
       if (currentSession) {
