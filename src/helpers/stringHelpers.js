@@ -1,4 +1,4 @@
-import { getLastSunday, getNextSaturday, getHM } from './timeHelpers'
+import { getLastSunday, getNextSaturday, getHM, to12H } from './timeHelpers'
 
 // Gives time in H:MM AM/PM format, for humans to read.
 export function makeTimeString(time) {
@@ -82,7 +82,7 @@ export function makeDurationFromHHMM(start, end) {
 }
 
 // Takes in a 24h hour and returns AM or PM.
-export function AMorPM(hour) {
+export function amOrPm(hour) {
   return hour < 12 ? "am" : "pm"
 }
 
@@ -90,18 +90,19 @@ export function AMorPM(hour) {
   the start and end of a time interval.
 */
 export function intervalAMPM(hour1, hour2) {
-  if (AMorPM(hour1) === AMorPM(hour2)) {
-    return ["", AMorPM(hour1)];
+  if (amOrPm(hour1) === amOrPm(hour2)) {
+    return ["", amOrPm(hour1)];
   }
   return ["am", "pm"]
 }
 
 export function makeShortIntervalString(start, end) {
-  const [startH, startM] = getHM(start);
-  const [endH, endM] = getHM(end);
-  const [AMPM1, AMPM2] = intervalAMPM(startH, endH);
+  const [startH24, startM] = getHM(start);
+  const [endH24, endM] = getHM(end);
+  const [AMPM1, AMPM2] = intervalAMPM(startH24, endH24);
+  const [startH12, endH12] = to12H(startH24, endH24);
 
-  const startStr = `${startH}${startM ? ":" + startM : ""} ${AMPM1}`
-  const endStr = `${endH}${endM ? ":" + endM : ""} ${AMPM2}`
+  const startStr = `${startH12}${startM ? ":" + startM : ""}${AMPM1}`
+  const endStr = `${endH12}${endM ? ":" + endM : ""}${AMPM2}`
   return `${startStr} – ${endStr}`
 }
