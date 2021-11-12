@@ -35,6 +35,21 @@ export function getHM(time) {
   return [obj.getHours(), obj.getMinutes()];
 }
 
+// Turn an arbitrary number of input arguments to their 12h versions
+export function to12H() {
+  const result = Array.from(arguments).map(hour => {
+    if (hour === 0) {
+      return 12;
+    }
+    if (hour > 12) {
+      return hour - 12;
+    }
+    return hour
+  })
+
+  return result.length === 1 ? result[0] : result;
+}
+
 // Set h/min/s/ms of a given date to 0.
 export function makeZeroDate(date) {
   date.setHours(0);
