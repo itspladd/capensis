@@ -9,14 +9,23 @@ export default function Sessions (props) {
   const { day, sessions=[], projects=[], refreshData, lastWeek, nextWeek } = props;
 
   const sessionsByProject = Object.values(projects)
+    .filter(project => {
+      return sessions
+        .filter(session => session.project_id === project.id)
+        .length
+    })
     .map(project => (
       <SessionList
       title={project.title}
       sessions={sessions.filter(session => session.project_id === project.id)}
       refreshData={refreshData}
-      >
-      </SessionList>
+      />
     ))
+
+  const untrackedProjects = Object.values(projects)
+    .filter(project => {
+      return sessions.filter(session => session.project_id !== project.id)
+    })
 
   return (
     <section className="sessions">
@@ -38,7 +47,14 @@ export default function Sessions (props) {
           <span className="text-muted">{makeWeekString('EN-US', day)}</span>
         </div>
       </header>
-      {sessionsByProject}
+      { sessionsByProject }
+      { untrackedProjects.length > 0 &&
+        <SessionList
+          title={"Untracked Projects"}
+          sessions={untrackedProjects}
+          refreshData={refreshData}
+        />
+      }
     </section>
   )
 }
