@@ -17,7 +17,7 @@ import STATUSES from '../constants/statuses'
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { id, start_time, end_time, refreshData, initialStatus = STATUSES.STABLE } = props;
+  const { id, start_time, end_time, refreshData, title="", initialStatus = STATUSES.STABLE } = props;
 
   const [status, setStatus] = useState(initialStatus);
   const [times, changeTimes] = useControlledForms({
@@ -73,6 +73,7 @@ export default function SessionItem(props) {
   return (
     <PureSessionItem
       status={status}
+      title={title}
       refDay={start_time}
       start={times.start}
       end={times.end}

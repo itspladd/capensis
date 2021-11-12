@@ -46,6 +46,21 @@
 .session-item.deleting {
   animation: var(--anim-delete);
 }
+
+.session-item.project {
+  min-height: 2rem;
+  padding: 0;
+}
+
+.session-item.project .session-item-content {
+  flex-direction: row;
+  padding: .1rem .5rem;
+  align-items: center;
+}
+
+.session-item.project .session-item-status {
+  display: none;
+}
 /******************************/
 
 .session-item.header {

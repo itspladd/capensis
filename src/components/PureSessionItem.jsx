@@ -1,5 +1,6 @@
 import { forwardRef, useRef, useImperativeHandle, useEffect } from 'react'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
+import classNames from 'classnames'
 
 import { makeDurationFromHHMM, makeWeekDayString, makeDateString, makeTimeString } from '../helpers/stringHelpers'
 
@@ -47,6 +48,7 @@ function PureSessionItem (props, ref) {
   const duration = makeDurationFromHHMM(start, end);
   const weekday = makeWeekDayString(LANG, refDay);
   const date = makeDateString(LANG, refDay);
+  const showTitle = status === STATUSES.PROJECT
 
   // Statuses and their components
   const statusComponents = {
@@ -66,13 +68,26 @@ function PureSessionItem (props, ref) {
     submitting: <Loading iconOnly>Saving...</Loading>,
     deleting: "",
     success: <SuccessIcon />,
-    failure: "Submit failed."
+    failure: "Submit failed.",
+    project: ""
   }
 
+  const outerClassName = classNames("session-item", {
+    [status]: true
+  })
+
+  const contentClassName = classNames("session-item-content", {
+    "session-toggler": status === STATUSES.PROJECT
+  })
+
   return (
-    <ListGroupItem as="a" className={`session-item ${status}`}>
-      <div ref={scrollRef} className="session-item-content">
-        {title && <strong className="session-item-title">{title}</strong>}
+    <ListGroupItem as="a" className={outerClassName}>
+      <div ref={scrollRef} className={contentClassName} projectid={id}>
+        {showTitle && <strong className="session-item-title">{title}</strong>}
+        { status === STATUSES.PROJECT ?
+         <span className="text-muted">Click to start tracking</span>
+        :
+        <>
         <div className="session-item-date">
             <strong>{weekday}</strong>
             <span className="text-muted">{date}</span>
@@ -98,6 +113,8 @@ function PureSessionItem (props, ref) {
             </>
           }
         </div>
+        </>
+        }
       </div>
       <div className={`session-item-status ${status}`}>
         {statusComponents[status]}
