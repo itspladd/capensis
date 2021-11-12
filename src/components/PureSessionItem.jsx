@@ -50,6 +50,7 @@ function PureSessionItem (props, ref) {
 
   // Statuses and their components
   const statusComponents = {
+    active: "active",
     stable: (
       <>
       <Button variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</Button>
