@@ -15,6 +15,7 @@ export function makeTimeString(time) {
 
 // Give time in HH:MM without AM or PM.
 export function makeHHMMTimeString(time) {
+  time = time || Date.now();
   return new Date(time).toLocaleTimeString([], 
     {
       hour12: false,
