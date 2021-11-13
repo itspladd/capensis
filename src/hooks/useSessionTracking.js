@@ -13,6 +13,7 @@ export default function useSessionTracking(username, refreshData) {
          })
   }, [username])
 
+  // Promise-based session toggling (so we can chain it elsewhere)
   const toggleSession = event => {
     // Try to find the nearest "block" class element.
     const toggleElement = event.target.closest('.session-toggler')
@@ -36,6 +37,7 @@ export default function useSessionTracking(username, refreshData) {
         // Otherwise, ping the API to start a new session and start tracking.
         axios.post(`/api/sessions`, { project_id: projectId })
           .then(res => setCurrentSession(res.data))
+          .then(refreshData)
       }
     }
 

@@ -18,11 +18,12 @@ function PureSessionItem (props, ref) {
   const {
     status,
     id,
+    projectId,
     title,
     start,
     end,
     refDay,
-    changeTimes,
+    onChange,
     submit,
     deleteItem,
     setStatus,
@@ -52,7 +53,7 @@ function PureSessionItem (props, ref) {
 
   // Statuses and their components
   const statusComponents = {
-    active: "active",
+    active: "Click to stop tracking",
     stable: (
       <>
       <Button variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</Button>
@@ -77,12 +78,12 @@ function PureSessionItem (props, ref) {
   })
 
   const contentClassName = classNames("session-item-content", {
-    "session-toggler": status === STATUSES.PROJECT
+    "session-toggler": status === STATUSES.PROJECT || status === STATUSES.ACTIVE
   })
 
   return (
     <ListGroupItem as="a" className={outerClassName}>
-      <div ref={scrollRef} className={contentClassName} projectid={id}>
+      <div ref={scrollRef} className={contentClassName} projectid={projectId}>
         {showTitle && <strong className="session-item-title">{title}</strong>}
         { status === STATUSES.PROJECT ?
          <span className="text-muted">Click to start tracking</span>
@@ -98,11 +99,11 @@ function PureSessionItem (props, ref) {
             <form>
               <fieldset>
                 <label htmlFor="start">Start</label>
-                <input ref={inputRef} id="start" type="time" onChange={changeTimes} value={start}/>
+                <input ref={inputRef} id="start" type="time" onChange={onChange} value={start}/>
               </fieldset>
               <fieldset>
                 <label htmlFor="end">End</label>
-                <input id="end" type="time" onChange={changeTimes} value={end}/>
+                <input id="end" type="time" onChange={onChange} value={end}/>
                 <span className="text-muted">({duration})</span>
               </fieldset>
             </form>

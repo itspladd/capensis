@@ -17,10 +17,10 @@ import STATUSES from '../constants/statuses'
 const LANG = 'EN-US'
 
 export default function SessionItem(props) {
-  const { id, start_time, end_time, refreshData, title="", initialStatus = STATUSES.STABLE } = props;
-
+  const { id, project_id=id, start_time, end_time, refreshData, title="", initialStatus = STATUSES.STABLE } = props;
+  console.log('rerendering sessionitem', id, end_time)
   const [status, setStatus] = useState(initialStatus);
-  const [times, changeTimes] = useControlledForms({
+  const [times, handleTimeChange, setTimes] = useControlledForms({
     start: makeHHMMTimeString(start_time),
     end: makeHHMMTimeString(end_time)
   })
@@ -64,11 +64,26 @@ export default function SessionItem(props) {
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
+  // If we change the status to SUCCESS, set the status back to STABLE
+  // after 2.5 seconds.
   useEffect(() => {
-    console.log(status)
     status === STATUSES.SUCCESS &&
     setTimeout(() => setStatus(STATUSES.STABLE), 2500)
   }, [status])
+
+  // If the incoming status or times change, update the status and times.
+  // This usually happens if refreshData fires outside the context of these
+  // components.
+  useEffect(() => {
+    setStatus(initialStatus)
+  }, [initialStatus])
+
+  useEffect(() => {
+    setTimes({
+      start: makeHHMMTimeString(start_time),
+      end: makeHHMMTimeString(end_time)
+    })
+  }, [setTimes, start_time, end_time])
 
   return (
     <PureSessionItem
@@ -77,11 +92,12 @@ export default function SessionItem(props) {
       refDay={start_time}
       start={times.start}
       end={times.end}
-      changeTimes={changeTimes}
+      onChange={handleTimeChange}
       submit={(e) => handleSubmit(e, id)}
       deleteItem={(e) => handleDelete(e, id)}
       setStatus={setStatus}
       id={id}
+      projectId={project_id}
       ref={sessionItemRef}
     >
     </PureSessionItem>
