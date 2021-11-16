@@ -49,15 +49,17 @@ export default function Sessions (props) {
           <span className="text-muted">{makeWeekString('EN-US', day)}</span>
         </div>
       </header>
-      { sessionListsByProject }
-      { untrackedProjects.length > 0 &&
-        <SessionList
-          title={"Untracked Projects"}
-          sessions={untrackedProjects}
-          refreshData={refreshData}
-          toggleSession={toggleSession}
-        />
-      }
+      <article>
+        { sessionListsByProject }
+        { untrackedProjects.length > 0 &&
+          <SessionList
+            title={"Untracked Projects"}
+            sessions={untrackedProjects}
+            refreshData={refreshData}
+            toggleSession={toggleSession}
+          />
+        }
+      </article>
     </section>
   )
 }

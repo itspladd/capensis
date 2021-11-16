@@ -1,0 +1,35 @@
+button.tab {
+  border-radius: .2rem 0 0 .2rem;
+  padding: .25rem;
+  border-right: 0;
+  box-shadow: 1px 0rem;
+  transition: all .15s;
+}
+
+button.tab:focus {
+  margin-left: -.5rem;
+}
+
+button.tab:hover {
+  margin-left: -.5rem;
+}
+
+@media (min-width: 600px) {
+  button.tab {
+    padding: .25rem;
+    border-right: 0;
+    box-shadow: 1px 0rem;
+    transition: all .15s;
+    border-radius: .2rem;
+    flex: 1 0;
+    width: 4rem;
+  }
+
+  button.tab:focus {
+    margin-left: inherit;
+  }
+
+  button.tab:hover {
+    margin-left: inherit;
+  }
+}

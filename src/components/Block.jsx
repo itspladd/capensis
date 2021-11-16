@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHM } from '../helpers/timeHelpers'
 
-import Button from 'react-bootstrap/Button'
+import TabButton from './TabButton'
 import axios from 'axios'
 
 export default function Block(props) {
@@ -55,8 +55,8 @@ export default function Block(props) {
             <p>{title}</p>
             <span className="text-muted">{interval}</span>
           </div>
-          <Button onClick={handleEdit}>Edit</Button>
-          <Button onClick={handleDelete}>Delete</Button>
+          <TabButton onClick={handleEdit}>Edit</TabButton>
+          <TabButton onClick={handleDelete}>Delete</TabButton>
         </>
         }
     </li>

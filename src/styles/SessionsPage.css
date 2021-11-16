@@ -2,9 +2,6 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  overflow: scroll;
-  scroll-behavior: smooth;
-  margin-bottom: -15px; /* Covers up the horizontal scrollbar. */
 }
 
 .sessions.new .session-list, .sessions.loading .session-list {
@@ -15,10 +12,13 @@
 
 .sessions header {
   display: flex;
+  width: 100%;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: .4rem;
   margin-bottom: .2rem;
+  padding-left: .4rem;
+  border-width: 0 0 1px 0;
 }
 
 .sessions header nav {
@@ -37,10 +37,20 @@
   margin-bottom: 0;
 }
 
+.sessions article {
+  overflow: scroll;
+  scroll-behavior: smooth;
+  height: 100%;
+  margin-bottom: -15px; /* Covers up the horizontal scrollbar. */
+}
+
 @media (min-width: 600px) {
+  .sessions {
+    width: 80%;
+  }
   .sessions header {
     align-items: flex-end;
-    margin: 0 4rem .2rem 4rem;
+    border-width: 0 1px 1px 1px;
   }
 
   .sessions header div {

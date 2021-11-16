@@ -80,7 +80,7 @@ export default function App() {
               blocks={blocks}
               refreshData={refreshData}
             />
-            <div className="App-body mt-1">
+            <div className="App-body">
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
                   <DaySchedule
