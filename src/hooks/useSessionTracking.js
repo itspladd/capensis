@@ -2,44 +2,56 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 export default function useSessionTracking(username, refreshData) {
-  const [currentSession, setCurrentSession] = useState(null);
+  const [currentId, setCurrentId] = useState(null);
+  const [currentProject, setCurrentProject] = useState(null);
+
+  const extractResponse = res => {
+    const array = [...res.data]
+    if (!array.length) return {};
+    if (array.length === 1) return array[0];
+    if (array.length > 1) return array;
+  }
+
+  const updateSession = res => {
+    const { id = null, project_id = null } = extractResponse(res);
+    setCurrentId(id);
+    setCurrentProject(project_id);
+  }
+
+  const clearSession = () => {
+    setCurrentProject(null);
+    setCurrentId(null);
+  }
 
   useEffect(() => {
     // When the username changes, ping the server to see if there's an open session.
     // If there is, load it into the state.
     axios.get(`/api/sessions/current`)
-         .then(res => {
-           if(res.data[0]) setCurrentSession(res.data[0]);
-         })
+         .then(updateSession)
   }, [username])
 
-  const toggleSession = event => {
-    // Try to find the nearest "block" class element.
-    const block = event.target.closest('.block')
-
-    // If there is one, then the user clicked on a block.
-    if (block) {
-      // Get the project ID from the block. Cast it to a number for comparison later.
-      const projectId = Number(block.getAttribute('projectid'))
-
-      // If we have a session running already, ping the API to stop it.
-      if (currentSession) {
-        axios.patch(`/api/sessions`, { session_id: currentSession.id })
-          .then(refreshData)
-      }
-
-      // If the input matches the currently-tracked session, just stop
-      // the current session without starting a new one.
-      if (currentSession && projectId === currentSession.project_id) {
-        setCurrentSession(null);
-      } else {
-        // Otherwise, ping the API to start a new session and start tracking.
-        axios.post(`/api/sessions`, { project_id: projectId })
-          .then(res => setCurrentSession(res.data))
-      }
-    }
-
+  const startTracking = project_id => {
+    return axios.post(`/api/sessions`, { project_id })
+      .then(updateSession)
+      .then(refreshData)
   }
 
-  return [currentSession, toggleSession];
+  const stopTracking = () => {
+    return axios.patch(`/api/sessions`, { id: currentId })
+      .then(clearSession)
+      .then(refreshData)
+  }
+
+  const toggleSession = project_id => {
+    // If there's a new project id input, we're starting a new session.
+    const differentProject = project_id && (project_id !== currentProject);
+
+    // If we have a session running already, ping the API to stop it.
+    currentId && stopTracking()
+
+    // If we're toggling a new project, start tracking the new project.
+    differentProject && startTracking(project_id)
+  }
+
+  return [currentProject, toggleSession];
 }

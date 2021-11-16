@@ -4,12 +4,11 @@ import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHM } from '../helpers/timeHelpers'
 
 export default function Block(props) {
-  const { id, title, project_id, length, start_time, end_time } = props;
+  const { id, title, spacer, length, start_time, end_time, toggle } = props;
 
   const interval = makeShortIntervalString(start_time, end_time);
 
   // Is this block a placeholder?
-  const spacer = project_id === -1;
 
   const lengthStr = spacer ? "1rem" : `${length}rem`
 
@@ -23,12 +22,14 @@ export default function Block(props) {
                 getHM(start_time)[1] === 0,
   });
 
+  const handleClick = spacer ? (e) => {e.preventDefault()} : toggle
+
   return(
     <li
       id={id}
       className={blockClass}
       style={{height: lengthStr}}
-      projectid={project_id}
+      onClick={handleClick}
     >
         {!spacer &&
         <div className={"block-body"}>

@@ -7,10 +7,16 @@
   margin-bottom: -15px; /* Covers up the horizontal scrollbar. */
 }
 
+.sessions.new .session-list, .sessions.loading .session-list {
+  transition: none;
+  opacity: 0;
+  position:absolute;
+}
+
 .sessions header {
-  margin-left: .5rem;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: .4rem;
   margin-bottom: .2rem;
 }

@@ -31,6 +31,16 @@
 
 
 /* Status-specific styles */
+.session-item.new {
+  animation: var(--anim-expand-in);
+}
+
+.session-item.active {
+  background-color: rgb(143, 251, 255);
+  color: inherit;
+  border: inherit;
+}
+
 .session-item.editing {
   background-color: rgb(203, 255, 255);
 }
@@ -44,7 +54,22 @@
 }
 
 .session-item.deleting {
-  animation: var(--anim-delete);
+  animation: var(--anim-collapse-slide-out);
+}
+
+.session-item.project {
+  min-height: 2rem;
+  padding: 0;
+}
+
+.session-item.project .session-item-content {
+  flex-direction: row;
+  padding: .1rem .5rem;
+  align-items: center;
+}
+
+.session-item.project .session-item-status {
+  display: none;
 }
 /******************************/
 
