@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHM } from '../helpers/timeHelpers'
 
+import Button from 'react-bootstrap/Button'
+
 export default function Block(props) {
   const { id, title, spacer, length, start_time, end_time, toggle } = props;
 
@@ -24,6 +26,18 @@ export default function Block(props) {
 
   const handleClick = spacer ? (e) => {e.preventDefault()} : toggle
 
+  const handleEdit = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('clicked edit')
+  }
+
+  const handleDelete = e => {
+    e.preventDefault();
+    e.stopPropagation();
+    console.log('clicked delete')
+  }
+
   return(
     <li
       id={id}
@@ -32,10 +46,14 @@ export default function Block(props) {
       onClick={handleClick}
     >
         {!spacer &&
-        <div className={"block-body"}>
-          <p>{title}</p>
-          <span className="text-muted">{interval}</span>
-        </div>
+        <>
+          <div className={"block-body"}>
+            <p>{title}</p>
+            <span className="text-muted">{interval}</span>
+          </div>
+          <Button onClick={handleEdit}>Edit</Button>
+          <Button onClick={handleDelete}>Delete</Button>
+        </>
         }
     </li>
   )
