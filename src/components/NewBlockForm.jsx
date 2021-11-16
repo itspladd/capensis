@@ -12,18 +12,20 @@ import STRINGS from '../constants/strings'
 
 import { getBoundaryMinutes } from '../helpers/timeHelpers'
 
-export default function NewBlockForm(props) {
-  const { show, handleClose, currentDay, projects, blocks, refreshData } = props;
+const defaultFormValues = {
+  project: "",
+  startHour: "6",
+  startMinute: "00",
+  startAMPM: "0",
+  endHour: "6",
+  endMinute: "00",
+  endAMPM: "0"
+}
 
-  const [values, handleChange] = useControlledForms({
-    project: "",
-    startHour: "6",
-    startMinute: "00",
-    startAMPM: "0",
-    endHour: "6",
-    endMinute: "00",
-    endAMPM: "0"
-  });
+export default function NewBlockForm(props) {
+  const { show, initValues = defaultFormValues, handleClose, currentDay, projects, blocks, refreshData } = props;
+
+  const [values, handleChange] = useControlledForms(initValues);
 
   const [errors, formIsValid] = useNewBlockValidation(values, blocks, currentDay)
   const [showErrors, setShowErrors] = useState(false);
