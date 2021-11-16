@@ -20,7 +20,7 @@ export default function DaySchedule(props) {
 
   // Props:
   // blocks is an array of Block components.
-  const { blocks, day, goToTomorrow, goToYesterday, showForm } = props;
+  const { blocks, day, goToTomorrow, goToYesterday, showForm, toggleSession } = props;
 
   const [blocksWithPlaceholders, setBlocksWithPlaceholders] = useState([]);
 
@@ -112,6 +112,7 @@ export default function DaySchedule(props) {
         <BlockList
           blocks={blocksWithPlaceholders}
           day={day}
+          toggleSession={toggleSession}
         />
       </div>
     </div>

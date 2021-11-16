@@ -19,7 +19,7 @@ import NewBlockForm from './NewBlockForm';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
-import Sessions from './Sessions';
+import Sessions from './SessionComponents/Sessions';
 import Report from './Report';
 import Footer from './Footer';
 
@@ -40,7 +40,7 @@ export default function App() {
   const [week] = useWeek(day)
   const [loading, username, login, logout] = useAuthentication();
   const [blocks, sessions, refreshData] = useWeeklyData(username, week);
-  const [currentSession, toggleSession] = useSessionTracking(username, refreshData);
+  const [currentProject, toggleSession] = useSessionTracking(username, refreshData);
   const [showForm, closeForm, show] = usePopupModal();
   const [projects, setProjects] = useState({})
 
@@ -55,9 +55,7 @@ export default function App() {
   }, [username])
 
   return (
-    <div className="App"
-      onClick={toggleSession}
-    >
+    <div className="App">
       {/* If we haven't finished trying to log in: */}
       {loading && <Loading>Loading...</Loading>}
 
@@ -71,7 +69,7 @@ export default function App() {
         <>
           <Router basename="/capensis">
             <Header username={username} handleLogout={logout} />
-            <StatusBar currentSession={currentSession} projects={projects} />
+            <StatusBar currentProject={currentProject} projects={projects} />
             {/* NewBlockForm is a popup modal, so it's always here,
             but only displayed if "show" is true */}
             <NewBlockForm
@@ -91,6 +89,7 @@ export default function App() {
                     goToTomorrow={() => changeDay(1)}
                     goToYesterday={() => changeDay(-1)}
                     showForm={showForm}
+                    toggleSession={toggleSession}
                   />
                 </Route>
                 <Route exact path="/week" >
@@ -100,13 +99,14 @@ export default function App() {
                   <ProjectList projects={projects} setProjects={setProjects} />
                 </Route>
                 <Route exact path="/sessions">
-                  <Sessions 
+                  <Sessions
                     sessions={sessions}
                     projects={projects}
                     day={day}
                     lastWeek={() => changeDay(-7)}
                     nextWeek={() => changeDay(7)}
-                    refreshData={refreshData} />
+                    refreshData={refreshData}
+                    toggleSession={toggleSession} />
                 </Route>
                 <Route exact path="/reports" >
                   <Report

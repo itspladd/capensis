@@ -1,25 +1,25 @@
-import { forwardRef, useRef, useImperativeHandle, useEffect } from 'react'
+import { forwardRef, useRef, useImperativeHandle } from 'react'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
 import classNames from 'classnames'
 
-import { makeDurationFromHHMM, makeWeekDayString, makeDateString, makeTimeString } from '../helpers/stringHelpers'
+import { makeDurationFromHHMM, makeWeekDayString, makeDateString, makeTimeString } from '../../helpers/stringHelpers'
 
-import STATUSES from '../constants/statuses'
+import STATUSES from '../../constants/statuses'
 
 import Button from 'react-bootstrap/Button'
-import Loading from './Loading'
-import SuccessIcon from './SuccessIcon'
+import Loading from '../Loading'
+import SuccessIcon from '../SuccessIcon'
 
-import '../styles/SessionItem.css'
+import '../../styles/SessionItem.css'
 
 const LANG = "EN-US"
 
 function PureSessionItem (props, ref) {
   const {
     status,
-    id,
-    projectId,
     title,
+    project,
+    active,
     start,
     end,
     refDay,
@@ -27,6 +27,7 @@ function PureSessionItem (props, ref) {
     submit,
     deleteItem,
     setStatus,
+    handleToggle
   } = props;
 
   const scrollRef = useRef(null);
@@ -41,19 +42,13 @@ function PureSessionItem (props, ref) {
     }
   }));
 
-  useEffect(() => {
-    document.activeElement.blur();
-    status === STATUSES.EDITING && inputRef.current.focus();
-  }, [status])
-
-  const duration = makeDurationFromHHMM(start, end);
+  const duration = `${makeDurationFromHHMM(start, end)}${active ? ", active" : ""}`;
   const weekday = makeWeekDayString(LANG, refDay);
   const date = makeDateString(LANG, refDay);
-  const showTitle = status === STATUSES.PROJECT
 
   // Statuses and their components
   const statusComponents = {
-    active: "Click to stop tracking",
+    active: <Button variant="outline-dark" size="sm" onClick={handleToggle}>Stop</Button>,
     stable: (
       <>
       <Button variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</Button>
@@ -66,26 +61,23 @@ function PureSessionItem (props, ref) {
         <Button onClick={() => setStatus(STATUSES.STABLE)} variant="danger" size="sm" >Cancel</Button>
       </>
     ),
-    submitting: <Loading iconOnly>Saving...</Loading>,
+    loading: <Loading iconOnly>Saving...</Loading>,
     deleting: "",
     success: <SuccessIcon />,
-    failure: "Submit failed.",
-    project: ""
+    failure: "Submit failed."
   }
 
   const outerClassName = classNames("session-item", {
-    [status]: true
-  })
-
-  const contentClassName = classNames("session-item-content", {
-    "session-toggler": status === STATUSES.PROJECT || status === STATUSES.ACTIVE
+    [status]: true,
+    active,
+    project
   })
 
   return (
-    <ListGroupItem as="a" className={outerClassName}>
-      <div ref={scrollRef} className={contentClassName} projectid={projectId}>
-        {showTitle && <strong className="session-item-title">{title}</strong>}
-        { status === STATUSES.PROJECT ?
+    <ListGroupItem as="a" {...(project && {onClick: handleToggle})} className={outerClassName}>
+      <div ref={scrollRef} className="session-item-content">
+        {project && <strong className="session-item-title">{title}</strong>}
+        { project ?
          <span className="text-muted">Click to start tracking</span>
         :
         <>
