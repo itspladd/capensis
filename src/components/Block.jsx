@@ -4,9 +4,10 @@ import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHM } from '../helpers/timeHelpers'
 
 import Button from 'react-bootstrap/Button'
+import axios from 'axios'
 
 export default function Block(props) {
-  const { id, title, spacer, length, start_time, end_time, toggle } = props;
+  const { id, title, spacer, length, start_time, end_time, toggle, refreshData } = props;
 
   const interval = makeShortIntervalString(start_time, end_time);
 
@@ -35,6 +36,9 @@ export default function Block(props) {
   const handleDelete = e => {
     e.preventDefault();
     e.stopPropagation();
+    console.log('deleting block', `api/blocks/${id}`)
+    axios.delete(`api/blocks/${id}`)
+      .then(refreshData)
     console.log('clicked delete')
   }
 

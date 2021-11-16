@@ -90,6 +90,7 @@ export default function App() {
                     goToYesterday={() => changeDay(-1)}
                     showForm={showForm}
                     toggleSession={toggleSession}
+                    refreshData={refreshData}
                   />
                 </Route>
                 <Route exact path="/week" >

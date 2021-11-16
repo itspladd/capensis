@@ -23,7 +23,7 @@ const defaultFormValues = {
 }
 
 export default function NewBlockForm(props) {
-  const { show, initValues = defaultFormValues, handleClose, currentDay, projects, blocks, refreshData } = props;
+  const { show, blockId, initValues = defaultFormValues, handleClose, currentDay, projects, blocks, refreshData } = props;
 
   const [values, handleChange] = useControlledForms(initValues);
 
@@ -83,7 +83,10 @@ export default function NewBlockForm(props) {
       endDate.setHours(0, endMins);
       const startTime = startDate.toISOString();
       const endTime = endDate.toISOString();
-      axios.post('/api/blocks', { startTime, endTime, project: values.project})
+      const blockData = { startTime, endTime, project: values.project };
+
+      const method = blockId ? axios.patch : axios.post;
+      method(`/api/blocks/${blockId || ""}`, blockData)
            .then(refreshData)
            .then(handleClose)
     }
