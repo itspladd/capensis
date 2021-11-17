@@ -17,7 +17,7 @@
   border: 0;
 }
 
-.block.project:hover {
+.block.project:hover, .block.project:focus {
   cursor:pointer;
   box-shadow: var(--focus-shadow-inner)
 }
@@ -41,9 +41,19 @@
   margin: 0;
 }
 
+/************************************/
 
-.block:hover button, .block:focus button {
+/* Body controls */
+
+.block-controls {
   display: flex;
+  gap: 1rem;
+  background-color: rgba(0,0,0,.125);
+  border-radius: 10%;
+  overflow: hidden;
+}
+
+.block-controls button {
 }
 
 /* Body style for shortest (15-minute) blocks */
@@ -57,6 +67,27 @@
 
 .block.tiny .block-body span {
   font-size: .7rem;
+}
+
+.block.tiny .block-controls {
+  transform: translateX(4rem);
+  transition: all .5s;
+  transition-delay: 1s;
+  background-color: rgb(197, 197, 197);
+  flex-direction: column;
+  z-index: 1;
+  gap: 0;
+  box-shadow: var(--hover-shadow);
+  
+}
+
+.block.tiny:hover .block-controls,
+.block.tiny:focus .block-controls,
+.block.tiny .block-controls:hover,
+.block.tiny .block-controls:focus {
+  transform: translateX(0rem);
+  transition-delay: 0s;
+  z-index: 1;
 }
 
 /* Body style for small (30-minute) blocks */
@@ -90,3 +121,11 @@
   box-shadow: var(--focus-shadow-inner);
 }
 
+@keyframes slide-out {
+  0% {
+    transform: translateX(0rem);
+  }
+  100% {
+    transform: translateX(4rem);
+  }
+}

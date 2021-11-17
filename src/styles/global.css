@@ -8,6 +8,7 @@ html {
   /* Shadows */
   --focus-shadow-outer: drop-shadow(0 0 .1rem var(--egypt-blue));
   --focus-shadow-inner: inset 0 0 .15rem var(--egypt-blue);
+  --hover-shadow: .1rem .1rem .2rem black;
 
   /* Animations */
   --anim-expand-in: expand-in .3s forwards;
