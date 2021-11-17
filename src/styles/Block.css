@@ -8,12 +8,12 @@
   border-radius: .3rem;
   display: flex;
   align-items: flex-start;
+  justify-content: space-between;
   padding: 0 0 0 0.5rem;
   margin-right: .5rem;
 }
 
 .block:last-child {
-  margin-bottom: 2rem;
   border: 0;
 }
 
@@ -22,25 +22,14 @@
   box-shadow: var(--focus-shadow-inner)
 }
 
-/* Body style for shortest (15-minute) blocks */
-
-.block.short .block-body {
-  align-items: flex-start;
-  font-size: .7rem;
-}
-
-.block.short span {
-  font-size: .7rem;
-}
-
 /************************************/
 
-/* Body style for all other blocks */
+/* Body style for blocks more than 30 mins */
 
 .block-body {
   display: flex;
-  align-items: flex-end;
-  gap: .5rem;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .block-body p {
@@ -52,12 +41,38 @@
   margin: 0;
 }
 
+
+.block:hover button, .block:focus button {
+  display: flex;
+}
+
+/* Body style for shortest (15-minute) blocks */
+
+.block.tiny .block-body {
+  flex-direction: row;
+  align-items: flex-start;
+  font-size: .7rem;
+  gap: .5rem;
+}
+
+.block.tiny .block-body span {
+  font-size: .7rem;
+}
+
+/* Body style for small (30-minute) blocks */
+.block.short .block-body {
+  flex-direction: row;
+  align-items: flex-end;
+  gap: .5rem;
+}
+
+
 /************************************/
 
 /* Spacer styles */
 
 .block.spacer {
-  background-color: white;
+  background-color: transparent;
   border-radius: 0;
   border-width: 0;
   margin-right: 0;
@@ -74,3 +89,4 @@
 .block.spacer:hover {
   box-shadow: var(--focus-shadow-inner);
 }
+
