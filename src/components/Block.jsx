@@ -45,7 +45,7 @@ export default function Block(props) {
   }
 
   return(
-    <li
+    <button
       id={id}
       className={blockClass}
       style={{height: lengthStr}}
@@ -73,6 +73,6 @@ export default function Block(props) {
           </div>
         </>
         }
-    </li>
+    </button>
   )
 }

@@ -17,9 +17,12 @@
   border: 0;
 }
 
-.block.project:hover, .block.project:focus {
+.block.project:hover,
+.block.project:focus,
+.block.project:focus-visible {
   cursor:pointer;
-  box-shadow: var(--focus-shadow-inner)
+  box-shadow: var(--focus-shadow-inner);
+  outline: none;  
 }
 
 /************************************/
@@ -70,7 +73,6 @@
 }
 
 .block.tiny .block-controls {
-  display: none;
   transform: translateX(4rem);
   transition: all .5s;
   transition-delay: 1s;
@@ -82,13 +84,14 @@
 }
 
 .block.tiny:hover .block-controls,
-.block.tiny:focus .block-controls,
+.block.tiny:focus-within .block-controls,
+.block.tiny:focus-visible .block-controls,
 .block.tiny .block-controls:hover,
-.block.tiny .block-controls:focus {
+.block.tiny .block-controls:focus-within,
+.block.tiny .block-controls:focus-visible {
   transform: translateX(0rem);
   transition-delay: 0s;
   z-index: 1;
-  display: flex;
 }
 
 /* Body style for small (30-minute) blocks */
