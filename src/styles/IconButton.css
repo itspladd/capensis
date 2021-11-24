@@ -6,7 +6,7 @@
 }
 
 .icon-button:hover, .icon-button:focus {
-  background-color: rgba(0, 0,0,.05);
+  background-color: rgba(0, 0,0,.1);
   border: none;
   outline: none;
-} 
+}

@@ -70,6 +70,7 @@
 }
 
 .block.tiny .block-controls {
+  display: none;
   transform: translateX(4rem);
   transition: all .5s;
   transition-delay: 1s;
@@ -78,7 +79,6 @@
   z-index: 1;
   gap: 0;
   box-shadow: var(--hover-shadow);
-  
 }
 
 .block.tiny:hover .block-controls,
@@ -88,6 +88,7 @@
   transform: translateX(0rem);
   transition-delay: 0s;
   z-index: 1;
+  display: flex;
 }
 
 /* Body style for small (30-minute) blocks */
