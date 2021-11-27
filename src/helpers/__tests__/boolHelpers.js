@@ -15,4 +15,15 @@ describe("truthyOrLengthy", () =>{
     expect(truthyOrLengthy(undefined)).toBe(false)
     expect(truthyOrLengthy(NaN)).toBe(false)
   })
+  it('returns false for empty arrays and objects', () => {
+    expect(truthyOrLengthy([])).toBe(false)
+    expect(truthyOrLengthy({})).toBe(false)
+  })
+  it('returns true for all other truthy values', () => {
+    expect(truthyOrLengthy(-1)).toBe(true)
+    expect(truthyOrLengthy("0")).toBe(true)
+    expect(truthyOrLengthy(true)).toBe(true)
+    expect(truthyOrLengthy({ status: false })).toBe(true)
+    expect(truthyOrLengthy([false])).toBe(true)
+  })
 })

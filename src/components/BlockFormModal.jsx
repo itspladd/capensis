@@ -8,9 +8,10 @@ import useControlledForms from '../hooks/useControlledForms';
 import useNewBlockValidation from '../hooks/useNewBlockValidation';
 
 import SETTINGS from '../constants/settings'
-import STRINGS from '../constants/strings'
 
 import { getBoundaryMinutes } from '../helpers/timeHelpers'
+import { makeErrorString } from '../helpers/stringHelpers'
+import STRINGS from '../constants/strings';
 
 const defaultFormValues = {
   project: "",
@@ -60,16 +61,23 @@ export default function BlockFormModal(props) {
     return optionsList;
   }()
 
-  const makeErrorItem = (errorType) => {
-    return (
-        <li key={errorType}>
-          {STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType](errors[errorType])}
-        </li>
-    )
+  const makeErrorTag = errorString => {
+    return (<small className="form-text text-muted">
+    { errorString }
+    </small>)
   }
 
+  // Populate the list of errors.
   const errorList = Object.keys(errors)
-                          .map(makeErrorItem)
+    .filter(key => errors[key])
+    .map(key => makeErrorString(key, errors[key], LANG))
+    .map(error => {
+      if (Array.isArray(error)) return error.map(makeErrorTag);
+
+      return makeErrorTag(error);
+    })
+
+  !errorList.length && errorList.push(makeErrorTag(STRINGS[LANG].FORM_VALID))
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -132,10 +140,6 @@ export default function BlockFormModal(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {showErrors && errors.conflict && errors.conflict.start &&
-              (<small id="passwordHelpBlock" className="form-text text-muted">
-              That start time conflicts with an existing Block!
-              </small>)}
           </div>
           <div className="row row-cols-lg-auto g-2 mt-1 align-items-center">
             <label>Ending at:</label>
@@ -158,16 +162,10 @@ export default function BlockFormModal(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            {showErrors && errors.conflict && errors.conflict.end &&
-              (<small id="passwordHelpBlock" className="form-text text-muted">
-              That end time conflicts with an existing Block!
-              </small>)}
+            { showErrors && errorList }
           </div>
         </form>
       </Modal.Body>
-        {showErrors && errorList.length !== 0 && (
-          <Modal.Footer><ul>{errorList}</ul></Modal.Footer>
-        )}
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
