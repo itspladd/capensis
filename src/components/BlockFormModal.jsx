@@ -21,8 +21,9 @@ const defaultFormValues = {
   endMinute: "00",
   endAMPM: "0"
 }
+const LANG = SETTINGS.LANGUAGES.EN_US;
 
-export default function NewBlockForm(props) {
+export default function BlockFormModal(props) {
   const { show, blockId, initValues = defaultFormValues, handleClose, currentDay, projects, blocks, refreshData } = props;
 
   const [values, handleChange] = useControlledForms(initValues);
@@ -30,11 +31,12 @@ export default function NewBlockForm(props) {
   const [errors, formIsValid] = useNewBlockValidation(values, blocks, currentDay)
   const [showErrors, setShowErrors] = useState(false);
 
-  const LANG = SETTINGS.LANGUAGES.EN_US;
   const currentDateText = currentDay && currentDay.toDateString();
 
   // Make the options lists for the form <select> tags
-  const projectOptions = projects && Object.values(projects).reverse().map(project => (
+  const projectOptions = projects &&
+    Object.values(projects).reverse()
+    .map(project => (
     <option value={project.id} key={project.id}>{project.title}</option>
   ));
 
@@ -93,14 +95,13 @@ export default function NewBlockForm(props) {
   }
 
   return (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Schedule a new Block</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Date: <strong>{currentDateText}</strong>
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Schedule a new Block</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
         <form onSubmit={handleSubmit}>
+          Date: <strong>{currentDateText}</strong>
           <div className="row row-cols-sm-auto g-5 align-items-center">
             <label htmlFor="project">Project</label>
             <div className="col-12">
@@ -132,9 +133,9 @@ export default function NewBlockForm(props) {
               </select>
             </div>
             {showErrors && errors.conflict && errors.conflict.start &&
-             (<small id="passwordHelpBlock" className="form-text text-muted">
-             That start time conflicts with an existing Block!
-             </small>)}
+              (<small id="passwordHelpBlock" className="form-text text-muted">
+              That start time conflicts with an existing Block!
+              </small>)}
           </div>
           <div className="row row-cols-lg-auto g-2 mt-1 align-items-center">
             <label>Ending at:</label>
@@ -158,26 +159,25 @@ export default function NewBlockForm(props) {
               </select>
             </div>
             {showErrors && errors.conflict && errors.conflict.end &&
-             (<small id="passwordHelpBlock" className="form-text text-muted">
-             That end time conflicts with an existing Block!
-             </small>)}
+              (<small id="passwordHelpBlock" className="form-text text-muted">
+              That end time conflicts with an existing Block!
+              </small>)}
           </div>
         </form>
-        </Modal.Body>
-          {showErrors && errorList.length !== 0 && (
-            <Modal.Footer><ul>{errorList}</ul></Modal.Footer>
-          )}
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit}>
-            Submit
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+      </Modal.Body>
+        {showErrors && errorList.length !== 0 && (
+          <Modal.Footer><ul>{errorList}</ul></Modal.Footer>
+        )}
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button
+          variant="primary"
+          onClick={handleSubmit}>
+          Submit
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 }

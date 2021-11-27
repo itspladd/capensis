@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NewBlockForm from '../NewBlockForm';
+import BlockFormModal from '../BlockFormModal';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<NewBlockForm />, div)
+  ReactDOM.render(<BlockFormModal />, div)
 })

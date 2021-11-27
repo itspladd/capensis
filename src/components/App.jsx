@@ -10,12 +10,14 @@ import {
 } from "react-router-dom";
 
 // Components
+import Modal from 'react-bootstrap/Modal';
+
 import Loading from './Loading'
 import Header from './Header';
 import StatusBar from './StatusBar';
 import Authentication from './Authentication'
 
-import NewBlockForm from './NewBlockForm';
+import BlockFormModal from './BlockFormModal';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
@@ -70,9 +72,9 @@ export default function App() {
           <Router basename="/capensis">
             <Header username={username} handleLogout={logout} />
             <StatusBar currentProject={currentProject} projects={projects} />
-            {/* NewBlockForm is a popup modal, so it's always here,
+            {/* BlockFormModal is a popup modal, so it's always here,
             but only displayed if "show" is true */}
-            <NewBlockForm
+            <BlockFormModal
               show={show}
               handleClose={closeForm}
               currentDay={day}
