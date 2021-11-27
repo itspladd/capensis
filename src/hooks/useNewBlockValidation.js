@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { blockIsOnDay, getBoundaryMinutes } from '../helpers/timeHelpers'
-
+import { truthyOrLengthy } from '../helpers/boolHelpers'
 
 export default function useNewBlockValidation(values, blocks = [], currentDay) {
 
@@ -45,8 +45,7 @@ export default function useNewBlockValidation(values, blocks = [], currentDay) {
   }, [values, blocks, currentDay])
 
   useEffect(() => {
-    const errorExists = e => e && e.length;
-    const valid = Object.values(errors).filter(errorExists).length === 0;
+    const valid = Object.values(errors).filter(truthyOrLengthy).length === 0;
     setFormIsValid(valid);
   }, [errors])
 

@@ -16,7 +16,8 @@ const EN_US = {
     noProject: () => "You must select a project.",
     endBeforeStart: () => "That block would end on or before its start time."
   },
-  FORM_VALID: "Looks good!"
+  FORM_VALID: "Looks good!",
+  FORM_ERRORS: "The following errors were found:",
 }
 
 export default EN_US;

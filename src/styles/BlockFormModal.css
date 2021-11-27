@@ -1,2 +1,9 @@
-.blockFormModal {
+.blockFormModal .errorList {
+  display: flex;
+  flex-direction: column;
+}
+
+.errorList .small {
+  color: red;
+
 }

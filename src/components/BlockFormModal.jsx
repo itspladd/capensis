@@ -7,11 +7,14 @@ import Modal from 'react-bootstrap/Modal';
 import useControlledForms from '../hooks/useControlledForms';
 import useNewBlockValidation from '../hooks/useNewBlockValidation';
 
-import SETTINGS from '../constants/settings'
-
-import { getBoundaryMinutes } from '../helpers/timeHelpers'
-import { makeErrorString } from '../helpers/stringHelpers'
+import SETTINGS from '../constants/settings';
 import STRINGS from '../constants/strings';
+
+import { getBoundaryMinutes } from '../helpers/timeHelpers';
+import { truthyOrLengthy } from '../helpers/boolHelpers';
+import { makeErrorString } from '../helpers/stringHelpers';
+
+import '../styles/BlockFormModal.css'
 
 const defaultFormValues = {
   project: "",
@@ -61,23 +64,36 @@ export default function BlockFormModal(props) {
     return optionsList;
   }()
 
-  const makeErrorTag = errorString => {
-    return (<small className="form-text text-muted">
-    { errorString }
-    </small>)
+  const makeErrorTag = (errorString, index) => {
+    return (
+    <li key={`e${index}`} className="form-text text-muted">
+      <small>{ errorString }</small>
+    </li>
+    )
+  }
+
+  const makeErrorList = (errors, header, recursive) => {
+    if(!errors.length) return (<small>{STRINGS[LANG].FORM_VALID}</small>);
+    return (
+      <>
+        {!recursive && <small>{header}</small>}
+        { recursive && makeErrorTag(header)}
+        <ul className="errorList">
+          { errors.map((e, i) => {
+            if(Array.isArray(e)) return makeErrorList(e.slice(1), e[0], true);
+            return makeErrorTag(e,i);
+          })}
+        </ul>
+      </>
+    )
   }
 
   // Populate the list of errors.
-  const errorList = Object.keys(errors)
-    .filter(key => errors[key])
+  const errorStrings = Object.keys(errors)
+    .filter(key => truthyOrLengthy(errors[key])) // Strip out empty errors
     .map(key => makeErrorString(key, errors[key], LANG))
-    .map(error => {
-      if (Array.isArray(error)) return error.map(makeErrorTag);
 
-      return makeErrorTag(error);
-    })
-
-  !errorList.length && errorList.push(makeErrorTag(STRINGS[LANG].FORM_VALID))
+  const errorList = makeErrorList(errorStrings, STRINGS[LANG].FORM_ERRORS)
 
   const handleSubmit = async event => {
     event.preventDefault();
@@ -103,7 +119,7 @@ export default function BlockFormModal(props) {
   }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal className="blockFormModal" show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Schedule a new Block</Modal.Title>
       </Modal.Header>
@@ -162,7 +178,9 @@ export default function BlockFormModal(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            { showErrors && errorList }
+            { showErrors && 
+            <div className="errorList">{errorList}</div>
+            }
           </div>
         </form>
       </Modal.Body>
