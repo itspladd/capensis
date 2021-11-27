@@ -72,8 +72,14 @@ export default function BlockFormModal(props) {
     )
   }
 
+  /**
+   * 
+   * @param {Array} errors A list of errors to turn into a single <ul> element.
+   * @param {*} header 
+   * @param {*} recursive 
+   * @returns
+   */
   const makeErrorList = (errors, header, recursive) => {
-    if(!errors.length) return (<small>{STRINGS[LANG].FORM_VALID}</small>);
     return (
       <>
         {!recursive && <small>{header}</small>}
@@ -178,10 +184,16 @@ export default function BlockFormModal(props) {
                 <option value="12">PM</option>
               </select>
             </div>
-            { showErrors && 
-            <div className="errorList">{errorList}</div>
-            }
           </div>
+          { showErrors &&
+              <section>
+                {formIsValid ? 
+                  <small>{STRINGS[LANG].FORM_VALID}</small>
+                  :
+                  errorList
+                }
+              </section>
+            }
         </form>
       </Modal.Body>
       <Modal.Footer>
