@@ -10,7 +10,6 @@ import { makeErrorList, makeHoursOptions, makeProjectOptions } from '../helpers/
 
 import '../styles/BlockFormModal.css'
 
-
 const LANG = SETTINGS.LANGUAGES.EN_US;
 
 export default function BlockFormModal(props) {
@@ -21,7 +20,7 @@ export default function BlockFormModal(props) {
     actions
   } = props;
 
-  const { errors, show, showErrors, valid, values } = state;
+  const { errors, show, showErrors, valid, values, editing } = state;
   const { submit, close, change } = actions;
 
   const currentDateText = currentDay && currentDay.toDateString();
@@ -35,10 +34,12 @@ export default function BlockFormModal(props) {
   const projectOptions = makeProjectOptions(projects)
   const hoursOptions = makeHoursOptions();
 
+  const title = editing ? STRINGS[LANG].FORM_EDITING : STRINGS[LANG].FORM_NEW
+
   return (
     <Modal className="blockFormModal" show={show} onHide={close}>
       <Modal.Header closeButton>
-        <Modal.Title>Schedule a new Block</Modal.Title>
+        <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <form onSubmit={submit}>

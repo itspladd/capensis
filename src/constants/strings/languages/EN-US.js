@@ -18,6 +18,8 @@ const EN_US = {
   },
   FORM_VALID: "Looks good!",
   FORM_ERRORS: "The following errors were found:",
+  FORM_EDITING: "Edit Block",
+  FORM_NEW: "Schedule New Block"
 }
 
 export default EN_US;

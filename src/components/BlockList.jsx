@@ -4,13 +4,14 @@ import Block from './Block'
 import { getFifteenMinuteUnits } from '../helpers/timeHelpers'
 
 export default function BlockList(props) {
-  const { blocks, day, toggleSession, refreshData } = props;
+  const { blocks, day, toggleSession, editBlock, refreshData } = props;
 
   const blocksForDay = blocks && day &&
     blocks
     .map(block => (
       <Block
         {...block}
+        edit={() => editBlock(block)}
         key={block.id}
         spacer={block.project_id === -1}
         toggle={() => toggleSession(block.project_id)}

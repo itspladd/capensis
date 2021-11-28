@@ -88,7 +88,8 @@ export default function App() {
                     day={day}
                     goToTomorrow={() => changeDay(1)}
                     goToYesterday={() => changeDay(-1)}
-                    showForm={blockFormActions.new}
+                    newBlock={blockFormActions.new}
+                    editBlock={blockFormActions.edit}
                     toggleSession={toggleSession}
                     refreshData={refreshData}
                   />

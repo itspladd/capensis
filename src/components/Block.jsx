@@ -8,7 +8,7 @@ import IconButton from './IconButton'
 import axios from 'axios'
 
 export default function Block(props) {
-  const { id, title, spacer, length, start_time, end_time, toggle, refreshData } = props;
+  const { id, title, spacer, length, start_time, end_time, toggle, edit, refreshData } = props;
 
   const interval = makeShortIntervalString(start_time, end_time);
 
@@ -32,6 +32,7 @@ export default function Block(props) {
   const handleEdit = e => {
     e.preventDefault();
     e.stopPropagation();
+    edit();
     console.log('clicked edit')
   }
 
