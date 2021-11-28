@@ -41,6 +41,7 @@ export default function DaySchedule(props) {
 
   // Generate placeholder blocks for this day, for padding out the schedule
   useEffect(() => {
+    console.log("useeffect happen")
     const newBlocks = [];
     let currentTime = new Date(day);
     currentTime.setHours(earliestHour);

@@ -22,7 +22,9 @@ export default function usePopupBlockForm(blocks, currentDay, refreshData) {
   const [blockId, setBlockId] = useState(null);
   const [showErrors, setShowErrors] = useState(false);
   const [values, handleChange, setValues] = useControlledForms(defaultFormValues);
-  const [errors, formIsValid] = useNewBlockValidation(values, blocks, currentDay)
+
+  // Remove the currently-editing block (if we have one) from the list of conflicts
+  const [errors, formIsValid] = useNewBlockValidation(values, blocks, currentDay, blockId)
 
   const showModal = () => setShow(true);
   const closeModal = () => setShow(false);

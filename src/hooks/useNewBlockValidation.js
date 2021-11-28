@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react';
 import { blockIsOnDay, getBoundaryMinutes } from '../helpers/timeHelpers'
 import { truthyOrLengthy } from '../helpers/boolHelpers'
 
-export default function useNewBlockValidation(values, blocks = [], currentDay) {
+export default function useNewBlockValidation(values, blocks, currentDay, currentBlockId) {
 
   const [errors, setErrors] = useState({})
   const [formIsValid, setFormIsValid] = useState(false)
-
   // If the values, blocks, or current day change, re-validate everything.
   useEffect(() => {
     const [newBlockStart, newBlockEnd] = getBoundaryMinutes({ values })
@@ -27,10 +26,13 @@ export default function useNewBlockValidation(values, blocks = [], currentDay) {
       return { block, start: badStart, end: badEnd };
     }
 
+    const potentialConflicts = blocks
+      .filter(block => blockIsOnDay(block, currentDay))
+      .filter(block => block.id !== currentBlockId)
+
     // Get a single conflict object (if it exists)
     // See previous function for object structure
-    const conflicts = blocks
-      .filter(block => blockIsOnDay(block, currentDay))
+    const conflicts = potentialConflicts
       .map(makeConflictObject)
       .filter(conflict => conflict.start || conflict.end);
 
@@ -42,7 +44,7 @@ export default function useNewBlockValidation(values, blocks = [], currentDay) {
     };
 
     setErrors(newErrors)
-  }, [values, blocks, currentDay])
+  }, [values, blocks, currentDay, currentBlockId])
 
   useEffect(() => {
     const valid = Object.values(errors).filter(truthyOrLengthy).length === 0;
