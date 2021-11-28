@@ -6,7 +6,7 @@ import { makeDurationFromHHMM, makeWeekDayString, makeDateString, makeTimeString
 
 import STATUSES from '../../constants/statuses'
 
-import Button from 'react-bootstrap/Button'
+import TabButton from '../TabButton'
 import Loading from '../Loading'
 import SuccessIcon from '../SuccessIcon'
 
@@ -48,17 +48,17 @@ function PureSessionItem (props, ref) {
 
   // Statuses and their components
   const statusComponents = {
-    active: <Button variant="outline-dark" size="sm" onClick={handleToggle}>Stop</Button>,
+    active: <TabButton variant="outline-dark" size="sm" onClick={handleToggle}>Stop</TabButton>,
     stable: (
       <>
-      <Button variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</Button>
-      <Button variant="outline-danger" size="sm" onClick={deleteItem}>Delete</Button>
+      <TabButton variant="outline-secondary" size="sm" onClick={() => setStatus(STATUSES.EDITING)}>Edit</TabButton>
+      <TabButton variant="outline-danger" size="sm" onClick={deleteItem}>Delete</TabButton>
       </>
     ),
     editing: (
       <>
-        <Button onClick={submit} variant="success" size="sm" type="submit">Save</Button>
-        <Button onClick={() => setStatus(STATUSES.STABLE)} variant="danger" size="sm" >Cancel</Button>
+        <TabButton onClick={submit} variant="success" size="sm" type="submit">Save</TabButton>
+        <TabButton onClick={() => setStatus(STATUSES.STABLE)} variant="danger" size="sm" >Cancel</TabButton>
       </>
     ),
     loading: <Loading iconOnly>Saving...</Loading>,

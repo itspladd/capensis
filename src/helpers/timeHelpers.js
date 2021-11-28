@@ -30,9 +30,16 @@ export function getTimeIntervalUnits(start, end) {
   return [h, m, s]
 }
 
-export function getHM(time) {
+export function getHM(time, style) {
   const obj = new Date(time);
-  return [obj.getHours(), obj.getMinutes()];
+  let h, m, hOffset;
+  h = obj.getHours();
+  m = obj.getMinutes();
+  if (style === "12h") {
+    hOffset = h > 12 ? 12 : 0;
+    h = to12H(h);
+  }
+  return [h, m, hOffset];
 }
 
 // Turn an arbitrary number of input arguments to their 12h versions

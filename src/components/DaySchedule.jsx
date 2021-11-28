@@ -20,7 +20,16 @@ export default function DaySchedule(props) {
 
   // Props:
   // blocks is an array of Block components.
-  const { blocks, day, goToTomorrow, goToYesterday, showForm, toggleSession } = props;
+  const {
+    blocks,
+    day,
+    goToTomorrow,
+    goToYesterday,
+    newBlock,
+    editBlock,
+    toggleSession,
+    refreshData
+  } = props;
 
   const [blocksWithPlaceholders, setBlocksWithPlaceholders] = useState([]);
 
@@ -32,6 +41,7 @@ export default function DaySchedule(props) {
 
   // Generate placeholder blocks for this day, for padding out the schedule
   useEffect(() => {
+    console.log("useeffect happen")
     const newBlocks = [];
     let currentTime = new Date(day);
     currentTime.setHours(earliestHour);
@@ -103,7 +113,7 @@ export default function DaySchedule(props) {
             <small className="text-muted">{dateString}</small>
           </div>
         </div>
-        <Button variant="primary" onClick={showForm}>
+        <Button variant="primary" onClick={newBlock}>
             New Block
           </Button>
       </div>
@@ -113,6 +123,8 @@ export default function DaySchedule(props) {
           blocks={blocksWithPlaceholders}
           day={day}
           toggleSession={toggleSession}
+          refreshData={refreshData}
+          editBlock={editBlock}
         />
       </div>
     </div>

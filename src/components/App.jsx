@@ -10,12 +10,14 @@ import {
 } from "react-router-dom";
 
 // Components
+import Modal from 'react-bootstrap/Modal';
+
 import Loading from './Loading'
 import Header from './Header';
 import StatusBar from './StatusBar';
 import Authentication from './Authentication'
 
-import NewBlockForm from './NewBlockForm';
+import BlockFormModal from './BlockFormModal';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
@@ -29,7 +31,7 @@ import useWeek from '../hooks/useWeek';
 import useAuthentication from '../hooks/useAuthentication'
 import useWeeklyData from '../hooks/useWeeklyData';
 import useSessionTracking from '../hooks/useSessionTracking';
-import usePopupModal from '../hooks/usePopupModal';
+import usePopupBlockForm from '../hooks/usePopupBlockForm';
 
 // Helper functions
 import { blockIsOnDay } from '../helpers/timeHelpers';
@@ -41,7 +43,7 @@ export default function App() {
   const [loading, username, login, logout] = useAuthentication();
   const [blocks, sessions, refreshData] = useWeeklyData(username, week);
   const [currentProject, toggleSession] = useSessionTracking(username, refreshData);
-  const [showForm, closeForm, show] = usePopupModal();
+  const [blockFormState, blockFormActions] = usePopupBlockForm(blocks, day, refreshData);
   const [projects, setProjects] = useState({})
 
   // Load new projects when the username changes
@@ -70,17 +72,15 @@ export default function App() {
           <Router basename="/capensis">
             <Header username={username} handleLogout={logout} />
             <StatusBar currentProject={currentProject} projects={projects} />
-            {/* NewBlockForm is a popup modal, so it's always here,
+            {/* BlockFormModal is a popup modal, so it's always here,
             but only displayed if "show" is true */}
-            <NewBlockForm
-              show={show}
-              handleClose={closeForm}
+            <BlockFormModal
+              state={blockFormState}
+              actions={blockFormActions}
               currentDay={day}
               projects={projects}
-              blocks={blocks}
-              refreshData={refreshData}
             />
-            <div className="App-body mt-1">
+            <div className="App-body">
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
                   <DaySchedule
@@ -88,8 +88,10 @@ export default function App() {
                     day={day}
                     goToTomorrow={() => changeDay(1)}
                     goToYesterday={() => changeDay(-1)}
-                    showForm={showForm}
+                    newBlock={blockFormActions.new}
+                    editBlock={blockFormActions.edit}
                     toggleSession={toggleSession}
+                    refreshData={refreshData}
                   />
                 </Route>
                 <Route exact path="/week" >

@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 
 import { blockIsOnDay, getBoundaryMinutes } from '../helpers/timeHelpers'
+import { truthyOrLengthy } from '../helpers/boolHelpers'
 
-
-export default function useNewBlockValidation(values, blocks, currentDay) {
+export default function useNewBlockValidation(values, blocks, currentDay, currentBlockId) {
 
   const [errors, setErrors] = useState({})
   const [formIsValid, setFormIsValid] = useState(false)
-
   // If the values, blocks, or current day change, re-validate everything.
   useEffect(() => {
-    const [newBlockStart, newBlockEnd] = getBoundaryMinutes({values})
+    const [newBlockStart, newBlockEnd] = getBoundaryMinutes({ values })
 
     /* Turns a block into an object as follows:
     { block: the block in question,
@@ -19,32 +18,36 @@ export default function useNewBlockValidation(values, blocks, currentDay) {
     }
     */
     const makeConflictObject = block => {
-      const [blockStartMins, blockEndMins] = getBoundaryMinutes({block});
+      const [blockStartMins, blockEndMins] = getBoundaryMinutes({ block });
       const badStart = (newBlockStart >= blockStartMins &&
-                        newBlockStart < blockEndMins)
-      const badEnd =   (newBlockEnd > blockStartMins &&
-                        newBlockEnd <= blockEndMins);
-      return {block, start: badStart, end: badEnd};
+        newBlockStart < blockEndMins)
+      const badEnd = (newBlockEnd > blockStartMins &&
+        newBlockEnd <= blockEndMins);
+      return { block, start: badStart, end: badEnd };
     }
+
+    const potentialConflicts = blocks
+      .filter(block => blockIsOnDay(block, currentDay))
+      .filter(block => block.id !== currentBlockId)
 
     // Get a single conflict object (if it exists)
     // See previous function for object structure
-    const conflict = blocks && blocks.filter(block => blockIsOnDay(block, currentDay))
-    .map(makeConflictObject)
-    .filter(conflict => conflict.start || conflict.end)
-    [0];
+    const conflicts = potentialConflicts
+      .map(makeConflictObject)
+      .filter(conflict => conflict.start || conflict.end);
 
     // If there are any validation errors, store them in an object.
-    const newErrors = {};
-    if (!values.project)              newErrors.noProject = true;
-    if (newBlockStart >= newBlockEnd) newErrors.endBeforeStart = true;
-    if (conflict)                     newErrors.conflict = conflict;
+    const newErrors = {
+      noProject: !values.project, // True if no project is selected
+      endBeforeStart: newBlockStart >= newBlockEnd, // True if end time is earlier than start time
+      conflicts
+    };
 
     setErrors(newErrors)
-  }, [values, blocks, currentDay])
+  }, [values, blocks, currentDay, currentBlockId])
 
   useEffect(() => {
-    const valid = Object.values(errors).length === 0;
+    const valid = Object.values(errors).filter(truthyOrLengthy).length === 0;
     setFormIsValid(valid);
   }, [errors])
 

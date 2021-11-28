@@ -102,22 +102,6 @@
   align-items:stretch;
 }
 
-.session-item-status button {
-  border-radius: .2rem 0 0 .2rem;
-  padding: .25rem;
-  border-right: 0;
-  box-shadow: 1px 0rem;
-  transition: all .15s;
-}
-
-.session-item-status button:focus {
-  margin-left: -.5rem;
-}
-
-.session-item-status button:hover {
-  margin-left: -.5rem;
-}
-
 .session-item-title {
   flex: 2 0;
 }
@@ -156,7 +140,6 @@
     justify-content: space-between;
     align-items: center;
     text-align: left;
-    margin: 0 4rem;
   }
 
   .session-item-content {
@@ -175,24 +158,6 @@
     justify-content: space-around;
     gap: .5rem;
     margin-right: .5rem;
-  }
-
-  .session-item-status button {
-    padding: .25rem;
-    border-right: 0;
-    box-shadow: 1px 0rem;
-    transition: all .15s;
-    border-radius: .2rem;
-    flex: 1 0;
-    width: 4rem;
-  }
-
-  .session-item-status button:focus {
-    margin-left: inherit;
-  }
-
-  .session-item-status button:hover {
-    margin-left: inherit;
   }
 
   .session-item-date {

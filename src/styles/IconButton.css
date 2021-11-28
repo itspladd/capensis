@@ -1,0 +1,12 @@
+.icon-button {
+  padding: 0px;
+  border-radius: 20%;
+  background-color: transparent;
+  border: none;
+}
+
+.icon-button:hover, .icon-button:focus {
+  background-color: rgba(0, 0,0,.1);
+  border: none;
+  outline: none;
+}

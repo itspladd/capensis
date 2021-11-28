@@ -1,4 +1,5 @@
 import { getLastSunday, getNextSaturday, getHM, to12H } from './timeHelpers'
+import STRINGS from '../constants/strings'
 
 // Gives time in H:MM AM/PM format, for humans to read.
 export function makeTimeString(time) {
@@ -106,4 +107,8 @@ export function makeShortIntervalString(start, end) {
   const startStr = `${startH12}${startM ? ":" + startM : ""}${AMPM1}`
   const endStr = `${endH12}${endM ? ":" + endM : ""}${AMPM2}`
   return `${startStr} – ${endStr}`
+}
+
+export function makeErrorString(errorType, errorData, LANG) {
+  return STRINGS[LANG].NEW_BLOCK_VALIDATION[errorType](errorData)
 }

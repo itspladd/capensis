@@ -1,6 +1,8 @@
 .blockList {
-  display: flex;
-  flex-direction: column;
   width: 100%;
+}
+
+.blockList ul {
   background-color: white;
+  margin-bottom: 2rem;
 }
