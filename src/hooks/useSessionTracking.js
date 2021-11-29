@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 export default function useSessionTracking(username, refreshData) {
   const [currentId, setCurrentId] = useState(null);
@@ -12,11 +12,14 @@ export default function useSessionTracking(username, refreshData) {
     if (array.length > 1) return array;
   }
 
-  const updateSession = res => {
-    const { id = null, project_id = null } = extractResponse(res);
-    setCurrentId(id);
-    setCurrentProject(project_id);
-  }
+  const updateSession = useCallback(
+    res => {
+      const { id = null, project_id = null } = extractResponse(res);
+      setCurrentId(id);
+      setCurrentProject(project_id);
+    },
+    []
+  )
 
   const clearSession = () => {
     setCurrentProject(null);
@@ -28,7 +31,7 @@ export default function useSessionTracking(username, refreshData) {
     // If there is, load it into the state.
     axios.get(`/api/sessions/current`)
          .then(updateSession)
-  }, [username])
+  }, [username, updateSession])
 
   const startTracking = project_id => {
     return axios.post(`/api/sessions`, { project_id })
