@@ -23,9 +23,9 @@ export default function Authentication(props) {
   }
 
   return (
-    <div className="Authentication">
-      <div id="Authentication_background">
-        <div id="Authentication_welcome">
+    <div className="authentication">
+      <div id="authentication_background">
+        <div id="authentication_welcome">
           <Logo className="auth-logo" hareOnly scale={2}
           />
           <p className="appName">Capensis</p>
@@ -34,7 +34,7 @@ export default function Authentication(props) {
 
         { authComponent }
 
-        <div className="Authentication_switch">
+        <div className="authentication_switch">
           <p>{switchMsg}</p>
           <Button
             variant="primary"

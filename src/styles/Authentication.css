@@ -1,6 +1,6 @@
 @import './global.css';
 
-.Authentication {
+.authentication {
   width: 100%;
   height: 100%;
   display: flex;
@@ -9,9 +9,7 @@
   align-items: center;
 }
 
-#Authentication_background {
-  height:70%;
-  width: 70%;
+#authentication_background {
   padding: 2em;
   display: flex;
   flex-direction: column;
@@ -20,7 +18,7 @@
   border-radius: 0.5em;
 }
 
-#Authentication_welcome {
+#authentication_welcome {
   text-align: center;
 }
 
@@ -31,13 +29,13 @@
   margin-top: -1rem;
 }
 
-.Authentication_switch {
+.authentication_switch {
   display: flex;
   justify-content: center;
   gap: 0.5em;
   align-items: center;
 }
 
-.Authentication_switch > p {
+.authentication_switch > p {
   margin-bottom: 0;
 }
