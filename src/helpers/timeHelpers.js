@@ -41,17 +41,23 @@ export function getHM24(time) {
 /**
  * Returns the hour, minute, and offset for the input time in 12h format.
  * @param {*} time The time to convert
+ * @param {Boolean} noonZero (optional) Indicates if noon should be returned as a zero value with a 12-hour offset
  * @returns {Array} The hour, minute, and offset (0 for AM, 12 for PM)
  */
-export function getHMO12(time) {
+export function getHMO12(time, noonZero) {
   const obj = new Date(time);
   const h24 = obj.getHours();
   let h, m, hOffset;
   h = to12H(h24);
   m = obj.getMinutes();
   hOffset = h24 > 12 ? 12 : 0;
+  if (noonZero && h === 12) {
+    return [0, m, 12];
+  }
   return [h, m, hOffset];
 }
+
+
 
 // Turn an arbitrary number of input arguments to their 12h versions
 export function to12H() {
