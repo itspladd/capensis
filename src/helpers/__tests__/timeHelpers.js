@@ -60,4 +60,25 @@ describe("getHMO12", () => {
       expect(getHMO12(testDate)).toStrictEqual([12, m, 0])
     }
   })
+  it("switches the noon value to 0 when given true for the second parameter, but leaves other values unchanged", () => {
+    const testDate = new Date();
+    const noonZero = true;
+    testDate.setHours(12)
+    for (let m = 0; m < 60; m++) {
+      testDate.setMinutes(m);
+      expect(getHMO12(testDate, noonZero)).toStrictEqual([0, m, 12])
+    }
+    for (let h = 1; h < 12; h++) {
+      for (let m = 0; m < 60; m++) {
+        testDate.setHours(h, m);
+        expect(getHMO12(testDate, noonZero)).toStrictEqual([h, m, 0])
+      }
+    }
+    for (let h = 13; h < 24; h++) {
+      for (let m = 0; m < 60; m++) {
+        testDate.setHours(h, m);
+        expect(getHMO12(testDate, noonZero)).toStrictEqual([h - 12, m, 12])
+      }
+    }
+  })
 })
