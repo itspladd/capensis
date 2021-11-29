@@ -31,13 +31,14 @@ export default function Authentication(props) {
         </div>
         <p className="welcomeMessage">A super simple scheduler and time-tracker.</p>
       </div>
+      <section className="auth_body">
+        { authComponent }
 
-      { authComponent }
-
-      <div className="authentication_switch">
-        <p className="text-muted">{switchMsg}</p>
-        <button onClick={handleSwitch}>{buttonMsg}</button>
-      </div>
+        <div className="authentication_switch">
+          <p className="text-muted">{switchMsg}</p>
+          <button onClick={handleSwitch}>{buttonMsg}</button>
+        </div>
+      </section>
     </div>
   )
 }
