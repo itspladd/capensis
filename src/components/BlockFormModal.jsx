@@ -15,13 +15,13 @@ const LANG = SETTINGS.LANGUAGES.EN_US;
 export default function BlockFormModal(props) {
   const {
     currentDay,
-    projects,
+    projects = {},
     state,
     actions
   } = props;
 
-  const { errors, show, showErrors, valid, values, editing } = state;
-  const { submit, close, change } = actions;
+  const { errors = {}, show, showErrors, valid, values = {}, editing } = state || {};
+  const { submit, close, change } = actions || {};
 
   const currentDateText = currentDay && currentDay.toDateString();
 
