@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHMO12 } from '../helpers/timeHelpers'
 
-import Button from 'react-bootstrap/Button'
 import IconButton from './IconButton'
 import axios from 'axios'
 

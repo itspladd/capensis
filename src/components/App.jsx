@@ -10,8 +10,6 @@ import {
 } from "react-router-dom";
 
 // Components
-import Modal from 'react-bootstrap/Modal';
-
 import Loading from './Loading'
 import Header from './Header';
 import StatusBar from './StatusBar';
