@@ -24,6 +24,11 @@ img, picture, video, canvas, svg {
   display: block;
   max-width: 100%;
 }
+
+svg:only-child {
+  margin: 0 auto;
+}
+
 input, button, textarea, select {
   font: inherit;
 }
