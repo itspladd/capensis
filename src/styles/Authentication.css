@@ -19,10 +19,14 @@
 }
 
 #authentication_welcome {
-  width: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .appName {
+  width: 80%;
   display: flex;
   align-items: flex-end;
   font-family: var(--logo-font);
