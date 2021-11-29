@@ -60,13 +60,13 @@ export default function usePopupBlockForm(blocks, currentDay, refreshData) {
 
   const editBlock = block => {
     const { id, start_time, end_time, project_id } = block;
-    const [startHour, startMinute, startAMPM] = getHMO12(start_time, "12h")
-    const [endHour, endMinute, endAMPM] = getHMO12(end_time, "12h")
+    const [startHour, startMinute, startAMPM] = getHMO12(start_time, true)
+    const [endHour, endMinute, endAMPM] = getHMO12(end_time, true)
     setValues({
-      startHour: startHour === 12 ? 0 : startHour,
+      startHour,
       startMinute,
       startAMPM,
-      endHour: endHour === 12 ? 0 : endHour,
+      endHour,
       endMinute,
       endAMPM,
       project: project_id
