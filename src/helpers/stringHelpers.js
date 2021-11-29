@@ -5,10 +5,14 @@ import STRINGS from '../constants/strings'
 export function makeTimeString(time) {
   if (time.length === 5) {
     const timeArr = time.split(":");
-    let amPm = timeArr[0] >= 12 ? "pm" : "am"
+    let h = Number(timeArr[0]);
+    let amPm = h >= 12 ? "pm" : "am"
+
+    // turn 0h (12am) into 12h
+    if (h === 0) timeArr[0] = 12;
 
     // -12 hours if we're at 13:00 or onward
-    timeArr[0] -= timeArr[0] > 12 ? 12 : 0;
+    if (h > 12) timeArr[0] = (h -12);
     return `${timeArr.join(":")} ${amPm}`
   }
   return new Date(time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit'})
@@ -17,9 +21,9 @@ export function makeTimeString(time) {
 // Give time in HH:MM without AM or PM.
 export function makeHHMMTimeString(time) {
   time = time || Date.now();
-  return new Date(time).toLocaleTimeString([], 
+  return new Date(time).toLocaleTimeString([],
     {
-      hour12: false,
+      hourCycle: "h23",
       hour: '2-digit',
       minute: '2-digit'
     });

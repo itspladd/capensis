@@ -24,7 +24,6 @@ export default function SessionItem(props) {
     title = "",
     toggle
   } = props;
-
   const [status, setStatus] = useState(STATUSES.NEW);
   const [times, handleTimeChange, setTimes] = useControlledForms({
     start: makeHHMMTimeString(start_time),
@@ -53,7 +52,7 @@ export default function SessionItem(props) {
       end: makeHHMMTimeString(end_time)
     })
     end_time && status !== STATUSES.SUCCESS && setStatus(STATUSES.STABLE)
-  }, [setTimes, start_time, end_time])
+  }, [start_time, end_time])
 
   useEffect(() => {
     document.activeElement.blur();
