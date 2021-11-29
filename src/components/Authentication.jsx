@@ -14,7 +14,7 @@ export default function Authentication(props) {
   
   const authComponent = showLogin ? <Login login={login} /> : <Register login={login} />;
   const switchMsg = showLogin ? "Don't have an account yet?" : "Already have a Capensis account?";
-  const buttonMsg = showLogin ? "Sign up" : "Sign in";
+  const buttonMsg = showLogin ? "Make one!" : "Sign in!";
 
   const handleSwitch = event => {
     event.preventDefault();
@@ -24,24 +24,19 @@ export default function Authentication(props) {
 
   return (
     <div className="authentication">
-      <div id="authentication_background">
-        <div id="authentication_welcome">
-          <Logo className="auth-logo" hareOnly scale={2}
-          />
-          <p className="appName">Capensis</p>
-          <p className="welcomeMessage">A super simple scheduler and time-tracker.</p>
+      <div id="authentication_welcome">
+        <div className="appName">
+          <Logo className="auth-logo" hareOnly scale={2}/>
+          <p>Capensis</p>
         </div>
+        <p className="welcomeMessage">A super simple scheduler and time-tracker.</p>
+      </div>
 
-        { authComponent }
+      { authComponent }
 
-        <div className="authentication_switch">
-          <p>{switchMsg}</p>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={handleSwitch}
-          >{buttonMsg}</Button>
-        </div>
+      <div className="authentication_switch">
+        <p className="text-muted">{switchMsg}</p>
+        <button onClick={handleSwitch}>{buttonMsg}</button>
       </div>
     </div>
   )
