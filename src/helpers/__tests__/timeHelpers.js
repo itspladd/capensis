@@ -68,6 +68,11 @@ describe("getHMO12", () => {
       testDate.setMinutes(m);
       expect(getHMO12(testDate, noonZero)).toStrictEqual([0, m, 12])
     }
+    testDate.setHours(0)
+    for (let m = 0; m < 60; m++) {
+      testDate.setMinutes(m);
+      expect(getHMO12(testDate, noonZero)).toStrictEqual([0, m, 0])
+    }
     for (let h = 1; h < 12; h++) {
       for (let m = 0; m < 60; m++) {
         testDate.setHours(h, m);

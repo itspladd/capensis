@@ -51,7 +51,10 @@ export function getHMO12(time, noonZero) {
   h = to12H(h24);
   m = obj.getMinutes();
   hOffset = h24 > 12 ? 12 : 0;
-  if (noonZero && h === 12) {
+  if (noonZero && h24 === 0) {
+    return [0, m, 0]
+  }
+  if (noonZero && h24 === 12) {
     return [0, m, 12];
   }
   return [h, m, hOffset];
