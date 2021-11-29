@@ -30,15 +30,26 @@ export function getTimeIntervalUnits(start, end) {
   return [h, m, s]
 }
 
-export function getHM(time, style) {
+export function getHM24(time) {
   const obj = new Date(time);
-  let h, m, hOffset;
+  let h, m;
   h = obj.getHours();
   m = obj.getMinutes();
-  if (style === "12h") {
-    hOffset = h > 12 ? 12 : 0;
-    h = to12H(h);
-  }
+  return [h, m];
+}
+
+/**
+ * Returns the hour, minute, and offset for the input time in 12h format.
+ * @param {*} time The time to convert
+ * @returns {Array} The hour, minute, and offset (0 for AM, 12 for PM)
+ */
+export function getHMO12(time) {
+  const obj = new Date(time);
+  const h24 = obj.getHours();
+  let h, m, hOffset;
+  h = to12H(h24);
+  m = obj.getMinutes();
+  hOffset = h24 > 12 ? 12 : 0;
   return [h, m, hOffset];
 }
 

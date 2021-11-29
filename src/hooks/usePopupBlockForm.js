@@ -4,7 +4,7 @@ import axios from 'axios'
 import useControlledForms from './useControlledForms'
 import useNewBlockValidation from './useNewBlockValidation'
 
-import { getBoundaryMinutes, getHM } from '../helpers/timeHelpers'
+import { getBoundaryMinutes, getHMO12 } from '../helpers/timeHelpers'
 
 const defaultFormValues = {
   project: "",
@@ -60,8 +60,8 @@ export default function usePopupBlockForm(blocks, currentDay, refreshData) {
 
   const editBlock = block => {
     const { id, start_time, end_time, project_id } = block;
-    const [startHour, startMinute, startAMPM] = getHM(start_time, "12h")
-    const [endHour, endMinute, endAMPM] = getHM(end_time, "12h")
+    const [startHour, startMinute, startAMPM] = getHMO12(start_time, "12h")
+    const [endHour, endMinute, endAMPM] = getHMO12(end_time, "12h")
     setValues({
       startHour,
       startMinute,

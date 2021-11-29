@@ -1,4 +1,4 @@
-import { getLastSunday, getNextSaturday, getHM, to12H } from './timeHelpers'
+import { getLastSunday, getNextSaturday, getHMO12, to12H } from './timeHelpers'
 import STRINGS from '../constants/strings'
 
 // Gives time in H:MM AM/PM format, for humans to read.
@@ -99,8 +99,8 @@ export function intervalAMPM(hour1, hour2) {
 }
 
 export function makeShortIntervalString(start, end) {
-  const [startH24, startM] = getHM(start);
-  const [endH24, endM] = getHM(end);
+  const [startH24, startM] = getHMO12(start);
+  const [endH24, endM] = getHMO12(end);
   const [AMPM1, AMPM2] = intervalAMPM(startH24, endH24);
   const [startH12, endH12] = to12H(startH24, endH24);
 

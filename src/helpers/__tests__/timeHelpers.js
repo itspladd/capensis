@@ -21,3 +21,14 @@ describe("to12H", () => {
                       12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
   })
 })
+
+describe("getHM24", () => {
+
+})
+
+describe("getHMO12", () => {
+  const { getHMO12 } = timeHelpers
+  it("exists", () => {
+    
+  })
+})
