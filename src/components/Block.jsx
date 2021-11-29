@@ -1,7 +1,7 @@
 import '../styles/Block.css'
 import classNames from 'classnames'
 import { makeShortIntervalString } from '../helpers/stringHelpers'
-import { getHM } from '../helpers/timeHelpers'
+import { getHMO12 } from '../helpers/timeHelpers'
 
 import Button from 'react-bootstrap/Button'
 import IconButton from './IconButton'
@@ -22,9 +22,9 @@ export default function Block(props) {
     tiny: length === 1,
     short: length === 2,
     "hour-end": spacer &&
-                getHM(end_time)[1] === 0, // if we're a spacer and end-time minutes are 0
+                getHMO12(end_time)[1] === 0, // if we're a spacer and end-time minutes are 0
     "hour-start": spacer &&
-                getHM(start_time)[1] === 0,
+                getHMO12(start_time)[1] === 0,
   });
 
   const handleClick = spacer ? (e) => {e.preventDefault()} : toggle

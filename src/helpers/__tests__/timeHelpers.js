@@ -21,3 +21,69 @@ describe("to12H", () => {
                       12, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]);
   })
 })
+
+describe("getHM24", () => {
+
+})
+
+describe("getHMO12", () => {
+  const { getHMO12 } = timeHelpers
+  it("exists", () => {
+    expect(getHMO12).toBeDefined();
+  })
+  it("returns the correct hour, minute, and offset for all non-12 and -24 times", () => {
+    const testDate = new Date();
+    for (let h = 1; h < 12; h++) {
+      for (let m = 0; m < 60; m++) {
+        testDate.setHours(h, m);
+        expect(getHMO12(testDate)).toStrictEqual([h, m, 0])
+      }
+    }
+
+    for (let h = 13; h < 24; h++) {
+      for (let m = 0; m < 60; m++) {
+        testDate.setHours(h, m);
+        expect(getHMO12(testDate)).toStrictEqual([h - 12, m, 12])
+      }
+    }
+  })
+  it("returns the correct hour, minute, and offset for 0 and 12 hour values", () => {
+    const testDate = new Date();
+    testDate.setHours(0)
+    for (let m = 0; m < 60; m++) {
+      testDate.setMinutes(m);
+      expect(getHMO12(testDate)).toStrictEqual([12, m, 0])
+    }
+    testDate.setHours(12)
+    for (let m = 0; m < 60; m++) {
+      testDate.setMinutes(m);
+      expect(getHMO12(testDate)).toStrictEqual([12, m, 0])
+    }
+  })
+  it("switches the noon value to 0 when given true for the second parameter, but leaves other values unchanged", () => {
+    const testDate = new Date();
+    const noonZero = true;
+    testDate.setHours(12)
+    for (let m = 0; m < 60; m++) {
+      testDate.setMinutes(m);
+      expect(getHMO12(testDate, noonZero)).toStrictEqual([0, m, 12])
+    }
+    testDate.setHours(0)
+    for (let m = 0; m < 60; m++) {
+      testDate.setMinutes(m);
+      expect(getHMO12(testDate, noonZero)).toStrictEqual([0, m, 0])
+    }
+    for (let h = 1; h < 12; h++) {
+      for (let m = 0; m < 60; m++) {
+        testDate.setHours(h, m);
+        expect(getHMO12(testDate, noonZero)).toStrictEqual([h, m, 0])
+      }
+    }
+    for (let h = 13; h < 24; h++) {
+      for (let m = 0; m < 60; m++) {
+        testDate.setHours(h, m);
+        expect(getHMO12(testDate, noonZero)).toStrictEqual([h - 12, m, 12])
+      }
+    }
+  })
+})
