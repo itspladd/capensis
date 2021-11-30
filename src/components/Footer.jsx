@@ -9,7 +9,10 @@ export default function Footer() {
       <p>Created by <a href="https://pladd.dev">Paul Ladd</a></p>
       <div>
         <p>Hosted on <a href={repoLink}>Github</a></p>
-        <img src={github_logo_light} alt="GitHub logo"/></div>
+        <a href={repoLink}>
+          <img src={github_logo_light} alt="GitHub logo"/>
+        </a>
+      </div>
     </div>
   )
 }
