@@ -12,9 +12,9 @@ function PageHeader({ nav, back, forward, title, subtitle, actions }) {
   ))
 
   return(
-    <div className="page_header p-1">
+    <header className="page_header p-1">
       {nav &&
-      <>
+      <nav>
         <Button
         variant="info"
         onClick={back}>
@@ -25,14 +25,14 @@ function PageHeader({ nav, back, forward, title, subtitle, actions }) {
           onClick={forward}>
           {`>`}
         </Button>
-      </>
+      </nav>
       }
       <div className="page_header_title">
         <h3>{title}</h3>
         {subtitle && <small className="text-muted">{subtitle}</small>}
       </div>
-      { actionButtons.length && actionButtons }
-    </div>
+      { actionButtons.length !== 0 && actionButtons }
+    </header>
   )
 }
 
