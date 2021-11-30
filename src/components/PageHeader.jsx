@@ -1,3 +1,4 @@
+import Button from 'react-bootstrap/Button';
 import PropTypes from 'prop-types'
 import '../styles/PageHeader.css'
 
@@ -5,23 +6,25 @@ function PageHeader({ nav, back, forward, title, subtitle, actions }) {
 
   // Make any action buttons passed in through props
   const actionButtons = Object.keys(actions).map(label => (
-    <button key={label} onClick={actions[label]}>{label}</button>
+    <Button key={label} onClick={actions[label]}>
+      {label}
+    </Button>
   ))
 
   return(
-    <div className="page_header">
+    <div className="page_header p-1">
       {nav &&
       <>
-        <button
+        <Button
         variant="info"
         onClick={back}>
         {`<`}
-        </button>
-        <button
+        </Button>
+        <Button
           variant="info"
           onClick={forward}>
           {`>`}
-        </button>
+        </Button>
       </>
       }
       <div className="page_header_title">
