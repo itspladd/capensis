@@ -6,6 +6,7 @@ import '../styles/Report.css';
 import Button from 'react-bootstrap/Button'
 
 import Loading from './Loading'
+import PageHeader from './PageHeader'
 import ReportItem from './ReportItem'
 
 import { makeWeekString } from '../helpers/stringHelpers'
@@ -44,20 +45,13 @@ export default function Report(props) {
 
   return (
     <div className="report">
-      <div class="report-header">
-          <Button
-            variant="info"
-            onClick={lastWeek}>
-            {`<`}
-          </Button>
-          <Button
-            variant="info"
-            onClick={nextWeek}>
-            {`>`}
-          </Button>
-          <h3>{makeWeekString('EN-US', day)}</h3>
-          <span className="text-muted">{day.getFullYear()}</span>
-        </div>
+      <PageHeader
+        nav
+        forward={nextWeek}
+        back={lastWeek}
+        title={makeWeekString('EN-US', day)}
+        subtitle={day.getFullYear()}
+      />
       {loading && <Loading>Loading report...</Loading>}
       {!loading && error && <p>{error.message}</p>}
       {!loading && !error && reportData.length > 0 && (
