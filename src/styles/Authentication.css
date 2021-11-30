@@ -23,27 +23,44 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  flex: 3 0;
+  flex: 2 0;
+}
+
+#app_description {
+  width: 75%;
+  text-align: center;
+  font-size: small;
 }
 
 .appName {
-  width: 80%;
+  width: 50%;
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  align-items: center;
   font-family: var(--logo-font);
   font-size: 3em;
   color: var(--egypt-blue);
+}
+
+.appName p {
+  margin-top: -1.5rem;
 }
 
 .auth_body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  flex-basis: 5;
+  flex: 3 0;
   gap: .5rem;
   background-color:  #aabeff;
   padding: 0 1rem;
   height: 100%;
+}
+
+.auth_body form {
+  animation: var(--anim-slide-in-right);
+  transform: translateX(10px);
+  opacity: 25%;
 }
 
 .authentication_switch {

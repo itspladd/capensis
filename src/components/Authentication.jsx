@@ -11,7 +11,7 @@ export default function Authentication(props) {
   const {login} = props
 
   const [showLogin, setShowLogin] = useState(true)
-  
+
   const authComponent = showLogin ? <Login login={login} /> : <Register login={login} />;
   const switchMsg = showLogin ? "Don't have an account yet?" : "Already have a Capensis account?";
   const buttonMsg = showLogin ? "Make one!" : "Sign in!";
@@ -29,7 +29,7 @@ export default function Authentication(props) {
           <Logo className="auth-logo" hareOnly scale={2}/>
           <p>Capensis</p>
         </div>
-        <p className="welcomeMessage">A super simple scheduler and time-tracker.</p>
+        <p id="app_description">A super simple scheduler and time-tracker.</p>
       </div>
       <section className="auth_body">
         { authComponent }

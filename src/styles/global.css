@@ -14,12 +14,20 @@ html {
   --anim-expand-in: expand-in .3s forwards;
   --anim-collapse-slide-out: slide-left-fade-out .2s forwards, collapse .3s .2s forwards;
   --anim-swipe-in-out: swipe .3s linear 1, swipe .3s linear 2s 1 forwards;
+  --anim-slide-in-right: slide-in-right .3s ease-out 1 forwards;
 }
 
 @keyframes slide-left-fade-out {
   100% {
     opacity: 0;
     transform: translateX(-30px);
+  }
+}
+
+@keyframes slide-in-right {
+  100% {
+    opacity: 100%;
+    transform: translateX(0px);
   }
 }
 
