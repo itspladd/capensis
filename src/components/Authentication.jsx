@@ -24,14 +24,14 @@ export default function Authentication(props) {
 
   return (
     <div className="authentication">
-      <div id="authentication_welcome">
-        <div className="appName">
+      <div id="auth_welcome">
+        <div className="app_name">
           <Logo className="auth-logo" hareOnly scale={2}/>
           <p>Capensis</p>
         </div>
         <p id="app_description">A super simple scheduler and time-tracker.</p>
       </div>
-      <section className="auth_body">
+      <section id="auth_body">
         { authComponent }
 
         <div className="authentication_switch">
