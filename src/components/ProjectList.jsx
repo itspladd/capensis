@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useState } from 'react'
 
+import PageHeader from '../components/PageHeader'
 import ProjectListItem from './ProjectListItem'
 
 export default function ProjectList(props) {
@@ -10,6 +11,10 @@ export default function ProjectList(props) {
   const [formValue, setFormValue] = useState(null);
   const [showNewProjectForm, setShowNewProjectForm] = useState(false);
   const [newProjectFormValue, setNewProjectFormValue] = useState("");
+
+  const newProject = () => {
+    setShowNewProjectForm(true);
+  }
 
   const handleSubmit = (event, id) => {
     event.preventDefault();
@@ -71,22 +76,21 @@ export default function ProjectList(props) {
     />
   ))
 
+  const headerActions = {
+    "New Project": newProject
+  }
+
   return (
     <div className="container">
-      <h3>My Projects</h3>
+      <PageHeader
+        title="My Projects"
+        actions={headerActions}
+      />
 
       <ul className="list-group">
         {projectItems}
       </ul>
       <div className="newProject">
-        { !showNewProjectForm &&
-          <button
-            className="btn btn-primary"
-            onClick={() => setShowNewProjectForm(true)}
-          >
-              Add a Project
-          </button>
-        }
         { showNewProjectForm &&
           <form className="row row-cols-lg-auto g-3" onSubmit={handleNewProjectSubmit}>
             <div className="col-12">
