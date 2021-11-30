@@ -109,27 +109,6 @@ export default function DaySchedule(props) {
         subtitle={dateString}
         actions={headerActions}
       />
-      <div className="dayScheduleHeader p-1">
-        <div className="dayScheduleHeader_internal">
-          <Button
-            variant="info"
-            onClick={goToYesterday}>
-            {`<`}
-          </Button>
-          <Button
-            variant="info"
-            onClick={goToTomorrow}>
-            {`>`}
-          </Button>
-          <div className="dayScheduleHeader_date">
-            <h3>{dayString}</h3>
-            <small className="text-muted">{dateString}</small>
-          </div>
-        </div>
-        <Button variant="primary" onClick={newBlock}>
-            New Block
-          </Button>
-      </div>
       <div className="dayScheduleInternal mt-1">
         <ScheduleBar />
         <BlockList
