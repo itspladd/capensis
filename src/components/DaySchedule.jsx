@@ -1,6 +1,5 @@
 import '../styles/DaySchedule.css';
 
-import Button from 'react-bootstrap/Button';
 import PageHeader from '../components/PageHeader'
 import BlockList from './BlockList'
 import ScheduleBar from './ScheduleBar'
