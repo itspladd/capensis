@@ -21,7 +21,7 @@ export const makeErrorList = function() {
       <Fragment key={i++}>
         {!recursive && <small>{header}</small>}
         { recursive && makeErrorTag(header)}
-        <ul className="errorList">
+        <ul className="error_list">
           { errors.map((e, i) => {
             if(Array.isArray(e)) return makeErrorListRecurs(e.slice(1), e[0], true);
             return makeErrorTag(e,i);

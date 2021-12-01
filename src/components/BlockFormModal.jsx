@@ -37,12 +37,12 @@ export default function BlockFormModal(props) {
   const title = editing ? STRINGS[LANG].FORM_EDITING : STRINGS[LANG].FORM_NEW
 
   return (
-    <Modal className="blockFormModal" show={show} onHide={close}>
+    <Modal className="block_form_modal" show={show} onHide={close}>
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={submit}>
+        <form className="block_form" onSubmit={submit}>
           Date: <strong>{currentDateText}</strong>
           <div className="row row-cols-sm-auto g-5 align-items-center">
             <label htmlFor="project">Project</label>
