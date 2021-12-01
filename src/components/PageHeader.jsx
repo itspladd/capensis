@@ -6,7 +6,7 @@ function PageHeader({ nav, back, forward, title, subtitle, actions }) {
 
   // Make any action buttons passed in through props
   const actionButtons = Object.keys(actions).map(label => (
-    <Button key={label} onClick={actions[label]}>
+    <Button key={label} size="sm" onClick={actions[label]}>
       {label}
     </Button>
   ))
