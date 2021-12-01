@@ -37,7 +37,6 @@ export default function Block(props) {
   const handleDelete = e => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('deleting block', `api/blocks/${id}`)
     axios.delete(`/api/blocks/${id}`)
       .then(refreshData)
   }
