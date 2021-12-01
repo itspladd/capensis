@@ -1,6 +1,13 @@
 import { getLastSunday, getNextSaturday, getHM24, to12H } from './timeHelpers'
 import STRINGS from '../constants/strings'
 
+/**
+ * Returns the input string with all spaces replaced with non-breaking spaces.
+ */
+export function makeNonBreaking(str) {
+  return str.split(" ").join(String.fromCharCode(160));
+}
+
 // Gives time in H:MM AM/PM format, for humans to read.
 export function makeTimeString(time) {
   if (time.length === 5) {
@@ -67,7 +74,7 @@ export function makeWeekString(lang, time) {
   const sunStr = sun.toLocaleDateString(lang, { month: 'long', day:'numeric' });
   const satStr = sat.toLocaleDateString(lang, { month: 'long', day: 'numeric' });
 
-  return(`${sunStr} – ${satStr}`)
+  return(`${makeNonBreaking(sunStr)} – ${makeNonBreaking(satStr)}`)
 }
 
 export function makeDurationFromHHMM(start, end) {

@@ -1,5 +1,6 @@
 import Button from 'react-bootstrap/Button'
 import SessionList from './SessionList'
+import PageHeader from '../PageHeader'
 
 import { makeWeekString } from '../../helpers/stringHelpers'
 import { projectsWithSessions, projectsWithoutSessions } from '../../helpers/projectHelpers'
@@ -31,24 +32,13 @@ export default function Sessions (props) {
 
   return (
     <section className={`sessions`}>
-      <header>
-        <nav>
-          <Button
-            variant="info"
-            onClick={lastWeek}>
-            {`<`}
-          </Button>
-          <Button
-            variant="info"
-            onClick={nextWeek}>
-            {`>`}
-          </Button>
-        </nav>
-        <div>
-          <h3>Sessions</h3>
-          <span className="text-muted">{makeWeekString('EN-US', day)}</span>
-        </div>
-      </header>
+      <PageHeader
+        nav
+        back={lastWeek}
+        forward={nextWeek}
+        title="Sessions"
+        subtitle={makeWeekString('EN-US', day)}
+      />
       <article>
         { sessionListsByProject }
         { untrackedProjects.length > 0 &&

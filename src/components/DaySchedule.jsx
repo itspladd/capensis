@@ -1,6 +1,6 @@
 import '../styles/DaySchedule.css';
 
-import Button from 'react-bootstrap/Button';
+import PageHeader from '../components/PageHeader'
 import BlockList from './BlockList'
 import ScheduleBar from './ScheduleBar'
 import { useEffect, useState } from 'react';
@@ -94,29 +94,20 @@ export default function DaySchedule(props) {
     setBlocksWithPlaceholders(newBlocks)
   }, [blocks, day])
 
+  const headerActions = {
+    "New Block": newBlock
+  }
+
   return(
     <div className="daySchedule">
-      <div className="dayScheduleHeader p-1">
-        <div className="dayScheduleHeader_internal">
-          <Button
-            variant="info"
-            onClick={goToYesterday}>
-            {`<`}
-          </Button>
-          <Button
-            variant="info"
-            onClick={goToTomorrow}>
-            {`>`}
-          </Button>
-          <div className="dayScheduleHeader_date">
-            <h3>{dayString}</h3>
-            <small className="text-muted">{dateString}</small>
-          </div>
-        </div>
-        <Button variant="primary" onClick={newBlock}>
-            New Block
-          </Button>
-      </div>
+      <PageHeader
+        nav
+        back={goToYesterday}
+        forward={goToTomorrow}
+        title={dayString}
+        subtitle={dateString}
+        actions={headerActions}
+      />
       <div className="dayScheduleInternal mt-1">
         <ScheduleBar />
         <BlockList
