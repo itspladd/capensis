@@ -1,0 +1,26 @@
+.page_header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+}
+
+.page_header div:first-child {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.page_header nav {
+  display: flex;
+  align-items: flex-end;
+  gap: .3rem;
+}
+
+.page_header_title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+}
