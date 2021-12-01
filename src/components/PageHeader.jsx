@@ -13,25 +13,29 @@ function PageHeader({ nav, back, forward, title, subtitle, actions }) {
 
   return(
     <header className="page_header p-1">
-      {nav &&
-      <nav>
-        <Button
-        variant="info"
-        onClick={back}>
-        {`<`}
-        </Button>
-        <Button
+      <div>
+        {nav &&
+        <nav>
+          <Button
           variant="info"
-          onClick={forward}>
-          {`>`}
-        </Button>
-      </nav>
-      }
-      <div className="page_header_title">
-        <h3>{title}</h3>
-        {subtitle && <small className="text-muted">{subtitle}</small>}
+          onClick={back}>
+          {`<`}
+          </Button>
+          <Button
+            variant="info"
+            onClick={forward}>
+            {`>`}
+          </Button>
+        </nav>
+        }
+        <div className="page_header_title">
+          <h3>{title}</h3>
+          {subtitle && <small className="text-muted">{subtitle}</small>}
+        </div>
       </div>
-      { actionButtons.length !== 0 && actionButtons }
+      <div className="page_header_actions">
+        { actionButtons.length !== 0 && actionButtons }
+      </div>
     </header>
   )
 }
