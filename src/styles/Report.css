@@ -3,13 +3,13 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  gap: 3rem;
-  width: 75%;
+  gap: 0.5rem;
 }
 
 .report ul {
-  margin-top: 1rem;
-  padding-left: 0;
+  margin: 0;
+  padding: 0 1rem 0 .5rem;
+  overflow: scroll;
 }
 
 .report-empty {
