@@ -47,8 +47,8 @@ export default function Report(props) {
     <div className="report">
       <PageHeader
         nav
-        forward={nextWeek}
         back={lastWeek}
+        forward={nextWeek}
         title={makeWeekString('EN-US', day)}
         subtitle={day.getFullYear()}
       />
