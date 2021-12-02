@@ -2,3 +2,32 @@
   display: flex;
   flex-direction: column;
 }
+
+.block_form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.block_form>div {
+  display: flex;
+  align-items: center;
+}
+
+.block_form label {
+  min-width: fit-content;
+  margin-right: .5rem;
+  flex: 2 0;
+}
+
+.block_form ul {
+  display: flex;
+  flex: 4 0;
+  margin: 0;
+  padding: 0;
+}
+
+.block_form select {
+  padding-right: 1rem;
+  background-position: right .25rem center;
+}
