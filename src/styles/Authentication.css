@@ -60,7 +60,7 @@
 #auth_body form {
   animation: var(--anim-slide-in-right);
   transform: translateX(10px);
-  opacity: 25%;
+  opacity: .25;
 }
 
 .authentication_switch {
