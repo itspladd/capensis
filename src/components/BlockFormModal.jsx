@@ -44,10 +44,10 @@ export default function BlockFormModal(props) {
       <Modal.Body>
         <form className="block_form" onSubmit={submit}>
           <fieldset>
-            <span>Date: <strong>{currentDateText}</strong></span>
+            <legend>Date: <strong>{currentDateText}</strong></legend>
           </fieldset>
           <fieldset>
-            <legend>Project</legend>
+            <legend>Project:</legend>
             <label className="visually-hidden" htmlFor="project">Project:</label>
             <select className="form-select" name="project" id="project" value={values.project} onChange={change}>
               <option value="">Select a project</option>
