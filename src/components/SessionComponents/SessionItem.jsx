@@ -37,10 +37,13 @@ export default function SessionItem(props) {
   // If this is an "active" session, set the status to "active" after the load animation.
   // Otherwise, set it to stable.
   useEffect(() => {
-    active ?
+    const statusTimer = active ?
       setTimeout(() => setStatus(STATUSES.ACTIVE), 500)
       :
       setTimeout(() => setStatus(STATUSES.STABLE), 500)
+    return function cleanup() {
+      clearTimeout(statusTimer)
+    }
   }, [active])
 
   // When the incoming times change, update the state.
