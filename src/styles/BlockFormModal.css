@@ -1,9 +1,44 @@
-.blockFormModal .errorList {
+.block_form_modal .error_list {
   display: flex;
   flex-direction: column;
 }
 
-.errorList .small {
-  color: red;
+.block_form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
 
+.block_form fieldset {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.block_form legend {
+  display: block;
+  font-size: inherit;
+  margin: 0;
+  flex: 1 0;
+}
+
+.block_form label {
+  min-width: fit-content;
+  margin-right: .5rem;
+}
+
+.block_form ul {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex: 2 0;
+}
+
+.block_form select {
+  padding-right: 1rem;
+  background-position: right .25rem center;
+}
+
+.block_form select:only-of-type {
+  flex: 2 0;
 }

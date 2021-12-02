@@ -37,11 +37,14 @@ export default function SessionItem(props) {
   // If this is an "active" session, set the status to "active" after the load animation.
   // Otherwise, set it to stable.
   useEffect(() => {
-    active ?
+    const statusTimer = active ?
       setTimeout(() => setStatus(STATUSES.ACTIVE), 500)
       :
       setTimeout(() => setStatus(STATUSES.STABLE), 500)
-  }, [])
+    return function cleanup() {
+      clearTimeout(statusTimer)
+    }
+  }, [active])
 
   // When the incoming times change, update the state.
   // This usually happens if refreshData fires outside the context of these
@@ -52,6 +55,7 @@ export default function SessionItem(props) {
       end: makeHHMMTimeString(end_time)
     })
     end_time && status !== STATUSES.SUCCESS && setStatus(STATUSES.STABLE)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [start_time, end_time])
 
   useEffect(() => {

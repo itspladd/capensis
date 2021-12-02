@@ -12,6 +12,13 @@
   display: flex;
   justify-content: center;
   overflow: hidden;
+  align-self: center;
+}
+
+@media (min-width: 576px) {
+  .App-body {
+    max-width: 1000px;
+  }
 }
 
 /*

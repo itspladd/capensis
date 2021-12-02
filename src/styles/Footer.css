@@ -1,0 +1,34 @@
+#footer {
+  font-size: small;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--egypt-blue);
+  color: rgb(228, 228, 228);
+  padding: .2em .5em;
+}
+
+#footer p {
+  margin: 0;
+}
+
+#footer div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#footer img {
+  height: 1.5em;
+  margin-left: .5em;
+}
+
+#footer a {
+  color: rgb(34, 240, 255);
+  text-decoration: none;
+}
+
+@media (min-width: 1024px) {
+  #footer {
+    font-size: medium;
+  }
+}

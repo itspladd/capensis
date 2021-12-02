@@ -3,7 +3,6 @@ import classNames from 'classnames'
 import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHMO12 } from '../helpers/timeHelpers'
 
-import Button from 'react-bootstrap/Button'
 import IconButton from './IconButton'
 import axios from 'axios'
 
@@ -33,16 +32,13 @@ export default function Block(props) {
     e.preventDefault();
     e.stopPropagation();
     edit();
-    console.log('clicked edit')
   }
 
   const handleDelete = e => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('deleting block', `api/blocks/${id}`)
     axios.delete(`/api/blocks/${id}`)
       .then(refreshData)
-    console.log('clicked delete')
   }
 
   return(

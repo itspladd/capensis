@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import Button from 'react-bootstrap/Button'
 
 import Login from './Login'
 import Register from './Register'
@@ -11,10 +10,10 @@ export default function Authentication(props) {
   const {login} = props
 
   const [showLogin, setShowLogin] = useState(true)
-  
+
   const authComponent = showLogin ? <Login login={login} /> : <Register login={login} />;
   const switchMsg = showLogin ? "Don't have an account yet?" : "Already have a Capensis account?";
-  const buttonMsg = showLogin ? "Sign up" : "Sign in";
+  const buttonMsg = showLogin ? "Make one!" : "Sign in!";
 
   const handleSwitch = event => {
     event.preventDefault();
@@ -23,26 +22,22 @@ export default function Authentication(props) {
   }
 
   return (
-    <div className="Authentication">
-      <div id="Authentication_background">
-        <div id="Authentication_welcome">
-          <Logo className="auth-logo" hareOnly scale={2}
-          />
-          <p className="appName">Capensis</p>
-          <p className="welcomeMessage">A super simple scheduler and time-tracker.</p>
+    <div className="authentication">
+      <div id="auth_welcome">
+        <div className="app_name">
+          <Logo className="auth-logo" hareOnly scale={2}/>
+          <p>Capensis</p>
         </div>
-
+        <p id="app_description">A super simple scheduler and time-tracker.</p>
+      </div>
+      <section id="auth_body">
         { authComponent }
 
-        <div className="Authentication_switch">
-          <p>{switchMsg}</p>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={handleSwitch}
-          >{buttonMsg}</Button>
+        <div className="authentication_switch">
+          <p className="text-muted">{switchMsg}</p>
+          <button onClick={handleSwitch}>{buttonMsg}</button>
         </div>
-      </div>
+      </section>
     </div>
   )
 }

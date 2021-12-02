@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button'
 import { getSvgSizeObj } from '../helpers/imageHelpers'
 
 import '../styles/IconButton.css'

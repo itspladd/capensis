@@ -1,3 +1,5 @@
+import { Fragment } from 'react'
+
 export function makeErrorTag(errorString, index) {
   return (
   <li key={`e${index}`} className="form-text text-muted">
@@ -13,18 +15,19 @@ export function makeErrorTag(errorString, index) {
  * @param {Boolean} recursive Do not set.
  */
 export const makeErrorList = function() {
+  let i = 0;
   const makeErrorListRecurs = (errors, header, recursive) => {
     return (
-      <>
+      <Fragment key={i++}>
         {!recursive && <small>{header}</small>}
         { recursive && makeErrorTag(header)}
-        <ul className="errorList">
+        <ul className="error_list">
           { errors.map((e, i) => {
             if(Array.isArray(e)) return makeErrorListRecurs(e.slice(1), e[0], true);
             return makeErrorTag(e,i);
           })}
         </ul>
-      </>
+      </Fragment>
     )
   }
   const starter = (e, h) => makeErrorListRecurs(e, h)

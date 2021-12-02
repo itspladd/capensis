@@ -1,4 +1,3 @@
-import Button from 'react-bootstrap/Button'
 import SessionList from './SessionList'
 import PageHeader from '../PageHeader'
 

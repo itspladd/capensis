@@ -8,6 +8,7 @@ import { truthyOrLengthy } from '../helpers/boolHelpers';
 import { makeErrorString } from '../helpers/stringHelpers';
 import { makeErrorList, makeHoursOptions, makeProjectOptions } from '../helpers/tagHelpers'
 
+import '../styles/modal.css'
 import '../styles/BlockFormModal.css'
 
 const LANG = SETTINGS.LANGUAGES.EN_US;
@@ -37,66 +38,65 @@ export default function BlockFormModal(props) {
   const title = editing ? STRINGS[LANG].FORM_EDITING : STRINGS[LANG].FORM_NEW
 
   return (
-    <Modal className="blockFormModal" show={show} onHide={close}>
+    <Modal className="block_form_modal" show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={submit}>
-          Date: <strong>{currentDateText}</strong>
-          <div className="row row-cols-sm-auto g-5 align-items-center">
-            <label htmlFor="project">Project</label>
-            <div className="col-12">
-              <select className="form-select" name="project" id="project" value={values.project} onChange={change}>
-                <option value="">Select a project</option>
-                {projectOptions}
-              </select>
-            </div>
-          </div>
-          <div className="row row-cols-lg-auto g-2 mt-1 align-items-center">
-            <label htmlFor="startHour">Starting at:</label>
-            <div className="col-12">
+        <form className="block_form" onSubmit={submit}>
+          <fieldset>
+            <legend>Date:</legend><strong>{currentDateText}</strong>
+          </fieldset>
+          <fieldset>
+            <legend>Project:</legend>
+            <label className="visually-hidden" htmlFor="project">Project:</label>
+            <select className="form-select" name="project" id="project" value={values.project} onChange={change}>
+              <option value="">Select a project</option>
+              {projectOptions}
+            </select>
+          </fieldset>
+          <fieldset>
+            <legend>Starting at:</legend>
+            <ul>
+              <label className="visually-hidden" htmlFor="startHour">Start hour</label>
               <select className="form-select" name="startHour" id="startHour" value={values.startHour} onChange={change}>
                 {hoursOptions}
               </select>
-            </div>
-            <div className="col-12">
+              <label className="visually-hidden" htmlFor="startMinute">Start minute</label>
               <select className="form-select" name="startMinute" id="startMinute" value={values.startMinute} onChange={change}>
                 <option>00</option>
                 <option>15</option>
                 <option>30</option>
                 <option>45</option>
               </select>
-            </div>
-            <div className="col-12">
+              <label className="visually-hidden" htmlFor="startAMPM">Start AM/PM</label>
               <select className="form-select" name="startAMPM" id="startAMPM" value={values.startAMPM} onChange={change}>
                 <option value="0">AM</option>
                 <option value="12">PM</option>
               </select>
-            </div>
-          </div>
-          <div className="row row-cols-lg-auto g-2 mt-1 align-items-center">
-            <label>Ending at:</label>
-            <div className="col-12">
+            </ul>
+          </fieldset>
+          <fieldset>
+            <legend>Ending at:</legend>
+            <ul>
+              <label className="visually-hidden" htmlFor="endHour">End hour</label>
               <select className="form-select" name="endHour" id="endHour" value={values.endHour} onChange={change}>
                 {hoursOptions}
               </select>
-            </div>
-            <div className="col-12">
+              <label className="visually-hidden" htmlFor="endMinute">End minute</label>
               <select className="form-select" name="endMinute" id="endMinute" value={values.endMinute} onChange={change}>
                 <option>00</option>
                 <option>15</option>
                 <option>30</option>
                 <option>45</option>
               </select>
-            </div>
-            <div className="col-12">
+              <label className="visually-hidden" htmlFor="endAMPM">End AM/PM</label>
               <select className="form-select" name="endAMPM" id="endAMPM" value={values.endAMPM} onChange={change}>
                 <option value="0">AM</option>
                 <option value="12">PM</option>
               </select>
-            </div>
-          </div>
+            </ul>
+          </fieldset>
           { showErrors &&
               <section>
                 {valid ?

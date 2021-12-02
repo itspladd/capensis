@@ -1,17 +1,15 @@
 @import './global.css';
 
-.Authentication {
+.authentication {
   width: 100%;
   height: 100%;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-around;
   align-items: center;
 }
 
-#Authentication_background {
-  height:70%;
-  width: 70%;
+#authentication_background {
   padding: 2em;
   display: flex;
   flex-direction: column;
@@ -20,24 +18,112 @@
   border-radius: 0.5em;
 }
 
-#Authentication_welcome {
-  text-align: center;
-}
-
-.appName {
-  font-family: var(--logo-font);
-  font-size: 4em;
-  color: var(--egypt-blue);
-  margin-top: -1rem;
-}
-
-.Authentication_switch {
+#auth_welcome {
+  width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 2 0;
+}
+
+#app_description {
+  width: 90%;
+  text-align: center;
+  font-size: 1em;
+}
+
+.app_name {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--logo-font);
+  font-size: 3em;
+  color: var(--egypt-blue);
+}
+
+.app_name p {
+  margin-top: -1.2rem;
+}
+
+#auth_body {
+  display: flex;
+  flex-direction: column;
   justify-content: center;
+  flex: 3 0;
+  gap: .5rem;
+  background-color:  #aabeff;
+  padding: 0 1rem;
+  height: 100%;
+}
+
+#auth_body form {
+  animation: var(--anim-slide-in-right);
+  transform: translateX(10px);
+  opacity: 25%;
+}
+
+.authentication_switch {
+  display: flex;
+  font-size: small;
+  justify-content: flex-start;
   gap: 0.5em;
   align-items: center;
 }
 
-.Authentication_switch > p {
+.authentication_switch button {
+  color: rgb(85, 85, 255);
+  outline: none;
+  border: none;
+  background-color: transparent;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0;
+}
+
+.authentication p {
   margin-bottom: 0;
+}
+
+@media (min-height: 460px) {
+  .authentication {
+    flex-direction: column;
+  }
+
+  #auth_welcome {
+    justify-content: center;
+  }
+
+  .app_name {
+    width: 40%;
+  }
+
+  #auth_body {
+    width: 100%;
+  }
+}
+
+@media (min-width: 600px) and (min-height: 460px) {
+  .authentication {
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .app_name {
+    font-size: 4rem;
+  }
+
+  #auth_welcome {
+    justify-content: center;
+    flex: none;
+  }
+
+  #auth_body {
+    justify-content: center;
+    width: 50%;
+    border-radius: .75rem;
+    flex: none;
+    padding: 1rem;
+    height: auto;
+  }
 }

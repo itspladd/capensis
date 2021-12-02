@@ -1,7 +1,7 @@
 @import './global.css';
 
 .auth-logo {
-  padding-left: 2rem;
+  margin: 0 auto;
   fill: var(--egypt-blue);
 }
 

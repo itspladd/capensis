@@ -1,16 +1,17 @@
 .report {
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   gap: 0.5rem;
   width: 100%;
+  height: calc(100% + 15px);
 }
 
 .report ul {
   margin: 0;
-  padding: 0 1rem 0 .5rem;
+  padding: 0 1rem 2rem .5rem;
   overflow: scroll;
+  height: 100%;
 }
 
 .report-empty {
