@@ -57,7 +57,7 @@ html {
 
 @keyframes swipe {
   0% {
-    opacity: 0%;
+    opacity: 0.0;
     transform:  translate(5px, -5px) rotate(-45deg);
   }
 }
