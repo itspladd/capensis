@@ -49,8 +49,8 @@ export default function Report(props) {
         nav
         back={lastWeek}
         forward={nextWeek}
-        title={makeWeekString('EN-US', day)}
-        subtitle={day.getFullYear()}
+        title="Report"
+        subtitle={`${makeWeekString('EN-US', day)}, ${day.getFullYear()}`}
       />
       {loading && <Loading>Loading report...</Loading>}
       {!loading && error && <p>{error.message}</p>}
