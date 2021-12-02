@@ -69,6 +69,7 @@ export default function ProjectList(props) {
   const projectItems = projects && Object.values(projects).map(project => (
     <ProjectListItem
       {...project}
+      key={project.id}
       selected={ project.id === selectedProject}
       onEditClick={() => setSelectedProject(project.id)}
       onCancelClick={handleCancel}
