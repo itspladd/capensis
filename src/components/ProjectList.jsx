@@ -4,6 +4,8 @@ import { useState } from 'react'
 import PageHeader from '../components/PageHeader'
 import ProjectListItem from './ProjectListItem'
 
+import '../styles/ProjectList.css'
+
 export default function ProjectList(props) {
   const { projects, setProjects } = props;
 
@@ -81,7 +83,7 @@ export default function ProjectList(props) {
   }
 
   return (
-    <div className="container">
+    <div className="projects">
       <PageHeader
         title="Projects"
         actions={headerActions}

@@ -25,6 +25,10 @@
   text-align: left;
 }
 
+.page_header_title:only-child {
+  margin-left: .5rem;
+}
+
 @media (min-width: 576px) {
   .page_header {
     justify-content: flex-start;
