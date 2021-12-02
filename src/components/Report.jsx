@@ -3,8 +3,6 @@ import { useEffect, useState } from "react"
 
 import '../styles/Report.css';
 
-import Button from 'react-bootstrap/Button'
-
 import Loading from './Loading'
 import PageHeader from './PageHeader'
 import ReportItem from './ReportItem'
