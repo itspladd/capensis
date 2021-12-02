@@ -1,0 +1,19 @@
+.modal-header, .modal-footer, .modal-body {
+  padding: .5rem 1rem;
+}
+
+@media (min-height: 375px) {
+  .modal-header, .modal-footer, .modal-body {
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    margin: 1rem auto;
+  }
+
+  .modal-dialog-centered {
+    min-height: calc(100% - 2rem)
+  }
+}

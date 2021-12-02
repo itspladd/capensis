@@ -8,6 +8,7 @@ import { truthyOrLengthy } from '../helpers/boolHelpers';
 import { makeErrorString } from '../helpers/stringHelpers';
 import { makeErrorList, makeHoursOptions, makeProjectOptions } from '../helpers/tagHelpers'
 
+import '../styles/modal.css'
 import '../styles/BlockFormModal.css'
 
 const LANG = SETTINGS.LANGUAGES.EN_US;
@@ -37,7 +38,7 @@ export default function BlockFormModal(props) {
   const title = editing ? STRINGS[LANG].FORM_EDITING : STRINGS[LANG].FORM_NEW
 
   return (
-    <Modal className="block_form_modal" show={show} onHide={close}>
+    <Modal className="block_form_modal" show={show} onHide={close} centered>
       <Modal.Header closeButton>
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
