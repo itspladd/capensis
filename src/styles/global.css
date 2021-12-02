@@ -26,7 +26,7 @@ html {
 
 @keyframes slide-in-right {
   100% {
-    opacity: 100%;
+    opacity: 1;
     transform: translateX(0px);
   }
 }
