@@ -83,7 +83,7 @@ export default function ProjectList(props) {
   return (
     <div className="container">
       <PageHeader
-        title="My Projects"
+        title="Projects"
         actions={headerActions}
       />
 

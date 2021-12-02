@@ -2,13 +2,13 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: .5rem;
 }
 
 .page_header div:first-child {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: .5rem;
 }
 
