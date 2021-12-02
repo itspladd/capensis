@@ -44,7 +44,7 @@ export default function BlockFormModal(props) {
       <Modal.Body>
         <form className="block_form" onSubmit={submit}>
           <fieldset>
-            <legend>Date: <strong>{currentDateText}</strong></legend>
+            <legend>Date:</legend><strong>{currentDateText}</strong>
           </fieldset>
           <fieldset>
             <legend>Project:</legend>
