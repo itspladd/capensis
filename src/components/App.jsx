@@ -24,6 +24,7 @@ import Report from './Report';
 import Footer from './Footer';
 
 // Custom hooks
+import useAppData from '../hooks/useAppData'
 import useDateTracking from '../hooks/useDateTracking';
 import useAuthentication from '../hooks/useAuthentication'
 import useWeeklyData from '../hooks/useWeeklyData';
@@ -36,6 +37,7 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 export default function App() {
 
   const [day, week, changeDay] = useDateTracking();
+  const { state } = useAppData();
   const [loading, username, login, logout] = useAuthentication();
   const [blocks, sessions, refreshData] = useWeeklyData(username, week);
   const [currentProject, toggleSession] = useSessionTracking(username, refreshData);
@@ -51,22 +53,22 @@ export default function App() {
         setProjects(projectList)
       })
   }, [username])
-
+  console.log(state)
   return (
     <div className="App">
       {/* If we haven't finished trying to log in: */}
-      {loading && <Loading>Loading...</Loading>}
+      {state.loading && <Loading>Loading...</Loading>}
 
       {/* If there's no valid login: */}
-      {!loading && !username &&
+      {!state.loading && !state.user &&
         <Authentication login={login} />
       }
 
       {/* If we've successfully logged in: */}
-      {!loading && username &&
+      {!state.loading && state.user &&
         <>
           <Router basename="/capensis">
-            <Header username={username} handleLogout={logout} />
+            <Header username={state.user.username} handleLogout={logout} />
             <StatusBar currentProject={currentProject} projects={projects} />
             {/* BlockFormModal is a popup modal, so it's always here,
             but only displayed if "show" is true */}
