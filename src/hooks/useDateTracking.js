@@ -1,6 +1,11 @@
 import { useState, useEffect } from 'react';
 import { makeNoonDate, getLastSunday } from '../helpers/timeHelpers'
 
+/**
+ * Keeps track of day and week in the state.
+ * Initializes to noon on the current day.
+ * @returns {[Date, number, changeDay]}
+ */
 export default function useDateTracking() {
   const today = new Date();
   makeNoonDate(today);
@@ -8,10 +13,13 @@ export default function useDateTracking() {
   const [day, setDay] = useState(today);
   const [weekMs, setWeekMs] = useState(getLastSunday(day).valueOf());
 
-  // Change currentDay by given number of days
-  // i.e. days = 1 gives next day, days = -1 gives prev day
-  // Check for new week and load new blocks if necessary.
-  const changeDay = days => {
+  /**
+   * Changes the current day by the input number of days.
+   * Use a negative number to move to a previous day.
+   * Use a positive number to move to a future day.
+   * @param {number} days
+   */
+  function changeDay(days) {
     const msDayMultiplier = 1000*60*60*24;
     const deltaMs = msDayMultiplier*days;
     const newDay = new Date(day.valueOf() + deltaMs);
