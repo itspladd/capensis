@@ -24,8 +24,7 @@ import Report from './Report';
 import Footer from './Footer';
 
 // Custom hooks
-import useDay from '../hooks/useDay';
-import useWeek from '../hooks/useWeek';
+import useDateTracking from '../hooks/useDateTracking';
 import useAuthentication from '../hooks/useAuthentication'
 import useWeeklyData from '../hooks/useWeeklyData';
 import useSessionTracking from '../hooks/useSessionTracking';
@@ -36,8 +35,7 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 
 export default function App() {
 
-  const [day, changeDay] = useDay();
-  const [week] = useWeek(day)
+  const [day, week, changeDay] = useDateTracking();
   const [loading, username, login, logout] = useAuthentication();
   const [blocks, sessions, refreshData] = useWeeklyData(username, week);
   const [currentProject, toggleSession] = useSessionTracking(username, refreshData);
