@@ -7,7 +7,7 @@ import ProjectListItem from './ProjectListItem'
 import '../styles/ProjectList.css'
 
 export default function ProjectList(props) {
-  const { projects, setProjects } = props;
+  const { projects, dataActions } = props;
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [formValue, setFormValue] = useState(null);
@@ -21,14 +21,11 @@ export default function ProjectList(props) {
   const handleSubmit = (event, id) => {
     event.preventDefault();
     const title = formValue !== null ? formValue : projects[id].title;
-    setSelectedProject(null);
-    setFormValue(null);
-    const newProject = {...projects[id], title};
-    setProjects(prev => ({
-      ...prev,
-      [id]: newProject
-    }))
-    axios.patch(`/api/projects/${id}`, { title })
+    dataActions.updateProject({ id, title })
+      .then(() => {
+        setSelectedProject(null);
+        setFormValue(null);
+      })
   }
 
   const handleCancel = event => {
@@ -46,18 +43,11 @@ export default function ProjectList(props) {
 
   const handleNewProjectSubmit = event => {
     event.preventDefault();
-    axios.post(`/api/projects`, { projectTitle: newProjectFormValue })
-         .then(res => {
-           const newProject = res.data;
-           setProjects(prev => ({
-             ...prev,
-             [newProject.id]: newProject
-           }))
-         })
-         .then(() => {
-          setNewProjectFormValue("");
-          setShowNewProjectForm(false)
-         })
+    dataActions.addProject({ title: newProjectFormValue })
+      .then(() => {
+        setNewProjectFormValue("");
+        setShowNewProjectForm(false)
+      })
   }
 
   const handleNewProjectCancel = event => {

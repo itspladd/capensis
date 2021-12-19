@@ -1,6 +1,5 @@
 import '../styles/App.css';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 
 // Router components
 import {
@@ -36,21 +35,13 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 export default function App() {
 
   const [day, week, changeDay] = useDateTracking();
-  const { state, authActions } = useAppData();
+  const { state, authActions, dataActions } = useAppData();
   const [blocks, sessions, refreshData] = useWeeklyData(state.user, week);
   const [currentProject, toggleSession] = useSessionTracking(state.user, refreshData);
   const [blockFormState, blockFormActions] = usePopupBlockForm(blocks, day, refreshData);
-  const [projects, setProjects] = useState({})
 
   // Load new projects when the username changes
-  useEffect(() => {
-    axios.get('/api/projects')
-      .then(res => {
-        const projectList = {};
-        res.data.projects.forEach(project => projectList[project.id] = project)
-        setProjects(projectList)
-      })
-  }, [state.user])
+
   console.log(state)
   return (
     <div className="App">
@@ -67,14 +58,14 @@ export default function App() {
         <>
           <Router basename="/capensis">
             <Header username={state.user.username} logout={authActions.logout} />
-            <StatusBar currentProject={currentProject} projects={projects} />
+            <StatusBar state={state} currentProject={currentProject} />
             {/* BlockFormModal is a popup modal, so it's always here,
             but only displayed if "show" is true */}
             <BlockFormModal
               state={blockFormState}
               actions={blockFormActions}
               currentDay={day}
-              projects={projects}
+              projects={state.projects}
             />
             <div className="App-body">
               <Switch>
@@ -94,12 +85,12 @@ export default function App() {
                   <WeekSchedule />
                 </Route>
                 <Route exact path="/projects" >
-                  <ProjectList projects={projects} setProjects={setProjects} />
+                  <ProjectList projects={state.projects} dataActions={dataActions} />
                 </Route>
                 <Route exact path="/sessions">
                   <Sessions
                     sessions={sessions}
-                    projects={projects}
+                    projects={state.projects}
                     day={day}
                     lastWeek={() => changeDay(-7)}
                     nextWeek={() => changeDay(7)}
@@ -108,7 +99,7 @@ export default function App() {
                 </Route>
                 <Route exact path="/reports" >
                   <Report
-                    projects={projects}
+                    projects={state.projects}
                     day={day}
                     lastWeek={() => changeDay(-7)}
                     nextWeek={() => changeDay(7)}
