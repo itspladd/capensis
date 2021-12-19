@@ -45,6 +45,8 @@ export default function usePopupBlockForm(blocks, currentDay, refreshData) {
       const endTime = endDate.toISOString();
       const blockData = { startTime, endTime, project: values.project };
 
+      // If we have a block ID saved, we're updating an existing block.
+      // If not, we're creating a new block.
       const method = blockId ? axios.patch : axios.post;
       method(`/api/blocks/${blockId || ""}`, blockData)
            .then(refreshData)
