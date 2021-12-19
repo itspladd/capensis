@@ -1,6 +1,11 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
+import appDataReducer from './appDataReducer'
+import {
+  SET_LOADING,
+  SET_USER
+} from '../constants/actions'
 
 export default function useAppData() {
 
@@ -9,31 +14,7 @@ export default function useAppData() {
     user: null
   }
 
-  // REDUCER ACTIONS: Each of these corresponds to a specific reducer action.
-  const STOP_LOADING = "STOP_LOADING"
-  const SET_USER = "SET_USER";
-
-  // This reducer function contains helper functions for each possible action.
-  // Actions are defined above.
-  function reducer(state, action) {
-    const setUser = ({ username }) => {
-      return { ...state, user: { username }}
-    }
-
-    const stopLoading = () => {
-      return { ...state, loading: false }
-    }
-
-    const actions = {
-      [STOP_LOADING]: stopLoading,
-      [SET_USER]: setUser,
-      
-    }
-
-    return actions[action.type]({ ...action })
-  }
-
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(appDataReducer, initialState);
 
   useEffect(() => {
     // Attempt to authenticate a previously-logged-in user.
@@ -41,12 +22,34 @@ export default function useAppData() {
       // If the API returns a user object, update the state.
       .then(res => {
         const { user } = res.data;
-        user && dispatch({ type: SET_USER, ...user });
+        user && dispatch({ type: SET_USER, user });
       })
-      .finally(() => dispatch({ type: STOP_LOADING }))
+
+      // And now we're done loading.
+      .finally(() => dispatch({ type: SET_LOADING, payload: false }))
   }, []);
 
+  // Authentication actions
+  const login = (username, rawPassword) => {
+    axios.post(`/api/auth/login`, { username, rawPassword })
+      .then(res => {
+        const { user } = res.data;
+        user && dispatch({ type: SET_USER, user })
+      })
+  }
+
+  const logout = () => {
+    axios.post(`/api/auth/logout`)
+      .then(() => dispatch({ type: SET_USER, user: null }))
+  }
+
+  const authActions = {
+    login,
+    logout
+  }
+
   return {
-    state
+    state,
+    authActions
   }
 }

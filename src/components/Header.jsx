@@ -9,7 +9,12 @@ import '../styles/Header.css';
 import Logo from '../components/Logo'
 
 export default function Header(props) {
-  const { username, handleLogout } = props;
+  const { username, logout } = props;
+
+  const handleLogout = event => {
+    event.preventDefault();
+    logout();
+  }
 
   return(
     <Navbar className="navbar" variant="dark" expand="sm">

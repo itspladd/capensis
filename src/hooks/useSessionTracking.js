@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useState, useEffect, useCallback } from 'react';
 
-export default function useSessionTracking(username, refreshData) {
+export default function useSessionTracking(user, refreshData) {
   const [currentId, setCurrentId] = useState(null);
   const [currentProject, setCurrentProject] = useState(null);
 
@@ -27,11 +27,11 @@ export default function useSessionTracking(username, refreshData) {
   }
 
   useEffect(() => {
-    // When the username changes, ping the server to see if there's an open session.
+    // When the user changes, ping the server to see if there's an open session.
     // If there is, load it into the state.
     axios.get(`/api/sessions/current`)
          .then(updateSession)
-  }, [username, updateSession])
+  }, [user, updateSession])
 
   const startTracking = project_id => {
     return axios.post(`/api/sessions`, { project_id })

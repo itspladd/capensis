@@ -1,4 +1,3 @@
-import axios from 'axios';
 import useControlledForms from '../hooks/useControlledForms';
 
 import Form from 'react-bootstrap/Form'
@@ -16,8 +15,7 @@ export default function Login(props) {
   const handleSubmit = event => {
     event.preventDefault();
     const { formLoginUsername, formLoginPassword } = formValues;
-    axios.post(`/api/auth/login`, {username: formLoginUsername, rawPassword:formLoginPassword})
-         .then(res => login(res.data.username))
+    login(formLoginUsername, formLoginPassword)
   }
 
   return (

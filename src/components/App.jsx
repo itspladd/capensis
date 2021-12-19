@@ -26,7 +26,6 @@ import Footer from './Footer';
 // Custom hooks
 import useAppData from '../hooks/useAppData'
 import useDateTracking from '../hooks/useDateTracking';
-import useAuthentication from '../hooks/useAuthentication'
 import useWeeklyData from '../hooks/useWeeklyData';
 import useSessionTracking from '../hooks/useSessionTracking';
 import usePopupBlockForm from '../hooks/usePopupBlockForm';
@@ -37,10 +36,9 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 export default function App() {
 
   const [day, week, changeDay] = useDateTracking();
-  const { state } = useAppData();
-  const [loading, username, login, logout] = useAuthentication();
-  const [blocks, sessions, refreshData] = useWeeklyData(username, week);
-  const [currentProject, toggleSession] = useSessionTracking(username, refreshData);
+  const { state, authActions } = useAppData();
+  const [blocks, sessions, refreshData] = useWeeklyData(state.user, week);
+  const [currentProject, toggleSession] = useSessionTracking(state.user, refreshData);
   const [blockFormState, blockFormActions] = usePopupBlockForm(blocks, day, refreshData);
   const [projects, setProjects] = useState({})
 
@@ -52,7 +50,7 @@ export default function App() {
         res.data.projects.forEach(project => projectList[project.id] = project)
         setProjects(projectList)
       })
-  }, [username])
+  }, [state.user])
   console.log(state)
   return (
     <div className="App">
@@ -61,14 +59,14 @@ export default function App() {
 
       {/* If there's no valid login: */}
       {!state.loading && !state.user &&
-        <Authentication login={login} />
+        <Authentication login={authActions.login} />
       }
 
       {/* If we've successfully logged in: */}
       {!state.loading && state.user &&
         <>
           <Router basename="/capensis">
-            <Header username={state.user.username} handleLogout={logout} />
+            <Header username={state.user.username} logout={authActions.logout} />
             <StatusBar currentProject={currentProject} projects={projects} />
             {/* BlockFormModal is a popup modal, so it's always here,
             but only displayed if "show" is true */}
