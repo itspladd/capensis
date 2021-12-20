@@ -49,7 +49,7 @@ export default function App() {
 
       {/* If there's no valid login: */}
       {!state.loading && !state.user &&
-        <Authentication login={authActions.login} />
+        <Authentication authActions={authActions} />
       }
 
       {/* If we've successfully logged in: */}

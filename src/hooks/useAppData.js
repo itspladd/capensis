@@ -28,6 +28,11 @@ export default function useAppData() {
     .finally(() => dispatch({ type: SET_LOADING, loading: false }))
   }
 
+  const register = (username, rawPassword) => {
+    return axios.post(`/api/users`, { username, rawPassword })
+      .then(res => dispatch({ type: SET_USER, user: res.data }))
+  }
+
   const login = (username, rawPassword) => {
     return axios.post(`/api/auth/login`, { username, rawPassword })
       .then(res => {
@@ -42,8 +47,9 @@ export default function useAppData() {
   }
 
   const authActions = {
+    register,
     login,
-    logout
+    logout,
   }
   /***************************************/
 

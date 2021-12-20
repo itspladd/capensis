@@ -7,11 +7,11 @@ import Logo from './Logo';
 import '../styles/Authentication.css';
 
 export default function Authentication(props) {
-  const {login} = props
+  const { authActions } = props
 
   const [showLogin, setShowLogin] = useState(true)
 
-  const authComponent = showLogin ? <Login login={login} /> : <Register login={login} />;
+  const authComponent = showLogin ? <Login login = {authActions.login} /> : <Register register = {authActions.register} />;
   const switchMsg = showLogin ? "Don't have an account yet?" : "Already have a Capensis account?";
   const buttonMsg = showLogin ? "Make one!" : "Sign in!";
 
