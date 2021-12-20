@@ -1,5 +1,4 @@
 import '../styles/App.css';
-import { useState } from 'react';
 
 // Router components
 import {
