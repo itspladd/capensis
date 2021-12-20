@@ -35,10 +35,7 @@ export default function useAppData() {
 
   const login = (username, rawPassword) => {
     return axios.post(`/api/auth/login`, { username, rawPassword })
-      .then(res => {
-        const { user } = res.data;
-        user && dispatch({ type: SET_USER, user })
-      })
+      .then(res => dispatch({ type: SET_USER, user: res.data }))
   }
 
   const logout = () => {
