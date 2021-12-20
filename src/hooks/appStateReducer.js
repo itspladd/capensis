@@ -1,4 +1,4 @@
-import { makeNoonDate, getLastSunday } from '../helpers/timeHelpers'
+import { makeNoonDate } from '../helpers/timeHelpers'
 
 import {
   SET_APP_DATA,

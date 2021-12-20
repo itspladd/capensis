@@ -2,13 +2,15 @@ import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
 import { initialState, appStateReducer } from './appStateReducer'
+
 import {
   SET_LOADING,
   SET_USER,
   SET_APP_DATA,
   SET_PROJECT,
   SET_BLOCK,
-  SET_DAY
+  SET_DAY,
+  DELETE_BLOCK
 } from '../constants/actions'
 
 import { getLastSunday } from '../helpers/timeHelpers'
@@ -112,11 +114,17 @@ export default function useAppData() {
       .then(res => dispatch({ type: SET_BLOCK, block: res.data }))
   }
 
+  const deleteBlock = id => {
+    return axios.delete(`/api/blocks/${id}`)
+      .then(res => dispatch({ type: DELETE_BLOCK, id }))
+  }
+
   const dataActions = {
     loadAll,
     addProject,
     updateProject,
-    scheduleBlock
+    scheduleBlock,
+    deleteBlock
   }
 
   /********** EFFECTS ***********************/

@@ -76,7 +76,7 @@ export default function App() {
                     newBlock={blockFormActions.new}
                     editBlock={blockFormActions.edit}
                     toggleSession={toggleSession}
-                    refreshData={refreshData}
+                    dataActions={dataActions}
                   />
                 </Route>
                 <Route exact path="/week" >

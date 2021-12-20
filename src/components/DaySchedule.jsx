@@ -28,7 +28,7 @@ export default function DaySchedule(props) {
     newBlock,
     editBlock,
     toggleSession,
-    refreshData
+    dataActions
   } = props;
 
   const [blocksWithPlaceholders, setBlocksWithPlaceholders] = useState([]);
@@ -113,7 +113,7 @@ export default function DaySchedule(props) {
           blocks={blocksWithPlaceholders}
           day={day}
           toggleSession={toggleSession}
-          refreshData={refreshData}
+          dataActions={dataActions}
           editBlock={editBlock}
         />
       </div>
