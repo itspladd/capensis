@@ -20,8 +20,7 @@ export default function useAppData() {
     axios.post('/api/auth')
     // If the API returns a user object, update the state.
     .then(res => {
-      const { user } = res.data;
-      user && dispatch({ type: SET_USER, user });
+      dispatch({ type: SET_USER, user: res.data });
     })
 
     // And now we're done loading.
