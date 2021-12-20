@@ -23,7 +23,7 @@ export default function useAppData() {
       })
 
       // And now we're done loading.
-      .finally(() => dispatch({ type: SET_LOADING, payload: false }))
+      .finally(() => dispatch({ type: SET_LOADING, loading: false }))
   }, []);
 
   useEffect(() => {

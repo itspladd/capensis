@@ -5,6 +5,7 @@ import {
   SET_PROJECT
 } from '../constants/actions'
 
+// Initial state to be used by the reducer.
 export const initialState = {
   loading: true,
   user: null,
@@ -27,8 +28,8 @@ export function appStateReducer(state, action) {
     return { ...state, user: { ...user }}
   }
 
-  const setLoading = ({ payload }) => {
-    return { ...state, loading: payload }
+  const setLoading = ({ loading }) => {
+    return { ...state, loading }
   }
 
   const setProject = ({ id, project }) => {
