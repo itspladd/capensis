@@ -7,12 +7,46 @@ import {
   SET_USER,
   SET_APP_DATA,
   SET_PROJECT,
-  SET_BLOCK
+  SET_BLOCK,
+  SET_DAY
 } from '../constants/actions'
+
+import { getLastSunday } from '../helpers/timeHelpers'
 
 export default function useAppData() {
 
   const [state, dispatch] = useReducer(appStateReducer, initialState);
+
+  /********** DATE/TIME ************/
+  /**
+   * Changes the current day by the input number of days.
+   * Use a negative number to move to a previous day.
+   * Use a positive number to move to a future day.
+   * @param {number} days
+   */
+  const changeDay = days => {
+    const msDayMultiplier = 1000*60*60*24;
+    const deltaMs = msDayMultiplier*days;
+    const day = new Date(state.day.valueOf() + deltaMs);
+
+    dispatch({ type: SET_DAY, day })
+  }
+
+  /**
+   * Changes the current day by the input number of days.
+   * Use a negative number to move to a previous day.
+   * Use a positive number to move to a future day.
+   * @param {number} days
+   */
+  const getWeek = () => {
+    console.log("GETWEEK", state)
+    return getLastSunday(state.day).valueOf()
+  }
+
+  const dateActions = {
+    changeDay,
+    getWeek
+  }
 
   /********** AUTHENTICATION ************/
   const authenticate = () => {
@@ -95,6 +129,7 @@ export default function useAppData() {
 
   return {
     state,
+    dateActions,
     authActions,
     dataActions
   }

@@ -33,11 +33,10 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 
 export default function App() {
 
-  const [day, week, changeDay] = useDateTracking();
-  const { state, authActions, dataActions } = useAppData();
-  const [blocks, sessions, refreshData] = useWeeklyData(state.user, week);
+  const { state, dateActions, authActions, dataActions } = useAppData();
+  const [blocks, sessions, refreshData] = useWeeklyData(state.user, dateActions.getWeek());
   const [currentProject, toggleSession] = useSessionTracking(state.user, refreshData);
-  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, day, refreshData);
+  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, refreshData);
 
   // Load new projects when the username changes
 
@@ -63,17 +62,17 @@ export default function App() {
             <BlockFormModal
               state={blockFormState}
               actions={blockFormActions}
-              currentDay={day}
+              currentDay={state.day}
               projects={state.projects}
             />
             <div className="App-body">
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
                   <DaySchedule
-                    blocks={state.blocks.filter(block => blockIsOnDay(block, day))}
-                    day={day}
-                    goToTomorrow={() => changeDay(1)}
-                    goToYesterday={() => changeDay(-1)}
+                    blocks={state.blocks.filter(block => blockIsOnDay(block, state.day))}
+                    day={state.day}
+                    goToTomorrow={() => dateActions.changeDay(1)}
+                    goToYesterday={() => dateActions.changeDay(-1)}
                     newBlock={blockFormActions.new}
                     editBlock={blockFormActions.edit}
                     toggleSession={toggleSession}
@@ -90,18 +89,18 @@ export default function App() {
                   <Sessions
                     sessions={state.sessions}
                     projects={state.projects}
-                    day={day}
-                    lastWeek={() => changeDay(-7)}
-                    nextWeek={() => changeDay(7)}
+                    day={state.day}
+                    lastWeek={() => dateActions.changeDay(-7)}
+                    nextWeek={() => dateActions.changeDay(7)}
                     refreshData={refreshData}
                     toggleSession={toggleSession} />
                 </Route>
                 <Route exact path="/reports" >
                   <Report
                     projects={state.projects}
-                    day={day}
-                    lastWeek={() => changeDay(-7)}
-                    nextWeek={() => changeDay(7)}
+                    day={state.day}
+                    lastWeek={() => dateActions.changeDay(-7)}
+                    nextWeek={() => dateActions.changeDay(7)}
                   />
                 </Route>
               </Switch>

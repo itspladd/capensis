@@ -1,3 +1,5 @@
+import { makeNoonDate, getLastSunday } from '../helpers/timeHelpers'
+
 import {
   SET_APP_DATA,
   SET_LOADING,
@@ -5,12 +7,14 @@ import {
   SET_PROJECT,
   DELETE_PROJECT,
   SET_BLOCK,
-  DELETE_BLOCK
+  DELETE_BLOCK,
+  SET_DAY
 } from '../constants/actions'
 
 // Initial state to be used by the reducer.
 export const initialState = {
   loading: true,
+  day: makeNoonDate(new Date()),
   user: null,
   projects: {},
   blocks: [],
@@ -28,6 +32,10 @@ export function appStateReducer(state, action) {
 
     // Set all in the state
     return { ...state, projects, blocks, sessions }
+  }
+
+  const setDay = ({ day }) => {
+    return { ...state, day }
   }
 
   const setUser = ({ user }) => {
@@ -77,6 +85,7 @@ export function appStateReducer(state, action) {
 
   const actions = {
     [SET_APP_DATA]: setAppData,
+    [SET_DAY]: setDay,
     [SET_LOADING]: setLoading,
     [SET_USER]: setUser,
     [SET_PROJECT]: setProject,
