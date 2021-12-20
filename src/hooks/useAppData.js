@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
-import appStateReducer from './appStateReducer'
+import { initialState, appStateReducer } from './appStateReducer'
 import {
   SET_LOADING,
   SET_USER,
@@ -10,12 +10,6 @@ import {
 } from '../constants/actions'
 
 export default function useAppData() {
-
-  const initialState = {
-    loading: true,
-    user: null,
-    projects: {}
-  }
 
   const [state, dispatch] = useReducer(appStateReducer, initialState);
 

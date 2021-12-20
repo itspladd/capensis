@@ -5,9 +5,15 @@ import {
   SET_PROJECT
 } from '../constants/actions'
 
+export const initialState = {
+  loading: true,
+  user: null,
+  projects: {}
+}
+
 // This reducer function contains helper functions for each possible action.
 // Actions are defined above.
-export default function appStateReducer(state, action) {
+export function appStateReducer(state, action) {
 
   const setAppData = ({ projectsArr }) => {
     const projects = {}
