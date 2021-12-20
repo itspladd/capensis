@@ -1,7 +1,7 @@
 import { useEffect, useReducer } from 'react';
 import axios from 'axios';
 
-import appDataReducer from './appDataReducer'
+import appStateReducer from './appStateReducer'
 import {
   SET_LOADING,
   SET_USER,
@@ -17,7 +17,7 @@ export default function useAppData() {
     projects: {}
   }
 
-  const [state, dispatch] = useReducer(appDataReducer, initialState);
+  const [state, dispatch] = useReducer(appStateReducer, initialState);
 
   useEffect(() => {
     // Attempt to authenticate a previously-logged-in user.

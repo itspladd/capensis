@@ -7,7 +7,7 @@ import {
 
 // This reducer function contains helper functions for each possible action.
 // Actions are defined above.
-export default function appDataReducer(state, action) {
+export default function appStateReducer(state, action) {
 
   const setAppData = ({ projectsArr }) => {
     const projects = {}
