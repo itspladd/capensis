@@ -9,17 +9,22 @@ import {
 export const initialState = {
   loading: true,
   user: null,
-  projects: {}
+  projects: {},
+  blocks: [],
+  sessions: []
 }
 
 // This reducer function contains helper functions for each possible action.
 // Actions are defined above.
 export function appStateReducer(state, action) {
 
-  const setAppData = ({ projectsArr }) => {
+  const setAppData = ({ projectsArr, blocks, sessions }) => {
+    // Turn the projects array to an object for easier usage in state
     const projects = {}
     projectsArr.forEach(p => projects[p.id] = p)
-    return { ...state, projects }
+
+    // Set all in the state
+    return { ...state, projects, blocks, sessions }
   }
 
   const setUser = ({ user }) => {
