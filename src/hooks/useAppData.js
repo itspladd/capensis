@@ -6,7 +6,8 @@ import {
   SET_LOADING,
   SET_USER,
   SET_APP_DATA,
-  SET_PROJECT
+  SET_PROJECT,
+  SET_BLOCK
 } from '../constants/actions'
 
 export default function useAppData() {
@@ -60,7 +61,7 @@ export default function useAppData() {
       })
   }
 
-  const addProject = (project) => {
+  const addProject = project => {
     return axios.post(`/api/projects`, { project })
       .then(res => dispatch({ type: SET_PROJECT, project: res.data }))
   }
@@ -70,9 +71,16 @@ export default function useAppData() {
       .then(res => dispatch({ type: SET_PROJECT, project: res.data }))
   }
 
+  const scheduleBlock = block => {
+    return axios.post(`/api/blocks`, block)
+      .then(res => dispatch({ type: SET_BLOCK, block: res.data }))
+  }
+
   const dataActions = {
+    loadAll,
     addProject,
-    updateProject
+    updateProject,
+    scheduleBlock
   }
 
   /********** EFFECTS ***********************/

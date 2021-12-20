@@ -2,7 +2,10 @@ import {
   SET_APP_DATA,
   SET_LOADING,
   SET_USER,
-  SET_PROJECT
+  SET_PROJECT,
+  DELETE_PROJECT,
+  SET_BLOCK,
+  DELETE_BLOCK
 } from '../constants/actions'
 
 // Initial state to be used by the reducer.
@@ -37,20 +40,49 @@ export function appStateReducer(state, action) {
     return { ...state, loading }
   }
 
-  const setProject = ({ id, project }) => {
+  const setProject = ({ project }) => {
     const projects = { ...state.projects }
-
-    if (!project) delete projects[id];
-    if (!id) projects[project.id] = project;
+    projects[project.id] = project;
 
     return { ...state, projects}
+  }
+
+  const deleteProject = ({ id }) => {
+    const projects = { ...state.projects }
+    delete projects[id];
+
+    return { ...state, projects}
+  }
+
+  const setBlock = ({ block }) => {
+    const blocks = [...state.blocks]
+    const index = blocks.findIndex(b => b.id === block.id)
+
+    // If the block isn't already in the array, add it and sort.
+    if (index === -1) {
+      blocks.push({...block});
+      blocks.sort((b1, b2) => b1.start_time - b2.start_time)
+      return { ...state, blocks };
+    }
+
+    // If the block was already in the array, edit it in place.
+    blocks[index] = {...block};
+    return { ...state, blocks }
+  }
+
+  const deleteBlock = ({ id }) => {
+    const blocks = state.blocks.filter(b => b.id !== id);
+    return { ...state, blocks }
   }
 
   const actions = {
     [SET_APP_DATA]: setAppData,
     [SET_LOADING]: setLoading,
     [SET_USER]: setUser,
-    [SET_PROJECT]: setProject
+    [SET_PROJECT]: setProject,
+    [DELETE_PROJECT]: deleteProject,
+    [SET_BLOCK]: setBlock,
+    [DELETE_BLOCK]: deleteBlock
   }
 
   return actions[action.type]({ ...action })

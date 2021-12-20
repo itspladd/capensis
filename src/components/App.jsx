@@ -37,7 +37,7 @@ export default function App() {
   const { state, authActions, dataActions } = useAppData();
   const [blocks, sessions, refreshData] = useWeeklyData(state.user, week);
   const [currentProject, toggleSession] = useSessionTracking(state.user, refreshData);
-  const [blockFormState, blockFormActions] = usePopupBlockForm(blocks, day, refreshData);
+  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, day, refreshData);
 
   // Load new projects when the username changes
 
@@ -70,7 +70,7 @@ export default function App() {
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
                   <DaySchedule
-                    blocks={blocks.filter(block => blockIsOnDay(block, day))}
+                    blocks={state.blocks.filter(block => blockIsOnDay(block, day))}
                     day={day}
                     goToTomorrow={() => changeDay(1)}
                     goToYesterday={() => changeDay(-1)}
@@ -88,7 +88,7 @@ export default function App() {
                 </Route>
                 <Route exact path="/sessions">
                   <Sessions
-                    sessions={sessions}
+                    sessions={state.sessions}
                     projects={state.projects}
                     day={day}
                     lastWeek={() => changeDay(-7)}
