@@ -1,4 +1,4 @@
-import { makeNoonDate } from '../helpers/timeHelpers'
+import { getLastSunday, makeNoonDate, timeStringSorter } from '../helpers/timeHelpers'
 
 import {
   SET_APP_DATA,
@@ -7,14 +7,22 @@ import {
   SET_PROJECT,
   DELETE_PROJECT,
   SET_BLOCK,
+  SET_BLOCKS,
   DELETE_BLOCK,
-  SET_DAY
+  SET_DAY,
+  SET_WEEK,
+  SET_TRACKING,
+  SET_SESSIONS,
+  SET_SESSION,
+  DELETE_SESSION
 } from '../constants/actions'
 
 // Initial state to be used by the reducer.
 export const initialState = {
   loading: true,
   day: makeNoonDate(new Date()),
+  week: getLastSunday(new Date()).valueOf(),
+  trackedSession: null,
   user: null,
   projects: {},
   blocks: [],
@@ -25,17 +33,21 @@ export const initialState = {
 // Actions are defined above.
 export function appStateReducer(state, action) {
 
-  const setAppData = ({ projectsArr, blocks, sessions }) => {
+  const setAppData = ({ projectsArr, blocks, sessions, trackedSession }) => {
     // Turn the projects array to an object for easier usage in state
     const projects = {}
     projectsArr.forEach(p => projects[p.id] = p)
 
     // Set all in the state
-    return { ...state, projects, blocks, sessions }
+    return { ...state, projects, blocks, sessions, trackedSession }
   }
 
   const setDay = ({ day }) => {
     return { ...state, day }
+  }
+
+  const setWeek = ({ week }) => {
+    return { ...state, week }
   }
 
   const setUser = ({ user }) => {
@@ -62,14 +74,19 @@ export function appStateReducer(state, action) {
     return { ...state, projects}
   }
 
+  const setBlocks = ({ blocks }) => {
+    return { ...state, blocks }
+  }
+
   const setBlock = ({ block }) => {
     const blocks = [...state.blocks]
     const index = blocks.findIndex(b => b.id === block.id)
-
+    console.log("SETBLOCK:",block)
+    block.title = state.projects[block.project_id].title
     // If the block isn't already in the array, add it and sort.
     if (index === -1) {
       blocks.push({...block});
-      blocks.sort((b1, b2) => b1.start_time - b2.start_time)
+      blocks.sort((b1, b2) => timeStringSorter(b1.start_time, b2.start_time))
       return { ...state, blocks };
     }
 
@@ -83,6 +100,41 @@ export function appStateReducer(state, action) {
     return { ...state, blocks }
   }
 
+  const setTrackedSession = ({ payload }) => {
+    return { ...state, trackedSession: payload }
+  }
+
+  const setSession = ({ payload }) => {
+    if (!Array.isArray(payload)) {
+      payload = [payload]
+    }
+    const sessions = [...state.sessions];
+
+    payload.forEach(session => {
+      const index = sessions.findIndex(s => s.id === session.id);
+
+      // If the session isn't already in the array, add it and sort.
+      if (index === -1) {
+        sessions.push({...session});
+        sessions.sort((s1, s2) => timeStringSorter(s1.start_time, s2.start_time))
+        return { ...state, sessions };
+      }
+
+      // If the session was already in the array, edit it in place.
+      sessions[index] = {...session};
+    })
+    return { ...state, sessions }
+  }
+
+  const deleteSession = ({ id }) => {
+    const sessions = state.sessions.filter(s => s.id !== id);
+    return { ...state, sessions }
+  }
+
+  const setSessions = ({ sessions }) => {
+    return { ...state, sessions }
+  }
+
   const actions = {
     [SET_APP_DATA]: setAppData,
     [SET_DAY]: setDay,
@@ -90,8 +142,14 @@ export function appStateReducer(state, action) {
     [SET_USER]: setUser,
     [SET_PROJECT]: setProject,
     [DELETE_PROJECT]: deleteProject,
+    [SET_BLOCKS]: setBlocks,
     [SET_BLOCK]: setBlock,
-    [DELETE_BLOCK]: deleteBlock
+    [DELETE_BLOCK]: deleteBlock,
+    [SET_TRACKING]: setTrackedSession,
+    [SET_SESSIONS]: setSessions,
+    [SET_SESSION]: setSession,
+    [DELETE_SESSION]: deleteSession,
+    [SET_WEEK]: setWeek
   }
 
   return actions[action.type]({ ...action })

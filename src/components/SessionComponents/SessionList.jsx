@@ -9,7 +9,7 @@ import SessionItem from './SessionItem'
 import STATUSES from '../../constants/statuses'
 
 export default function SessionList(props) {
-  const { title, sessions, refreshData, toggleSession } = props;
+  const { title, sessions, dataActions, state } = props;
 
   const [status, setStatus] = useState();
 
@@ -23,9 +23,9 @@ export default function SessionList(props) {
       <SessionItem
         {...session}
         key = {session.id}
-        toggle = {toggleSession}
-        refreshData = {refreshData}
+        dataActions={dataActions}
         checkListDelete = {checkDelete}
+        state = {state}
       />
     )
   })

@@ -1,14 +1,16 @@
 import '../styles/StatusBar.css';
 
 export default function StatusBar(props) {
-  const { currentProject, state } = props;
+  const { state } = props;
 
-  const loading = !state.projects;
-  const tracking = state.projects[currentProject]
+  const { trackedSession, projects, loading } = state;
 
+  const projectExists = trackedSession && projects[trackedSession.project_id];
+
+  console.log("StatusBar session:", trackedSession)
   const bgColor = () => {
-    if (tracking) return 'bg-success text-light';
-    if (!tracking) return 'bg-secondary text-light';
+    if (trackedSession) return 'bg-success text-light';
+    if (!trackedSession) return 'bg-secondary text-light';
   }
 
   return (
@@ -16,13 +18,13 @@ export default function StatusBar(props) {
       { loading &&
         `Loading...`
       }
-      { tracking &&
-        `Currently tracking ${state.projects[currentProject].title}`
+      { trackedSession && projectExists &&
+        `Currently tracking ${projects[trackedSession.project_id].title}`
       }
-      { currentProject && !state.projects[currentProject] &&
-        `ERROR: Trying to track project ID ${currentProject}, but it was not found.`
+      { trackedSession && !projectExists &&
+        `ERROR: Trying to track project ID ${trackedSession.project_id}, but it was not found.`
       }
-      { !currentProject &&
+      { !trackedSession &&
         `Not currently tracking`
       }
     </div>

@@ -11,10 +11,10 @@ export default function Sessions (props) {
     day,
     sessions=[],
     projects=[],
-    toggleSession,
-    refreshData,
+    dataActions,
     lastWeek,
-    nextWeek } = props;
+    nextWeek,
+    state } = props;
 
   const sessionListsByProject = projectsWithSessions(projects, sessions)
     .map(project => (
@@ -22,8 +22,8 @@ export default function Sessions (props) {
       key={project.id}
       title={project.title}
       sessions={sessions.filter(session => session.project_id === project.id)}
-      refreshData={refreshData}
-      toggleSession={toggleSession}
+      dataActions={dataActions}
+      state={state}
       />
     ))
 
@@ -44,8 +44,8 @@ export default function Sessions (props) {
           <SessionList
             title={"Untracked Projects"}
             sessions={untrackedProjects}
-            refreshData={refreshData}
-            toggleSession={toggleSession}
+            dataActions={dataActions}
+            state={state}
           />
         }
       </article>

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import axios from 'axios'
 
 import useControlledForms from './useControlledForms'
 import useNewBlockValidation from './useNewBlockValidation'
@@ -16,7 +15,7 @@ const defaultFormValues = {
   endAMPM: "0"
 }
 
-export default function usePopupBlockForm(blocks, currentDay, refreshData) {
+export default function usePopupBlockForm(blocks, currentDay, dataActions) {
 
   const [show, setShow] = useState(false);
   const [blockId, setBlockId] = useState(null);
@@ -44,12 +43,12 @@ export default function usePopupBlockForm(blocks, currentDay, refreshData) {
       const startTime = startDate.toISOString();
       const endTime = endDate.toISOString();
       const blockData = { startTime, endTime, project: values.project };
+      if (blockId) blockData.id = blockId;
 
       // If we have a block ID saved, we're updating an existing block.
       // If not, we're creating a new block.
-      const method = blockId ? axios.patch : axios.post;
-      method(`/api/blocks/${blockId || ""}`, blockData)
-           .then(refreshData)
+      const method = blockId ? dataActions.editBlock : dataActions.scheduleBlock;
+      method(blockData)
            .then(closeModal)
     }
   }

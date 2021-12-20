@@ -34,13 +34,8 @@ import { blockIsOnDay } from '../helpers/timeHelpers';
 export default function App() {
 
   const { state, dateActions, authActions, dataActions } = useAppData();
-  const [blocks, sessions, refreshData] = useWeeklyData(state.user, dateActions.getWeek());
-  const [currentProject, toggleSession] = useSessionTracking(state.user, refreshData);
-  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, refreshData);
+  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, dataActions);
 
-  // Load new projects when the username changes
-
-  console.log(state)
   return (
     <div className="App">
       {/* If we haven't finished trying to log in: */}
@@ -56,7 +51,7 @@ export default function App() {
         <>
           <Router basename="/capensis">
             <Header username={state.user.username} logout={authActions.logout} />
-            <StatusBar state={state} currentProject={currentProject} />
+            <StatusBar state={state} />
             {/* BlockFormModal is a popup modal, so it's always here,
             but only displayed if "show" is true */}
             <BlockFormModal
@@ -75,7 +70,7 @@ export default function App() {
                     goToYesterday={() => dateActions.changeDay(-1)}
                     newBlock={blockFormActions.new}
                     editBlock={blockFormActions.edit}
-                    toggleSession={toggleSession}
+                    toggleSession={dataActions.toggleSession}
                     dataActions={dataActions}
                   />
                 </Route>
@@ -92,8 +87,9 @@ export default function App() {
                     day={state.day}
                     lastWeek={() => dateActions.changeDay(-7)}
                     nextWeek={() => dateActions.changeDay(7)}
-                    refreshData={refreshData}
-                    toggleSession={toggleSession} />
+                    state={state}
+                    dataActions = {dataActions}
+                    toggleSession={dataActions.toggleSession} />
                 </Route>
                 <Route exact path="/reports" >
                   <Report

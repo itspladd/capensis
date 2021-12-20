@@ -135,3 +135,9 @@ export function getFifteenMinuteUnits(start, end) {
 export function blockIsOnDay(block, day) {
   return new Date(block.start_time).getDate() === day.getDate();
 }
+
+export function timeStringSorter(timeStr1, timeStr2) {
+  const ms1 = new Date(timeStr1).valueOf()
+  const ms2 = new Date(timeStr2).valueOf()
+  return ms1 - ms2;
+}

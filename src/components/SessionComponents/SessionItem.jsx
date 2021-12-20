@@ -19,10 +19,10 @@ export default function SessionItem(props) {
     id,
     start_time,
     end_time,
-    refreshData,
+    dataActions,
     checkListDelete,
     title = "",
-    toggle
+    state
   } = props;
   const [status, setStatus] = useState(STATUSES.NEW);
   const [times, handleTimeChange, setTimes] = useControlledForms({
@@ -75,8 +75,7 @@ export default function SessionItem(props) {
     if (start < end) {
       // Update the submitting state
       setStatus(() => STATUSES.LOADING)
-      axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
-        .then(() => delayAction(refreshData)) // Give the submitting animation time to run
+      dataActions.editSession(id, start.toISOString(), end.toISOString()) // Give the submitting animation time to run
         .then(() => sessionItemRef.current.scroll())
         .then(() => setStatus(STATUSES.SUCCESS))
         .then(() => delayAction(() => setStatus(STATUSES.STABLE), 2500))
@@ -86,23 +85,20 @@ export default function SessionItem(props) {
 
   const handleDelete = (event, id) => {
     event.preventDefault();
-    axios.delete(`/api/sessions/${id}`)
-      .then(() => {
-        setStatus(STATUSES.DELETING)
-        checkListDelete()
-      })
-      .then(() => delayAction(refreshData)) // Gives the delete animation time to run
+    setStatus(STATUSES.DELETING)
+    checkListDelete()
+    delayAction(() => dataActions.deleteSession(id)) // Gives the delete animation time to run
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
   const handleToggle = event => {
     event.preventDefault();
     if (project) {
-      toggle(id)
+      dataActions.toggleSession(id)
       setStatus(STATUSES.DELETING)
     }
     if (active) {
-      toggle()
+      dataActions.toggleSession(state.trackedSession.project_id)
       setStatus(STATUSES.STABLE)
     }
   }
