@@ -23,9 +23,6 @@ import Footer from './Footer';
 
 // Custom hooks
 import useAppData from '../hooks/useAppData'
-import useDateTracking from '../hooks/useDateTracking';
-import useWeeklyData from '../hooks/useWeeklyData';
-import useSessionTracking from '../hooks/useSessionTracking';
 import usePopupBlockForm from '../hooks/usePopupBlockForm';
 
 // Helper functions
