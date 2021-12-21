@@ -146,7 +146,6 @@ export default function useAppData() {
   }
 
   const scheduleBlock = block => {
-    console.log("SCHEDULE", block)
     return axios.post(`/api/blocks`, block)
       .then(res => dispatch({ type: SET_BLOCK, block: res.data }))
   }

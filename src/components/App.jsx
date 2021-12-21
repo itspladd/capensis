@@ -22,7 +22,7 @@ import Report from './Report';
 import Footer from './Footer';
 
 // Custom hooks
-import useAppData from '../hooks/useAppData'
+import useAppData from '../reducer/useAppData'
 import usePopupBlockForm from '../hooks/usePopupBlockForm';
 
 // Helper functions
