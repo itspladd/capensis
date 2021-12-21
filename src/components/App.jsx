@@ -30,24 +30,27 @@ import usePopupBlockForm from '../hooks/usePopupBlockForm';
 
 // Helper functions
 import { blockIsOnDay } from '../helpers/timeHelpers';
+import { allTrue } from '../helpers/boolHelpers';
 
 export default function App() {
 
   const { state, dateActions, authActions, dataActions } = useAppData();
   const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, dataActions);
 
+  const doneLoading = allTrue(state.loaded);
+
   return (
     <div className="App">
       {/* If we haven't finished trying to log in: */}
-      {state.loading && <Loading>Loading...</Loading>}
+      {!doneLoading && <Loading>Loading...</Loading>}
 
       {/* If there's no valid login: */}
-      {!state.loading && !state.user &&
+      {doneLoading && !state.user &&
         <Authentication authActions={authActions} />
       }
 
       {/* If we've successfully logged in: */}
-      {!state.loading && state.user &&
+      {doneLoading && state.user &&
         <>
           <Router basename="/capensis">
             <Header username={state.user.username} logout={authActions.logout} />

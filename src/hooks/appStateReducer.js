@@ -2,7 +2,8 @@ import { getLastSunday, makeNoonDate, timeStringSorter } from '../helpers/timeHe
 
 import {
   SET_APP_DATA,
-  SET_LOADING,
+  SET_LOADED,
+  DATA_LOADED,
   SET_USER,
   SET_PROJECT,
   DELETE_PROJECT,
@@ -19,7 +20,15 @@ import {
 
 // Initial state to be used by the reducer.
 export const initialState = {
-  loading: true,
+  loaded: {
+    user: false,
+    data: {
+      projects: false,
+      sessions: false,
+      blocks: false,
+      tracking: false
+    }
+  },
   day: makeNoonDate(new Date()),
   week: getLastSunday(new Date()).valueOf(),
   trackedSession: null,
@@ -56,8 +65,25 @@ export function appStateReducer(state, action) {
     return { ...state, user: { ...user }}
   }
 
-  const setLoading = ({ loading }) => {
-    return { ...state, loading }
+  const setLoaded = ({ payload }) => {
+    for (const dataType in payload) {
+      if (state.loaded[dataType] === undefined) {
+        throw new Error("setLoaded called with invalid data type:", dataType)
+      }
+    }
+
+    const loaded = { ...state.loaded, ...payload }
+    return { ...state, loaded }
+  }
+
+  const setDataLoaded = () => {
+    // Set all data-related loading statuses to true
+    const data = { ...state.loaded.data };
+    for (const type in data) {
+      data[type] = true;
+    }
+
+    return { ...state, loaded: { ...state.loaded, data }}
   }
 
   const setProject = ({ project }) => {
@@ -138,7 +164,8 @@ export function appStateReducer(state, action) {
   const actions = {
     [SET_APP_DATA]: setAppData,
     [SET_DAY]: setDay,
-    [SET_LOADING]: setLoading,
+    [SET_LOADED]: setLoaded,
+    [DATA_LOADED]: setDataLoaded,
     [SET_USER]: setUser,
     [SET_PROJECT]: setProject,
     [DELETE_PROJECT]: deleteProject,

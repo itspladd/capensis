@@ -14,3 +14,22 @@ export function truthyOrLengthy(a) {
   // If it's not falsy and it's not an array or object, return true.
   return true;
 }
+
+/**
+ * Recursively searches an object and its nested objects for any false boolean value.
+ * @param {Object} data 
+ * @returns {boolean} True if and only if all values in the input object and nested objects are true.
+ */
+export function allTrue(data) {
+  for (const key in data) {
+    const item = data[key]
+    if (typeof item === 'object' && !allTrue(item)) {
+      return false;
+    }
+    if (item === false) {
+      return false;
+    }
+  }
+
+  return true;
+}

@@ -4,7 +4,8 @@ import axios from 'axios';
 import { initialState, appStateReducer } from './appStateReducer'
 
 import {
-  SET_LOADING,
+  SET_LOADED,
+  DATA_LOADED,
   SET_USER,
   SET_APP_DATA,
   SET_PROJECT,
@@ -24,6 +25,9 @@ import { getLastSunday } from '../helpers/timeHelpers'
 export default function useAppData() {
 
   const [state, dispatch] = useReducer(appStateReducer, initialState);
+
+  /********** LOADING WRAPPER ******/
+  // Takes in other functions as a callback. 
 
   /********** DATE/TIME ************/
   /**
@@ -70,6 +74,7 @@ export default function useAppData() {
       // If the API returns a user object, update the state.
       .then(res => {
         dispatch({ type: SET_USER, user: res.data });
+        dispatch({ type: SET_LOADED, payload: { user: true } });
       })
   }
 
@@ -98,7 +103,7 @@ export default function useAppData() {
   /********** DATA ***********************/
   const load = () => {
     if (!state.user) {
-      return dispatch({ type: SET_LOADING, loading: false });
+      return dispatch({ type: DATA_LOADED });
     }
 
     return Promise.all([
@@ -112,7 +117,7 @@ export default function useAppData() {
         const [projectsArr, blocks, sessions, trackedSession] = all;
         dispatch({ type: SET_APP_DATA, projectsArr, blocks, sessions, trackedSession })
       })
-      .then(() => dispatch({ type: SET_LOADING, loading: false }))
+      .then(() => dispatch({ type: DATA_LOADED }))
   }
 
   const loadWeek = () => {
