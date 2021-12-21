@@ -1,21 +1,21 @@
-import axios from 'axios'
+import api from 'api'
 
 export function get() {
-  return axios.get('/api/blocks/week')
+  return api.get('/api/blocks/week')
 }
 
 export function getWeek(date) {
-  return axios.get(`/api/blocks/week?date=${date.toISOString()}`)
+  return api.get(`/api/blocks/week?date=${date.toISOString()}`)
 }
 
 export function add(block) {
-  return axios.post(`/api/blocks`, block)
+  return api.post(`/api/blocks`, block)
 }
 
 export function edit(block) {
-  return axios.patch(`/api/blocks/${block.id}`, block)
+  return api.patch(`/api/blocks/${block.id}`, block)
 }
 
 export function remove(id) {
-  return axios.delete(`/api/blocks/${id}`)
+  return api.delete(`/api/blocks/${id}`)
 }

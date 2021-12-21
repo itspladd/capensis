@@ -1,13 +1,13 @@
-import axios from 'axios'
+import api from 'api'
 
 export function checkCookie() {
-  return axios.post(`/api/auth`)
+  return api.post(`/api/auth`)
 }
 
 export function login(username, rawPassword) {
-  return axios.post(`/api/auth/login`, { username, rawPassword })
+  return api.post(`/api/auth/login`, { username, rawPassword })
 }
 
 export function logout() {
-  return axios.post(`/api/auth/logout`);
+  return api.post(`/api/auth/logout`);
 }

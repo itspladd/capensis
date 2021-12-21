@@ -1,29 +1,29 @@
-import axios from 'axios'
+import api from 'api'
 
 export function get() {
-  return axios.get('/api/sessions/week')
+  return api.get('/api/sessions/week')
 }
 
 export function getWeek(date) {
-  return axios.get(`/api/sessions/week?date=${date.toISOString()}`)
+  return api.get(`/api/sessions/week?date=${date.toISOString()}`)
 }
 
 export function getActive() {
-  return axios.get('/api/sessions/current')
+  return api.get('/api/sessions/current')
 }
 
 export function add(project_id) {
-  return axios.post(`/api/sessions`, { project_id })
+  return api.post(`/api/sessions`, { project_id })
 }
 
 export function stop(id) {
-  return axios.patch(`/api/sessions`, { id })
+  return api.patch(`/api/sessions`, { id })
 }
 
 export function edit(session) {
-  return axios.patch(`/api/sessions/${session.id}`, session)
+  return api.patch(`/api/sessions/${session.id}`, session)
 }
 
 export function remove(id) {
-  return axios.delete(`/api/sessions/${id}`)
+  return api.delete(`/api/sessions/${id}`)
 }
