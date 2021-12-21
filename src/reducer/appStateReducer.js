@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { getLastSunday, makeNoonDate, timeStringSorter } from '../helpers/timeHelpers'
-import api from '../helpers/api/api'
 import {
   SET_APP_DATA,
   SET_LOADED,

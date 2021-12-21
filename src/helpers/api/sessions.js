@@ -1,4 +1,4 @@
-import api from 'api'
+import api from './api'
 
 export function get() {
   return api.get('/api/sessions/week')
@@ -25,5 +25,5 @@ export function edit(session) {
 }
 
 export function remove(id) {
-  return api.delete(`/api/sessions/${id}`)
+  return api.del(`/api/sessions/${id}`)
 }

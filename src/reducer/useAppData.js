@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from 'react';
-import axios from 'axios';
+import api from '../helpers/apiHelpers'
 
 import { initialState, appStateReducer } from './appStateReducer'
 
@@ -70,26 +70,26 @@ export default function useAppData() {
   /********** AUTHENTICATION ************/
   const authenticate = () => {
     // Attempt to authenticate a previously-logged-in user.
-    return axios.post('/api/auth')
+    return api.auth.check()
       // If the API returns a user object, update the state.
-      .then(res => {
-        dispatch({ type: SET_USER, user: res.data });
+      .then(user => {
+        dispatch({ type: SET_USER, user });
         dispatch({ type: SET_LOADED, payload: { user: true } });
       })
   }
 
   const register = (username, rawPassword) => {
-    return axios.post(`/api/users`, { username, rawPassword })
-      .then(res => dispatch({ type: SET_USER, user: res.data }))
+    return api.users.add(username, rawPassword)
+      .then(user => dispatch({ type: SET_USER, user }))
   }
 
   const login = (username, rawPassword) => {
-    return axios.post(`/api/auth/login`, { username, rawPassword })
-      .then(res => dispatch({ type: SET_USER, user: res.data }))
+    return api.auth.login(username, rawPassword)
+      .then(user => dispatch({ type: SET_USER, user }))
   }
 
   const logout = () => {
-    return axios.post(`/api/auth/logout`)
+    return api.auth.logout()
       .then(() => dispatch({ type: SET_USER, user: null }))
   }
 
@@ -107,12 +107,11 @@ export default function useAppData() {
     }
 
     return Promise.all([
-      axios.get('/api/projects'),
-      axios.get('/api/blocks/week'),
-      axios.get('/api/sessions/week'),
-      axios.get(`/api/sessions/current`)
+      api.projects.get(),
+      api.blocks.get(),
+      api.sessions.get(),
+      api.sessions.getActive()
     ])
-      .then(allRes => allRes.map(res => res.data))
       .then(all => {
         const [projectsArr, blocks, sessions, trackedSession] = all;
         dispatch({ type: SET_APP_DATA, projectsArr, blocks, sessions, trackedSession })
@@ -122,12 +121,10 @@ export default function useAppData() {
 
   const loadWeek = () => {
     const sunday = new Date(state.week)
-    const sundayStr = sunday.toISOString();
     return Promise.all([
-      axios.get(`/api/blocks/week?date=${sundayStr}`),
-      axios.get(`/api/sessions/week?date=${sundayStr}`)
+      api.blocks.getWeek(sunday),
+      api.sessions.getWeek(sunday)
     ])
-      .then(allRes => allRes.map(res => res.data))
       .then(all => {
         const [blocks, sessions] = all;
         dispatch({ type: SET_BLOCKS, blocks })
@@ -136,28 +133,28 @@ export default function useAppData() {
   }
 
   const addProject = project => {
-    return axios.post(`/api/projects`, { project })
-      .then(res => dispatch({ type: SET_PROJECT, project: res.data }))
+    return api.projects.add(project)
+      .then(project => dispatch({ type: SET_PROJECT, project }))
   }
 
   const updateProject = project => {
-    return axios.patch(`/api/projects/${project.id}`, { project })
-      .then(res => dispatch({ type: SET_PROJECT, project: res.data }))
+    return api.projects.edit(project)
+      .then(project => dispatch({ type: SET_PROJECT, project }))
   }
 
   const scheduleBlock = block => {
-    return axios.post(`/api/blocks`, block)
-      .then(res => dispatch({ type: SET_BLOCK, block: res.data }))
+    return api.blocks.add(block)
+      .then(block => dispatch({ type: SET_BLOCK, block }))
   }
 
   const editBlock = block => {
-    return axios.patch(`/api/blocks/${block.id}`, block)
-      .then(res => dispatch({ type: SET_BLOCK, block: res.data }))
+    return api.blocks.edit(block)
+      .then(block => dispatch({ type: SET_BLOCK, block }))
   }
 
   const deleteBlock = id => {
-    return axios.delete(`/api/blocks/${id}`)
-      .then(res => dispatch({ type: DELETE_BLOCK, id }))
+    return api.blocks.remove(id)
+      .then(block => dispatch({ type: DELETE_BLOCK, id: block.id }))
   }
 
   const toggleSession = project_id => {
@@ -168,14 +165,13 @@ export default function useAppData() {
       trackedSession.project_id !== project_id;
 
     // If there's an existing session, stop it.
-    trackedSession && apiPromises.push(axios.patch(`/api/sessions`, { id: trackedSession.id }))
+    trackedSession && apiPromises.push(api.sessions.stop(trackedSession.id))
 
     // If we should start a new session, do so.
-    startNew && apiPromises.push(axios.post(`/api/sessions`, { project_id }))
+    startNew && apiPromises.push(api.sessions.add(project_id))
 
     // Also update any changed sessions.
     return Promise.all(apiPromises)
-      .then(allRes => allRes.map(res => res.data))
       .then(all => {
         // Whichever promise is last in the array is what should be tracked.
         // Or if we didn't start a new one, the new tracking is null.
@@ -188,13 +184,13 @@ export default function useAppData() {
   }
 
   const editSession = (id, start_time, end_time) => {
-    return axios.patch(`/api/sessions/${id}`, { start_time, end_time })
-      .then(res => dispatch({ type: SET_SESSION, payload: res.data }))
+    return api.sessions.edit({ id, start_time, end_time })
+      .then(session => dispatch({ type: SET_SESSION, payload: session }))
   }
 
   const deleteSession = (id) => {
-    return axios.delete(`/api/sessions/${id}`)
-      .then(res => dispatch({ type: DELETE_SESSION, id: res.data.id }))
+    return api.sessions.remove(id)
+      .then(session => dispatch({ type: DELETE_SESSION, id: session.id }))
   }
 
   const dataActions = {

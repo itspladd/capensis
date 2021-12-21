@@ -1,6 +1,6 @@
-import api from 'api'
+import api from './api'
 
-export function checkCookie() {
+export function check() {
   return api.post(`/api/auth`)
 }
 

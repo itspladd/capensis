@@ -1,4 +1,4 @@
-import api from 'api'
+import api from './api'
 
 export function get() {
   return api.get('/api/blocks/week')
@@ -17,5 +17,5 @@ export function edit(block) {
 }
 
 export function remove(id) {
-  return api.delete(`/api/blocks/${id}`)
+  return api.del(`/api/blocks/${id}`)
 }

@@ -1,11 +1,15 @@
-import * as auth from './auth'
-import * as users from './users'
-import * as blocks from './blocks'
-import * as sessions from './sessions'
-import * as projects from './projects'
+import * as auth from './api/auth'
+import * as users from './api/users'
+import * as blocks from './api/blocks'
+import * as sessions from './api/sessions'
+import * as projects from './api/projects'
 
 const api = {
-  auth
+  auth,
+  users,
+  blocks,
+  sessions,
+  projects
 }
 
 export default api;
