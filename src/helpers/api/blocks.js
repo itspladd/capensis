@@ -16,6 +16,6 @@ export function edit(block) {
   return api.patch(`/api/blocks/${block.id}`, block)
 }
 
-export function remove(id) {
+export function del(id) {
   return api.del(`/api/blocks/${id}`)
 }

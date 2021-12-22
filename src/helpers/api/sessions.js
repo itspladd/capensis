@@ -24,6 +24,6 @@ export function edit(session) {
   return api.patch(`/api/sessions/${session.id}`, session)
 }
 
-export function remove(id) {
+export function del(id) {
   return api.del(`/api/sessions/${id}`)
 }
