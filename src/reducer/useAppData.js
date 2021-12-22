@@ -153,7 +153,7 @@ export default function useAppData() {
   }
 
   const deleteBlock = id => {
-    return api.blocks.remove(id)
+    return api.blocks.del(id)
       .then(block => dispatch({ type: DELETE_BLOCK, id: block.id }))
   }
 
@@ -189,7 +189,7 @@ export default function useAppData() {
   }
 
   const deleteSession = (id) => {
-    return api.sessions.remove(id)
+    return api.sessions.del(id)
       .then(session => dispatch({ type: DELETE_SESSION, id: session.id }))
   }
 

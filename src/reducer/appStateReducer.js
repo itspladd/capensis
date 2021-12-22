@@ -1,10 +1,12 @@
-import axios from 'axios';
 import { getLastSunday, makeNoonDate, timeStringSorter } from '../helpers/timeHelpers'
-import {
+import api from '../helpers/apiHelpers'
+
+import ACTIONS, {
   SET_APP_DATA,
   SET_LOADED,
   DATA_LOADED,
   SET_USER,
+  ADD_PROJECT,
   SET_PROJECT,
   DELETE_PROJECT,
   SET_BLOCK,
@@ -41,6 +43,8 @@ export const initialState = {
 // This reducer function contains helper functions for each possible action.
 // Actions are defined above.
 export function appStateReducer(state, action) {
+
+  /********** DATA ***********************/
 
   const setAppData = ({ projectsArr, blocks, sessions, trackedSession }) => {
     // Turn the projects array to an object for easier usage in state
@@ -91,6 +95,14 @@ export function appStateReducer(state, action) {
     projects[project.id] = project;
 
     return { ...state, projects}
+  }
+
+  const addProject = ({ project }) => {
+    return api.projects.add(project)
+      .then(project => {
+        const projects = { ...state.projects, [project.id]: project}
+        return { ...state, projects }
+      })
   }
 
   const deleteProject = ({ id }) => {
@@ -167,6 +179,7 @@ export function appStateReducer(state, action) {
     [SET_LOADED]: setLoaded,
     [DATA_LOADED]: setDataLoaded,
     [SET_USER]: setUser,
+    [ADD_PROJECT]: addProject,
     [SET_PROJECT]: setProject,
     [DELETE_PROJECT]: deleteProject,
     [SET_BLOCKS]: setBlocks,
