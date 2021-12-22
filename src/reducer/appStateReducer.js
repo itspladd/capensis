@@ -42,6 +42,9 @@ export function appStateReducer(state, action) {
   }
 
   const setUser = ({ user }) => {
+    if (!user) {
+      return { ...state, user: null }
+    }
     return { ...state, user: { ...user }}
   }
 
