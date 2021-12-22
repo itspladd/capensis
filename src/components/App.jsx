@@ -31,7 +31,7 @@ import { allTrue } from '../helpers/boolHelpers';
 
 export default function App() {
 
-  const { state, dateActions, authActions, dataActions } = useAppData();
+  const { state, dateActions, authActions, dataActions, actions } = useAppData();
   const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, dataActions);
 
   const doneLoading = allTrue(state.loaded);
