@@ -1,40 +1,39 @@
+
 import '../styles/DaySchedule.css';
 
 import PageHeader from '../components/PageHeader'
 import BlockList from './BlockList'
 import ScheduleBar from './ScheduleBar'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+
+// Popup modal hook and component
+import usePopupBlockForm from '../hooks/usePopupBlockForm';
+import BlockFormModal from './BlockFormModal';
 
 // Helpers
 import { 
   makeTimeString,
   makeWeekDayString,
   makeDateString } from '../helpers/stringHelpers'
+import { blockIsOnDay } from '../helpers/timeHelpers';
 
 // Constants
 import SETTINGS from '../constants/settings'
 import STRINGS from '../constants/strings'
 
+import { ReducerState, ReducerActions } from '../reducer/context'
+
 export default function DaySchedule(props) {
   const LANG = STRINGS[SETTINGS.LANGUAGES.EN_US].TAG;
 
-  // Props:
-  // blocks is an array of Block components.
-  const {
-    blocks,
-    day,
-    goToTomorrow,
-    goToYesterday,
-    newBlock,
-    editBlock,
-    toggleSession,
-    dataActions
-  } = props;
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
 
   const [blocksWithPlaceholders, setBlocksWithPlaceholders] = useState([]);
+  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, actions.data);
 
-  const dayString = makeWeekDayString(LANG, day)
-  const dateString = makeDateString(LANG, day)
+  const dayString = makeWeekDayString(LANG, state.day)
+  const dateString = makeDateString(LANG, state.day)
   const earliestHour = 0;
   const latestHour = 23;
   const latestMinutes = 59;
@@ -42,13 +41,15 @@ export default function DaySchedule(props) {
   // Generate placeholder blocks for this day, for padding out the schedule
   useEffect(() => {
     const newBlocks = [];
-    let currentTime = new Date(day);
+    let currentTime = new Date(state.day);
     currentTime.setHours(earliestHour);
-    const finalTime = new Date(day);
+    const finalTime = new Date(state.day);
     finalTime.setHours(latestHour, latestMinutes);
 
     // Create all placeholder blocks that occur before the current Block
-    blocks.forEach(block => {
+    state.blocks
+      .filter(block => blockIsOnDay(block, state.day))
+      .forEach(block => {
       const blockDate = new Date(block.start_time);
 
       while(currentTime < blockDate) {
@@ -91,18 +92,26 @@ export default function DaySchedule(props) {
     }
 
     setBlocksWithPlaceholders(newBlocks)
-  }, [blocks, day])
+  }, [state.blocks, state.day])
 
   const headerActions = {
-    "New Block": newBlock
+    "New Block": blockFormActions.new
   }
 
   return(
     <div className="daySchedule">
+      {/* BlockFormModal is a popup modal, so it's always here,
+      but only displayed if "show" is true */}
+      <BlockFormModal
+        state={blockFormState}
+        actions={blockFormActions}
+        currentDay={state.day}
+        projects={state.projects}
+      />
       <PageHeader
         nav
-        back={goToYesterday}
-        forward={goToTomorrow}
+        back={() => actions.date.changeDay(-1)}
+        forward={() => actions.date.changeDay(1)}
         title={dayString}
         subtitle={dateString}
         actions={headerActions}
@@ -111,10 +120,10 @@ export default function DaySchedule(props) {
         <ScheduleBar />
         <BlockList
           blocks={blocksWithPlaceholders}
-          day={day}
-          toggleSession={toggleSession}
-          dataActions={dataActions}
-          editBlock={editBlock}
+          day={state.day}
+          toggleSession={actions.data.toggleSession}
+          dataActions={actions.data}
+          editBlock={blockFormActions.edit}
         />
       </div>
     </div>

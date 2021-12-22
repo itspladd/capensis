@@ -25,7 +25,7 @@ export const initialState = {
 // This reducer function contains helper functions for each possible action.
 // Actions are defined above.
 export function appStateReducer(state, action) {
-
+  console.log("reducer called with action:", action)
   /********** DATA ***********************/
 
   const setAppData = ({ projectsArr, blocks, sessions, trackedSession }) => {

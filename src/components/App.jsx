@@ -14,7 +14,6 @@ import Header from './Header';
 import StatusBar from './StatusBar';
 import Authentication from './Authentication'
 
-import BlockFormModal from './BlockFormModal';
 import DaySchedule from './DaySchedule';
 import WeekSchedule from './WeekSchedule';
 import ProjectList from './ProjectList';
@@ -23,20 +22,17 @@ import Report from './Report';
 import Footer from './Footer';
 
 // Custom hooks
-import usePopupBlockForm from '../hooks/usePopupBlockForm';
 
 // Helper functions
-import { blockIsOnDay } from '../helpers/timeHelpers';
 import { allTrue } from '../helpers/boolHelpers';
 
 // Context
 import { ReducerState, ReducerActions } from '../reducer/context'
 
 export default function App() {
-
+  console.log("rendering App")
   const state = useContext(ReducerState)
   const actions = useContext(ReducerActions)
-  const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, actions.data);
 
   const doneLoading = allTrue(state.loaded);
 
@@ -47,7 +43,7 @@ export default function App() {
 
       {/* If there's no valid login: */}
       {doneLoading && !state.user &&
-        <Authentication authActions={actions.auth} />
+        <Authentication />
       }
 
       {/* If we've successfully logged in: */}
@@ -56,27 +52,11 @@ export default function App() {
           <Router basename="/capensis">
             <Header username={state.user.username} logout={actions.auth.logout} />
             <StatusBar state={state} />
-            {/* BlockFormModal is a popup modal, so it's always here,
-            but only displayed if "show" is true */}
-            <BlockFormModal
-              state={blockFormState}
-              actions={blockFormActions}
-              currentDay={state.day}
-              projects={state.projects}
-            />
+
             <div className="App-body">
               <Switch>
                 <Route exact path={["/", "/schedule"]}>
-                  <DaySchedule
-                    blocks={state.blocks.filter(block => blockIsOnDay(block, state.day))}
-                    day={state.day}
-                    goToTomorrow={() => actions.date.changeDay(1)}
-                    goToYesterday={() => actions.date.changeDay(-1)}
-                    newBlock={blockFormActions.new}
-                    editBlock={blockFormActions.edit}
-                    toggleSession={actions.data.toggleSession}
-                    dataActions={actions.data}
-                  />
+                  <DaySchedule />
                 </Route>
                 <Route exact path="/week" >
                   <WeekSchedule />
