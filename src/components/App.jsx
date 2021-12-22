@@ -35,8 +35,8 @@ import { ReducerState, ReducerActions } from '../reducer/context'
 
 export default function App() {
 
-  //const state = useContext(ReducerState)
-  const { state, actions } = useAppData();
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
   const [blockFormState, blockFormActions] = usePopupBlockForm(state.blocks, state.day, actions.data);
 
   const doneLoading = allTrue(state.loaded);
