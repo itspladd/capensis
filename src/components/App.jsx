@@ -29,9 +29,6 @@ import usePopupBlockForm from '../hooks/usePopupBlockForm';
 import { blockIsOnDay } from '../helpers/timeHelpers';
 import { allTrue } from '../helpers/boolHelpers';
 
-// Constants
-import ACTIONS from '../constants/actions'
-
 export default function App() {
 
   const { state, dateActions, authActions, dataActions } = useAppData();

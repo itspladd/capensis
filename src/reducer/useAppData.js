@@ -3,22 +3,7 @@ import api from '../helpers/apiHelpers'
 
 import { initialState, appStateReducer } from './appStateReducer'
 
-import {
-  SET_LOADED,
-  DATA_LOADED,
-  SET_USER,
-  SET_APP_DATA,
-  SET_PROJECT,
-  SET_BLOCKS,
-  SET_BLOCK,
-  SET_DAY,
-  SET_WEEK,
-  DELETE_BLOCK,
-  SET_TRACKING,
-  SET_SESSIONS,
-  SET_SESSION,
-  DELETE_SESSION
-} from '../constants/actions'
+import { ACTIONS as A } from '../constants/actions'
 
 import { getLastSunday } from '../helpers/timeHelpers'
 
@@ -42,29 +27,28 @@ export default function useAppData() {
     const day = new Date(state.day.valueOf() + deltaMs);
 
     // Check for a new week
-    const currentSundayMs = getLastSunday(state.day).valueOf();
-    const newSundayMs = getLastSunday(day).valueOf();
-    if (currentSundayMs !== newSundayMs) {
-      console.log("changed week")
-      dispatch({ type: SET_WEEK, week: newSundayMs })
+    const currentSunday = getLastSunday(state.day);
+    const newSunday = getLastSunday(day);
+    const newWeek = currentSunday.getDate() !== newSunday.getDate();
+
+    // If we moved to a new week, load new weekly data from API.
+    if (newWeek) {
+      dispatch({ type: A.LOAD.SET_WEEKLY_LOAD_STATUS, payload: false });
+      Promise.all([
+        api.blocks.getWeek(newSunday),
+        api.sessions.getWeek(newSunday)]
+      )
+        .then(([blocks, sessions]) => {
+          dispatch({ type: A.BLOCKS.SET, blocks })
+          dispatch({ type: A.SESSIONS.SET, sessions })
+        })
     }
 
-    dispatch({ type: SET_DAY, day })
-  }
-
-  /**
-   * Changes the current day by the input number of days.
-   * Use a negative number to move to a previous day.
-   * Use a positive number to move to a future day.
-   * @param {number} days
-   */
-  const getWeek = () => {
-    return getLastSunday(state.day).valueOf()
+    dispatch({ type: A.DAY.SET, day })
   }
 
   const dateActions = {
-    changeDay,
-    getWeek
+    changeDay
   }
 
   /********** AUTHENTICATION ************/
@@ -73,24 +57,24 @@ export default function useAppData() {
     return api.auth.check()
       // If the API returns a user object, update the state.
       .then(user => {
-        dispatch({ type: SET_USER, user });
-        dispatch({ type: SET_LOADED, payload: { user: true } });
+        dispatch({ type: A.USER.SET, user });
+        dispatch({ type: A.LOAD.SET, payload: { user: true } });
       })
   }
 
   const register = (username, rawPassword) => {
     return api.users.add(username, rawPassword)
-      .then(user => dispatch({ type: SET_USER, user }))
+      .then(user => dispatch({ type: A.USER.SET, user }))
   }
 
   const login = (username, rawPassword) => {
     return api.auth.login(username, rawPassword)
-      .then(user => dispatch({ type: SET_USER, user }))
+      .then(user => dispatch({ type: A.USER.SET, user }))
   }
 
   const logout = () => {
     return api.auth.logout()
-      .then(() => dispatch({ type: SET_USER, user: null }))
+      .then(() => dispatch({ type: A.USER.CLEAR }))
   }
 
   const authActions = {
@@ -103,7 +87,7 @@ export default function useAppData() {
   /********** DATA ***********************/
   const load = () => {
     if (!state.user) {
-      return dispatch({ type: DATA_LOADED });
+      return dispatch({ type: A.LOAD.SET_DATA_STATUS, status: true });
     }
 
     return Promise.all([
@@ -114,47 +98,49 @@ export default function useAppData() {
     ])
       .then(all => {
         const [projectsArr, blocks, sessions, trackedSession] = all;
-        dispatch({ type: SET_APP_DATA, projectsArr, blocks, sessions, trackedSession })
+        dispatch({ type: A.SET_DATA, projectsArr, blocks, sessions, trackedSession })
       })
-      .then(() => dispatch({ type: DATA_LOADED }))
+      .then(() => dispatch({ type: A.LOAD.SET_DATA_STATUS, status: true }))
   }
 
   const loadWeek = () => {
     const sunday = new Date(state.week)
+    dispatch({ type: A.LOAD.SET_WEEKLY_STATUS, status: false })
     return Promise.all([
       api.blocks.getWeek(sunday),
       api.sessions.getWeek(sunday)
     ])
       .then(all => {
         const [blocks, sessions] = all;
-        dispatch({ type: SET_BLOCKS, blocks })
-        dispatch({ type: SET_SESSIONS, sessions })
+        dispatch({ type: A.BLOCKS.SET_ALL, blocks })
+        dispatch({ type: A.SESSIONS.SET_ALL, sessions })
+        dispatch({ type: A.LOAD.SET_WEEKLY_STATUS, status: true })
       })
   }
 
   const addProject = project => {
     return api.projects.add(project)
-      .then(project => dispatch({ type: SET_PROJECT, project }))
+      .then(project => dispatch({ type: A.PROJECTS.SET, project }))
   }
 
   const updateProject = project => {
     return api.projects.edit(project)
-      .then(project => dispatch({ type: SET_PROJECT, project }))
+      .then(project => dispatch({ type: A.PROJECTS.ADD, project }))
   }
 
   const scheduleBlock = block => {
     return api.blocks.add(block)
-      .then(block => dispatch({ type: SET_BLOCK, block }))
+      .then(block => dispatch({ type: A.BLOCKS.SET, block }))
   }
 
   const editBlock = block => {
     return api.blocks.edit(block)
-      .then(block => dispatch({ type: SET_BLOCK, block }))
+      .then(block => dispatch({ type: A.BLOCKS.SET, block }))
   }
 
   const deleteBlock = id => {
     return api.blocks.del(id)
-      .then(block => dispatch({ type: DELETE_BLOCK, id: block.id }))
+      .then(block => dispatch({ type: A.BLOCKS.DELETE, id: block.id }))
   }
 
   const toggleSession = project_id => {
@@ -175,22 +161,22 @@ export default function useAppData() {
       .then(all => {
         // Whichever promise is last in the array is what should be tracked.
         // Or if we didn't start a new one, the new tracking is null.
-        const newTracking = startNew ? all[all.length - 1] : null;
-        dispatch({ type: SET_TRACKING, payload: newTracking})
+        const trackedSession = startNew ? all[all.length - 1] : null;
+        dispatch({ type: A.TRACKING.SET, trackedSession })
 
         // Update any sessions that changed as a result of this toggle
-        dispatch({ type: SET_SESSION, payload: all })
+        dispatch({ type: A.SESSIONS.SET, payload: all })
       })
   }
 
   const editSession = (id, start_time, end_time) => {
     return api.sessions.edit({ id, start_time, end_time })
-      .then(session => dispatch({ type: SET_SESSION, payload: session }))
+      .then(session => dispatch({ type: A.SESSIONS.SET, session }))
   }
 
   const deleteSession = (id) => {
     return api.sessions.del(id)
-      .then(session => dispatch({ type: DELETE_SESSION, id: session.id }))
+      .then(({id}) => dispatch({ type: A.SESSIONS.DELETE, id }))
   }
 
   const dataActions = {
@@ -203,6 +189,12 @@ export default function useAppData() {
     toggleSession,
     editSession,
     deleteSession
+  }
+
+  const actions = {
+    date: dateActions,
+    data: dataActions,
+    auth: authActions
   }
 
   /********** EFFECTS ***********************/
@@ -218,6 +210,7 @@ export default function useAppData() {
 
   return {
     state,
+    actions,
     dateActions,
     authActions,
     dataActions

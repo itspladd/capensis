@@ -1,24 +1,6 @@
 import { getLastSunday, makeNoonDate, timeStringSorter } from '../helpers/timeHelpers'
-import api from '../helpers/apiHelpers'
 
-import ACTIONS, {
-  SET_APP_DATA,
-  SET_LOADED,
-  DATA_LOADED,
-  SET_USER,
-  ADD_PROJECT,
-  SET_PROJECT,
-  DELETE_PROJECT,
-  SET_BLOCK,
-  SET_BLOCKS,
-  DELETE_BLOCK,
-  SET_DAY,
-  SET_WEEK,
-  SET_TRACKING,
-  SET_SESSIONS,
-  SET_SESSION,
-  DELETE_SESSION
-} from '../constants/actions'
+import { ACTIONS as A } from '../constants/actions'
 
 // Initial state to be used by the reducer.
 export const initialState = {
@@ -59,14 +41,12 @@ export function appStateReducer(state, action) {
     return { ...state, day }
   }
 
-  const setWeek = ({ week }) => {
-    return { ...state, week }
+  const setUser = ({ user }) => {
+    return { ...state, user: { ...user }}
   }
 
-  const setUser = ({ user }) => {
-    if (!user) return { ...state, user: null };
-
-    return { ...state, user: { ...user }}
+  const clearUser = () => {
+    return { ...state, user: null}
   }
 
   const setLoaded = ({ payload }) => {
@@ -80,11 +60,18 @@ export function appStateReducer(state, action) {
     return { ...state, loaded }
   }
 
-  const setDataLoaded = () => {
-    // Set all data-related loading statuses to true
+  const setWeeklyLoadStatus = ({ status }) => {
+    const sessions = status;
+    const blocks = status;
+    const data = { ...state.loaded.data, sessions, blocks }
+    return { ...state, loaded: { ...state.loaded, data }}
+  }
+
+  // Set all data-related loading statuses to the payload value
+  const setDataLoadStatus = ({ status }) => {
     const data = { ...state.loaded.data };
     for (const type in data) {
-      data[type] = true;
+      data[type] = status;
     }
 
     return { ...state, loaded: { ...state.loaded, data }}
@@ -95,14 +82,6 @@ export function appStateReducer(state, action) {
     projects[project.id] = project;
 
     return { ...state, projects}
-  }
-
-  const addProject = ({ project }) => {
-    return api.projects.add(project)
-      .then(project => {
-        const projects = { ...state.projects, [project.id]: project}
-        return { ...state, projects }
-      })
   }
 
   const deleteProject = ({ id }) => {
@@ -119,7 +98,6 @@ export function appStateReducer(state, action) {
   const setBlock = ({ block }) => {
     const blocks = [...state.blocks]
     const index = blocks.findIndex(b => b.id === block.id)
-    console.log("SETBLOCK:",block)
     block.title = state.projects[block.project_id].title
     // If the block isn't already in the array, add it and sort.
     if (index === -1) {
@@ -138,17 +116,17 @@ export function appStateReducer(state, action) {
     return { ...state, blocks }
   }
 
-  const setTrackedSession = ({ payload }) => {
-    return { ...state, trackedSession: payload }
+  const setTrackedSession = ({ trackedSession }) => {
+    return { ...state, trackedSession }
   }
 
-  const setSession = ({ payload }) => {
-    if (!Array.isArray(payload)) {
-      payload = [payload]
+  const setSession = ({ session }) => {
+    if (!Array.isArray(session)) {
+      session = [session]
     }
     const sessions = [...state.sessions];
 
-    payload.forEach(session => {
+    session.forEach(session => {
       const index = sessions.findIndex(s => s.id === session.id);
 
       // If the session isn't already in the array, add it and sort.
@@ -174,22 +152,22 @@ export function appStateReducer(state, action) {
   }
 
   const actions = {
-    [SET_APP_DATA]: setAppData,
-    [SET_DAY]: setDay,
-    [SET_LOADED]: setLoaded,
-    [DATA_LOADED]: setDataLoaded,
-    [SET_USER]: setUser,
-    [ADD_PROJECT]: addProject,
-    [SET_PROJECT]: setProject,
-    [DELETE_PROJECT]: deleteProject,
-    [SET_BLOCKS]: setBlocks,
-    [SET_BLOCK]: setBlock,
-    [DELETE_BLOCK]: deleteBlock,
-    [SET_TRACKING]: setTrackedSession,
-    [SET_SESSIONS]: setSessions,
-    [SET_SESSION]: setSession,
-    [DELETE_SESSION]: deleteSession,
-    [SET_WEEK]: setWeek
+    [A.SET_DATA]: setAppData,
+    [A.DAY.SET]: setDay,
+    [A.LOAD.SET]: setLoaded,
+    [A.LOAD.SET_WEEKLY_STATUS]: setWeeklyLoadStatus,
+    [A.LOAD.SET_DATA_STATUS]: setDataLoadStatus,
+    [A.USER.SET]: setUser,
+    [A.USER.CLEAR]: clearUser,
+    [A.PROJECTS.SET]: setProject,
+    [A.PROJECTS.DELETE]: deleteProject,
+    [A.BLOCKS.SET_ALL]: setBlocks,
+    [A.BLOCKS.SET]: setBlock,
+    [A.BLOCKS.DELETE]: deleteBlock,
+    [A.SESSIONS.SET_ALL]: setSessions,
+    [A.SESSIONS.SET]: setSession,
+    [A.SESSIONS.DELETE]: deleteSession,
+    [A.TRACKING.SET]: setTrackedSession,
   }
 
   return actions[action.type]({ ...action })
