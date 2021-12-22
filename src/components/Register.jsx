@@ -2,9 +2,12 @@ import useControlledForms from '../hooks/useControlledForms';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-export default function Register(props) {
+import { ReducerActions } from '../reducer/context'
+import { useContext } from 'react';
 
-  const { register } = props;
+export default function Register() {
+
+  const { register } = useContext(ReducerActions).auth
 
   const [formValues, handleFormChange] = useControlledForms({
     formRegisterUsername: "",

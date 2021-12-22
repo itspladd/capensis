@@ -3,9 +3,12 @@ import useControlledForms from '../hooks/useControlledForms';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-export default function Login(props) {
+import { useContext } from 'react';
+import { ReducerActions } from '../reducer/context'
 
-  const { login } = props;
+export default function Login() {
+
+  const { login } = useContext(ReducerActions).auth
 
   const [formValues, handleFormChange] = useControlledForms({
     formLoginUsername: "",

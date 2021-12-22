@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import Login from './Login'
 import Register from './Register'
@@ -6,12 +6,12 @@ import Logo from './Logo';
 
 import '../styles/Authentication.css';
 
-export default function Authentication(props) {
-  const { authActions } = props
+
+export default function Authentication() {
 
   const [showLogin, setShowLogin] = useState(true)
 
-  const authComponent = showLogin ? <Login login = {authActions.login} /> : <Register register = {authActions.register} />;
+  const authComponent = showLogin ? <Login /> : <Register />;
   const switchMsg = showLogin ? "Don't have an account yet?" : "Already have a Capensis account?";
   const buttonMsg = showLogin ? "Make one!" : "Sign in!";
 
