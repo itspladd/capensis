@@ -33,14 +33,14 @@ export default function useAppData() {
 
     // If we moved to a new week, load new weekly data from API.
     if (newWeek) {
-      dispatch({ type: A.LOAD.SET_WEEKLY_LOAD_STATUS, payload: false });
+      dispatch({ type: A.LOAD.SET_WEEKLY_STATUS, payload: false });
       Promise.all([
         api.blocks.getWeek(newSunday),
         api.sessions.getWeek(newSunday)]
       )
         .then(([blocks, sessions]) => {
-          dispatch({ type: A.BLOCKS.SET, blocks })
-          dispatch({ type: A.SESSIONS.SET, sessions })
+          dispatch({ type: A.BLOCKS.SET_ALL, blocks })
+          dispatch({ type: A.SESSIONS.SET_ALL, sessions })
         })
     }
 
@@ -125,7 +125,7 @@ export default function useAppData() {
 
   const updateProject = project => {
     return api.projects.edit(project)
-      .then(project => dispatch({ type: A.PROJECTS.ADD, project }))
+      .then(project => dispatch({ type: A.PROJECTS.SET, project }))
   }
 
   const scheduleBlock = block => {
@@ -165,7 +165,7 @@ export default function useAppData() {
         dispatch({ type: A.TRACKING.SET, trackedSession })
 
         // Update any sessions that changed as a result of this toggle
-        dispatch({ type: A.SESSIONS.SET, payload: all })
+        dispatch({ type: A.SESSIONS.SET, session: all })
       })
   }
 
