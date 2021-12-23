@@ -32,17 +32,7 @@ export default function useAppData() {
     const newWeek = currentSunday.getDate() !== newSunday.getDate();
 
     // If we moved to a new week, load new weekly data from API.
-    if (newWeek) {
-      dispatch({ type: A.LOAD.SET_WEEKLY_STATUS, payload: false });
-      Promise.all([
-        api.blocks.getWeek(newSunday),
-        api.sessions.getWeek(newSunday)]
-      )
-        .then(([blocks, sessions]) => {
-          dispatch({ type: A.BLOCKS.SET_ALL, blocks })
-          dispatch({ type: A.SESSIONS.SET_ALL, sessions })
-        })
-    }
+    if (newWeek) loadWeek(newSunday)
 
     dispatch({ type: A.DAY.SET, day })
   }
@@ -102,26 +92,28 @@ export default function useAppData() {
       api.projects.get(),
       api.blocks.get(),
       api.sessions.get(),
-      api.sessions.getActive()
+      api.sessions.getActive(),
+      api.reports.get()
     ])
       .then(all => {
-        const [projectsArr, blocks, sessions, trackedSession] = all;
-        dispatch({ type: A.SET_DATA, projectsArr, blocks, sessions, trackedSession })
+        const [projectsArr, blocks, sessions, trackedSession, reports] = all;
+        dispatch({ type: A.SET_DATA, projectsArr, blocks, sessions, trackedSession, reports })
       })
       .then(() => dispatch({ type: A.LOAD.SET_DATA_STATUS, status: true }))
   }
 
-  const loadWeek = () => {
-    const sunday = new Date(state.week)
+  function loadWeek(sunday) {
     dispatch({ type: A.LOAD.SET_WEEKLY_STATUS, status: false })
     return Promise.all([
       api.blocks.getWeek(sunday),
-      api.sessions.getWeek(sunday)
+      api.sessions.getWeek(sunday),
+      api.reports.getWeek(sunday)
     ])
       .then(all => {
-        const [blocks, sessions] = all;
+        const [blocks, sessions, reports] = all;
         dispatch({ type: A.BLOCKS.SET_ALL, blocks })
         dispatch({ type: A.SESSIONS.SET_ALL, sessions })
+        dispatch({ type: A.REPORTS.SET, reports })
         dispatch({ type: A.LOAD.SET_WEEKLY_STATUS, status: true })
       })
   }
@@ -187,6 +179,10 @@ export default function useAppData() {
       .then(({id}) => dispatch({ type: A.SESSIONS.DELETE, id }))
   }
 
+  const getWeeklyReport = date => {
+    return api.reports.getWeek(date)
+  }
+
   const dataActions = {
     load,
     addProject,
@@ -196,7 +192,8 @@ export default function useAppData() {
     deleteBlock,
     toggleSession,
     editSession,
-    deleteSession
+    deleteSession,
+    getWeeklyReport
   }
 
   const actions = {
@@ -211,9 +208,6 @@ export default function useAppData() {
 
   // When the user changes, load all of their data.
   useEffect(load, [state.user])
-
-  // When we move to a new week, load new data for that week.
-  useEffect(loadWeek, [state.week])
   /***************************************/
 
   return {

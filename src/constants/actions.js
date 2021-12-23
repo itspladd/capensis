@@ -32,6 +32,10 @@ const SESSIONS = {
   DELETE: "DELETE_SESSION"
 }
 
+const REPORTS = {
+  SET: "SET_REPORT"
+}
+
 const TRACKING = {
   SET: "SET_TRACKING"
 }
@@ -44,5 +48,6 @@ export const ACTIONS = {
   PROJECTS,
   BLOCKS,
   SESSIONS,
+  REPORTS,
   TRACKING
 }

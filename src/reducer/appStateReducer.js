@@ -10,16 +10,17 @@ export const initialState = {
       projects: false,
       sessions: false,
       blocks: false,
+      reports: false,
       tracking: false
     }
   },
   day: makeNoonDate(new Date()),
-  week: getLastSunday(new Date()).valueOf(),
   trackedSession: null,
   user: null,
   projects: {},
   blocks: [],
-  sessions: []
+  sessions: [],
+  reports: []
 }
 
 // This reducer function contains helper functions for each possible action.
@@ -28,13 +29,13 @@ export function appStateReducer(state, action) {
   console.log("reducer called with action:", action)
   /********** DATA ***********************/
 
-  const setAppData = ({ projectsArr, blocks, sessions, trackedSession }) => {
+  const setAppData = ({ projectsArr, blocks, sessions, trackedSession, reports }) => {
     // Turn the projects array to an object for easier usage in state
     const projects = {}
     projectsArr.forEach(p => projects[p.id] = p)
 
     // Set all in the state
-    return { ...state, projects, blocks, sessions, trackedSession }
+    return { ...state, projects, blocks, sessions, trackedSession, reports }
   }
 
   const setDay = ({ day }) => {
@@ -66,7 +67,8 @@ export function appStateReducer(state, action) {
   const setWeeklyLoadStatus = ({ status }) => {
     const sessions = status;
     const blocks = status;
-    const data = { ...state.loaded.data, sessions, blocks }
+    const reports = status;
+    const data = { ...state.loaded.data, sessions, blocks, reports }
     return { ...state, loaded: { ...state.loaded, data }}
   }
 
@@ -154,6 +156,10 @@ export function appStateReducer(state, action) {
     return { ...state, sessions }
   }
 
+  const setReports = ({ reports }) => {
+    return { ...state, reports }
+  }
+
   const actions = {
     [A.SET_DATA]: setAppData,
     [A.DAY.SET]: setDay,
@@ -170,6 +176,7 @@ export function appStateReducer(state, action) {
     [A.SESSIONS.SET_ALL]: setSessions,
     [A.SESSIONS.SET]: setSession,
     [A.SESSIONS.DELETE]: deleteSession,
+    [A.REPORTS.SET]: setReports,
     [A.TRACKING.SET]: setTrackedSession,
   }
 
