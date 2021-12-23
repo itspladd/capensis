@@ -4,7 +4,6 @@ import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHMO12 } from '../helpers/timeHelpers'
 
 import IconButton from './IconButton'
-import axios from 'axios'
 
 export default function Block(props) {
   const { id, title, spacer, length, start_time, end_time, toggle, edit, deleteBlock } = props;
