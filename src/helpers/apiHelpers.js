@@ -3,7 +3,7 @@ import * as users from './api/users'
 import * as blocks from './api/blocks'
 import * as sessions from './api/sessions'
 import * as projects from './api/projects'
-import * as reports from './api/projects'
+import * as reports from './api/reports'
 
 const api = {
   auth,
