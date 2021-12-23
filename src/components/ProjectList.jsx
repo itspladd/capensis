@@ -1,13 +1,18 @@
-import axios from 'axios';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import PageHeader from '../components/PageHeader'
 import ProjectListItem from './ProjectListItem'
 
 import '../styles/ProjectList.css'
 
-export default function ProjectList(props) {
-  const { projects, dataActions } = props;
+// Context
+import { ReducerState, ReducerActions } from '../reducer/context'
+
+export default function ProjectList() {
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
+
+  const { projects } = state;
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [formValue, setFormValue] = useState(null);
@@ -21,7 +26,7 @@ export default function ProjectList(props) {
   const handleSubmit = (event, id) => {
     event.preventDefault();
     const title = formValue !== null ? formValue : projects[id].title;
-    dataActions.updateProject({ id, title })
+    actions.data.updateProject({ id, title })
       .then(() => {
         setSelectedProject(null);
         setFormValue(null);
@@ -43,7 +48,7 @@ export default function ProjectList(props) {
 
   const handleNewProjectSubmit = event => {
     event.preventDefault();
-    dataActions.addProject({ title: newProjectFormValue })
+    actions.data.addProject({ title: newProjectFormValue })
       .then(() => {
         setNewProjectFormValue("");
         setShowNewProjectForm(false)
