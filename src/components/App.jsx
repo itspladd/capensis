@@ -62,7 +62,7 @@ export default function App() {
                   <WeekSchedule />
                 </Route>
                 <Route exact path="/projects" >
-                  <ProjectList projects={state.projects} dataActions={actions.data} />
+                  <ProjectList />
                 </Route>
                 <Route exact path="/sessions">
                   <Sessions
