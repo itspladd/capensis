@@ -1,23 +1,23 @@
 {
   "files": {
-    "main.css": "/capensis/static/css/main.71cdbc8a.chunk.css",
-    "main.js": "/capensis/static/js/main.083447d6.chunk.js",
-    "main.js.map": "/capensis/static/js/main.083447d6.chunk.js.map",
+    "main.css": "/capensis/static/css/main.65c03608.chunk.css",
+    "main.js": "/capensis/static/js/main.8e690620.chunk.js",
+    "main.js.map": "/capensis/static/js/main.8e690620.chunk.js.map",
     "runtime-main.js": "/capensis/static/js/runtime-main.b84be314.js",
     "runtime-main.js.map": "/capensis/static/js/runtime-main.b84be314.js.map",
     "static/css/2.818011ed.chunk.css": "/capensis/static/css/2.818011ed.chunk.css",
-    "static/js/2.96b096bf.chunk.js": "/capensis/static/js/2.96b096bf.chunk.js",
-    "static/js/2.96b096bf.chunk.js.map": "/capensis/static/js/2.96b096bf.chunk.js.map",
+    "static/js/2.4b3cbdaa.chunk.js": "/capensis/static/js/2.4b3cbdaa.chunk.js",
+    "static/js/2.4b3cbdaa.chunk.js.map": "/capensis/static/js/2.4b3cbdaa.chunk.js.map",
     "index.html": "/capensis/index.html",
     "static/css/2.818011ed.chunk.css.map": "/capensis/static/css/2.818011ed.chunk.css.map",
-    "static/css/main.71cdbc8a.chunk.css.map": "/capensis/static/css/main.71cdbc8a.chunk.css.map",
-    "static/js/2.96b096bf.chunk.js.LICENSE.txt": "/capensis/static/js/2.96b096bf.chunk.js.LICENSE.txt"
+    "static/css/main.65c03608.chunk.css.map": "/capensis/static/css/main.65c03608.chunk.css.map",
+    "static/js/2.4b3cbdaa.chunk.js.LICENSE.txt": "/capensis/static/js/2.4b3cbdaa.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b84be314.js",
     "static/css/2.818011ed.chunk.css",
-    "static/js/2.96b096bf.chunk.js",
-    "static/css/main.71cdbc8a.chunk.css",
-    "static/js/main.083447d6.chunk.js"
+    "static/js/2.4b3cbdaa.chunk.js",
+    "static/css/main.65c03608.chunk.css",
+    "static/js/main.8e690620.chunk.js"
   ]
 }
