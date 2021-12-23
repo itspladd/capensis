@@ -23,29 +23,26 @@ import Footer from './Footer';
 
 // Custom hooks
 
-// Helper functions
-import { allTrue } from '../helpers/boolHelpers';
-
 // Context
-import { ReducerState, ReducerActions } from '../reducer/context'
+import { ReducerState } from '../reducer/context'
 
 export default function App() {
-  console.log("rendering App")
   const state = useContext(ReducerState)
-  const doneLoading = allTrue(state.loaded);
+  const userLoaded = state.loaded.user;
+  const loggedIn = state.user;
 
   return (
     <div className="App">
       {/* If we haven't finished trying to log in: */}
-      {!doneLoading && <Loading>Loading...</Loading>}
+      { !userLoaded && <Loading>Loading...</Loading>}
 
       {/* If there's no valid login: */}
-      {doneLoading && !state.user &&
+      { userLoaded && !loggedIn &&
         <Authentication />
       }
 
       {/* If we've successfully logged in: */}
-      {doneLoading && state.user &&
+      { loggedIn &&
         <>
           <Router basename="/capensis">
             <Header />
