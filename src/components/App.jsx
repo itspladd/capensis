@@ -21,8 +21,6 @@ import Sessions from './SessionComponents/Sessions';
 import Report from './Report';
 import Footer from './Footer';
 
-// Custom hooks
-
 // Context
 import { ReducerState } from '../reducer/context'
 
