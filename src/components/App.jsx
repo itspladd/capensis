@@ -50,7 +50,7 @@ export default function App() {
       {doneLoading && state.user &&
         <>
           <Router basename="/capensis">
-            <Header username={state.user.username} logout={actions.auth.logout} />
+            <Header />
             <StatusBar state={state} />
 
             <div className="App-body">
