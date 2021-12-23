@@ -6,7 +6,6 @@ import { ReducerState } from '../reducer/context'
 import '../styles/StatusBar.css';
 
 export default function StatusBar() {
-  console.log('Rendering StatusBar')
   const state = useContext(ReducerState)
 
   const { trackedSession, projects, loaded } = state;
