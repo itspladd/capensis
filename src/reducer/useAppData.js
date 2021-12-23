@@ -56,7 +56,6 @@ export default function useAppData() {
       // If the API returns a user object, update the state.
       .then(user => {
         dispatch({ type: A.USER.SET, user });
-        dispatch({ type: A.LOAD.SET, payload: { user: true } });
       })
   }
 

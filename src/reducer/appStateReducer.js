@@ -46,7 +46,7 @@ export function appStateReducer(state, action) {
     if (!user) {
       return { ...state, user: null }
     }
-    return { ...state, user: { ...user }}
+    return { ...state, user: { ...user }, loaded: { ...state.loaded, user: true }}
   }
 
   const clearUser = () => {
