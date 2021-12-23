@@ -1,28 +1,36 @@
+import { useContext } from 'react'
+
+// Context
+import { ReducerState } from '../reducer/context'
+
 import '../styles/StatusBar.css';
 
-export default function StatusBar(props) {
-  const { currentProject, projects = []} = props;
+export default function StatusBar() {
+  const state = useContext(ReducerState)
 
-  const loading = !projects;
-  const tracking = projects[currentProject]
+  const { trackedSession, projects, loaded } = state;
+  const { tracking } = loaded.data
+
+  const projectExists = trackedSession && projects[trackedSession.project_id];
+  const projectName = projectExists && projects[trackedSession.project_id].title
 
   const bgColor = () => {
-    if (tracking) return 'bg-success text-light';
-    if (!tracking) return 'bg-secondary text-light';
+    if (trackedSession) return 'bg-success text-light';
+    if (!trackedSession) return 'bg-secondary text-light';
   }
 
   return (
     <div className={`statusBar ${bgColor()}`}>
-      { loading &&
+      { !tracking &&
         `Loading...`
       }
-      { tracking &&
-        `Currently tracking ${projects[currentProject].title}`
+      { trackedSession && projectExists &&
+        `Currently tracking ${projectName}`
       }
-      { currentProject && !projects[currentProject] &&
-        `ERROR: Trying to track project ID ${currentProject}, but it was not found.`
+      { trackedSession && !projectExists &&
+        `ERROR: Trying to track project ID ${trackedSession.project_id}, but it was not found.`
       }
-      { !currentProject &&
+      { !trackedSession &&
         `Not currently tracking`
       }
     </div>

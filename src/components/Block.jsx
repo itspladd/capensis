@@ -4,10 +4,9 @@ import { makeShortIntervalString } from '../helpers/stringHelpers'
 import { getHMO12 } from '../helpers/timeHelpers'
 
 import IconButton from './IconButton'
-import axios from 'axios'
 
 export default function Block(props) {
-  const { id, title, spacer, length, start_time, end_time, toggle, edit, refreshData } = props;
+  const { id, title, spacer, length, start_time, end_time, toggle, edit, deleteBlock } = props;
 
   const interval = makeShortIntervalString(start_time, end_time);
 
@@ -37,8 +36,7 @@ export default function Block(props) {
   const handleDelete = e => {
     e.preventDefault();
     e.stopPropagation();
-    axios.delete(`/api/blocks/${id}`)
-      .then(refreshData)
+    deleteBlock(id)
   }
 
   return(

@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 // Router components
 import { LinkContainer } from "react-router-bootstrap";
 import Container from "react-bootstrap/Container"
@@ -8,8 +10,17 @@ import '../styles/Header.css';
 
 import Logo from '../components/Logo'
 
-export default function Header(props) {
-  const { username, handleLogout } = props;
+// Context
+import { ReducerState, ReducerActions } from '../reducer/context'
+
+export default function Header() {
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
+
+  const handleLogout = event => {
+    event.preventDefault();
+    actions.auth.logout();
+  }
 
   return(
     <Navbar className="navbar" variant="dark" expand="sm">
@@ -26,7 +37,7 @@ export default function Header(props) {
             <LinkContainer to="/reports"><Nav.Link>Reports</Nav.Link></LinkContainer>
           </Nav>
           <Navbar.Text>
-            <span className="me-2">Logged in as {username}</span>
+            <span className="me-2">Logged in as {state.user.username}</span>
             <Button onClick={handleLogout}>Logout</Button>
           </Navbar.Text>
         </Navbar.Collapse>

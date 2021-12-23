@@ -1,13 +1,18 @@
-import axios from 'axios';
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 
 import PageHeader from '../components/PageHeader'
 import ProjectListItem from './ProjectListItem'
 
 import '../styles/ProjectList.css'
 
-export default function ProjectList(props) {
-  const { projects, setProjects } = props;
+// Context
+import { ReducerState, ReducerActions } from '../reducer/context'
+
+export default function ProjectList() {
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
+
+  const { projects } = state;
 
   const [selectedProject, setSelectedProject] = useState(null);
   const [formValue, setFormValue] = useState(null);
@@ -21,14 +26,11 @@ export default function ProjectList(props) {
   const handleSubmit = (event, id) => {
     event.preventDefault();
     const title = formValue !== null ? formValue : projects[id].title;
-    setSelectedProject(null);
-    setFormValue(null);
-    const newProject = {...projects[id], title};
-    setProjects(prev => ({
-      ...prev,
-      [id]: newProject
-    }))
-    axios.patch(`/api/projects/${id}`, { title })
+    actions.data.updateProject({ id, title })
+      .then(() => {
+        setSelectedProject(null);
+        setFormValue(null);
+      })
   }
 
   const handleCancel = event => {
@@ -46,18 +48,11 @@ export default function ProjectList(props) {
 
   const handleNewProjectSubmit = event => {
     event.preventDefault();
-    axios.post(`/api/projects`, { projectTitle: newProjectFormValue })
-         .then(res => {
-           const newProject = res.data;
-           setProjects(prev => ({
-             ...prev,
-             [newProject.id]: newProject
-           }))
-         })
-         .then(() => {
-          setNewProjectFormValue("");
-          setShowNewProjectForm(false)
-         })
+    actions.data.addProject({ title: newProjectFormValue })
+      .then(() => {
+        setNewProjectFormValue("");
+        setShowNewProjectForm(false)
+      })
   }
 
   const handleNewProjectCancel = event => {

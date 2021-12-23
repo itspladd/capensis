@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
-import axios from 'axios'
+import { useEffect, useState, useRef, useContext } from 'react'
 
 // Helpers
 import { delayAction } from '../../helpers/timingHelpers'
@@ -14,16 +13,21 @@ import PureSessionItem from './PureSessionItem'
 // Constants
 import STATUSES from '../../constants/statuses'
 
+// Context
+import { ReducerState, ReducerActions } from '../../reducer/context'
+
 export default function SessionItem(props) {
   const {
     id,
     start_time,
     end_time,
-    refreshData,
     checkListDelete,
     title = "",
-    toggle
   } = props;
+
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
+
   const [status, setStatus] = useState(STATUSES.NEW);
   const [times, handleTimeChange, setTimes] = useControlledForms({
     start: makeHHMMTimeString(start_time),
@@ -75,8 +79,7 @@ export default function SessionItem(props) {
     if (start < end) {
       // Update the submitting state
       setStatus(() => STATUSES.LOADING)
-      axios.patch(`/api/sessions/${id}`, {start_time: start.toISOString(), end_time: end.toISOString()})
-        .then(() => delayAction(refreshData)) // Give the submitting animation time to run
+      actions.data.editSession(id, start.toISOString(), end.toISOString()) // Give the submitting animation time to run
         .then(() => sessionItemRef.current.scroll())
         .then(() => setStatus(STATUSES.SUCCESS))
         .then(() => delayAction(() => setStatus(STATUSES.STABLE), 2500))
@@ -86,23 +89,20 @@ export default function SessionItem(props) {
 
   const handleDelete = (event, id) => {
     event.preventDefault();
-    axios.delete(`/api/sessions/${id}`)
-      .then(() => {
-        setStatus(STATUSES.DELETING)
-        checkListDelete()
-      })
-      .then(() => delayAction(refreshData)) // Gives the delete animation time to run
+    setStatus(STATUSES.DELETING)
+    checkListDelete()
+    delayAction(() => actions.data.deleteSession(id)) // Gives the delete animation time to run
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
   const handleToggle = event => {
     event.preventDefault();
     if (project) {
-      toggle(id)
+      actions.data.toggleSession(id)
       setStatus(STATUSES.DELETING)
     }
     if (active) {
-      toggle()
+      actions.data.toggleSession(state.trackedSession.project_id)
       setStatus(STATUSES.STABLE)
     }
   }

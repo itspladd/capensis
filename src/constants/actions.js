@@ -1,0 +1,53 @@
+const SET_DATA = "SET_APP_DATA"
+
+const DAY = {
+  SET: "SET_DAY"
+}
+
+const LOAD = {
+  SET: "SET_LOADED",
+  SET_WEEKLY_STATUS: "SET_WEEKLY_LOADING",
+  SET_DATA_STATUS: "SET_DATA_LOADING"
+}
+
+const USER = {
+  SET: "SET_USER",
+  CLEAR: "CLEAR_USER"
+}
+
+const PROJECTS = {
+  SET: "SET_PROJECT",
+  DELETE: "DELETE_PROJECT"
+}
+
+const BLOCKS = {
+  SET_ALL: "SET_BLOCKS",
+  SET: "SET_BLOCK",
+  DELETE: "DELETE_BLOCK",
+}
+
+const SESSIONS = {
+  SET_ALL: "SET_SESSIONS",
+  SET: "SET_SESSION",
+  DELETE: "DELETE_SESSION"
+}
+
+const REPORTS = {
+  SET: "SET_REPORT"
+}
+
+const TRACKING = {
+  SET: "SET_TRACKING"
+}
+
+export const ACTIONS = {
+  SET_DATA,
+  DAY,
+  LOAD,
+  USER,
+  PROJECTS,
+  BLOCKS,
+  SESSIONS,
+  REPORTS,
+  TRACKING
+}

@@ -1,11 +1,13 @@
-import axios from 'axios';
 import useControlledForms from '../hooks/useControlledForms';
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-export default function Register(props) {
+import { ReducerActions } from '../reducer/context'
+import { useContext } from 'react';
 
-  const { login } = props;
+export default function Register() {
+
+  const { register } = useContext(ReducerActions).auth
 
   const [formValues, handleFormChange] = useControlledForms({
     formRegisterUsername: "",
@@ -15,8 +17,7 @@ export default function Register(props) {
   const handleSubmit = event => {
     event.preventDefault();
     const { formRegisterUsername, formRegisterPassword } = formValues;
-    axios.post(`/api/users`, {username: formRegisterUsername, rawPassword: formRegisterPassword})
-         .then(res => login(res.data.username))
+    register(formRegisterUsername, formRegisterPassword)
   }
 
   return (

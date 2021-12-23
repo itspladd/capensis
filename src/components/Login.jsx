@@ -1,12 +1,14 @@
-import axios from 'axios';
 import useControlledForms from '../hooks/useControlledForms';
 
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-export default function Login(props) {
+import { useContext } from 'react';
+import { ReducerActions } from '../reducer/context'
 
-  const { login } = props;
+export default function Login() {
+
+  const { login } = useContext(ReducerActions).auth
 
   const [formValues, handleFormChange] = useControlledForms({
     formLoginUsername: "",
@@ -16,8 +18,7 @@ export default function Login(props) {
   const handleSubmit = event => {
     event.preventDefault();
     const { formLoginUsername, formLoginPassword } = formValues;
-    axios.post(`/api/auth/login`, {username: formLoginUsername, rawPassword:formLoginPassword})
-         .then(res => login(res.data.username))
+    login(formLoginUsername, formLoginPassword)
   }
 
   return (

@@ -6,12 +6,12 @@ import Logo from './Logo';
 
 import '../styles/Authentication.css';
 
-export default function Authentication(props) {
-  const {login} = props
+
+export default function Authentication() {
 
   const [showLogin, setShowLogin] = useState(true)
 
-  const authComponent = showLogin ? <Login login={login} /> : <Register login={login} />;
+  const authComponent = showLogin ? <Login /> : <Register />;
   const switchMsg = showLogin ? "Don't have an account yet?" : "Already have a Capensis account?";
   const buttonMsg = showLogin ? "Make one!" : "Sign in!";
 
