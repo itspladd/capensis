@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+
 import SessionList from './SessionList'
 import PageHeader from '../PageHeader'
 
@@ -6,15 +8,14 @@ import { projectsWithSessions, projectsWithoutSessions } from '../../helpers/pro
 
 import '../../styles/SessionsPage.css'
 
-export default function Sessions (props) {
-  const {
-    day,
-    sessions=[],
-    projects=[],
-    dataActions,
-    lastWeek,
-    nextWeek,
-    state } = props;
+// Context
+import { ReducerState, ReducerActions } from '../../reducer/context'
+
+export default function Sessions () {
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
+
+  const { projects, sessions, day } = state;
 
   const sessionListsByProject = projectsWithSessions(projects, sessions)
     .map(project => (
@@ -22,8 +23,6 @@ export default function Sessions (props) {
       key={project.id}
       title={project.title}
       sessions={sessions.filter(session => session.project_id === project.id)}
-      dataActions={dataActions}
-      state={state}
       />
     ))
 
@@ -33,8 +32,8 @@ export default function Sessions (props) {
     <section className={`sessions`}>
       <PageHeader
         nav
-        back={lastWeek}
-        forward={nextWeek}
+        back={actions.date.lastWeek}
+        forward={actions.date.nextWeek}
         title="Sessions"
         subtitle={makeWeekString('EN-US', day)}
       />
@@ -44,8 +43,6 @@ export default function Sessions (props) {
           <SessionList
             title={"Untracked Projects"}
             sessions={untrackedProjects}
-            dataActions={dataActions}
-            state={state}
           />
         }
       </article>

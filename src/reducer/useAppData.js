@@ -46,9 +46,17 @@ export default function useAppData() {
 
     dispatch({ type: A.DAY.SET, day })
   }
+  const yesterday = () => changeDay(-1);
+  const tomorrow = () => changeDay(1);
+  const lastWeek = () => changeDay(-7);
+  const nextWeek = () => changeDay(-7);
 
   const dateActions = {
-    changeDay
+    changeDay,
+    yesterday,
+    tomorrow,
+    lastWeek,
+    nextWeek
   }
 
   /********** AUTHENTICATION ************/
