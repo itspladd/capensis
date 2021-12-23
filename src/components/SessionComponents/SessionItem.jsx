@@ -1,5 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
-import axios from 'axios'
+import { useEffect, useState, useRef, useContext } from 'react'
 
 // Helpers
 import { delayAction } from '../../helpers/timingHelpers'
@@ -14,16 +13,21 @@ import PureSessionItem from './PureSessionItem'
 // Constants
 import STATUSES from '../../constants/statuses'
 
+// Context
+import { ReducerState, ReducerActions } from '../../reducer/context'
+
 export default function SessionItem(props) {
   const {
     id,
     start_time,
     end_time,
-    dataActions,
     checkListDelete,
     title = "",
-    state
   } = props;
+
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
+
   const [status, setStatus] = useState(STATUSES.NEW);
   const [times, handleTimeChange, setTimes] = useControlledForms({
     start: makeHHMMTimeString(start_time),
@@ -75,7 +79,7 @@ export default function SessionItem(props) {
     if (start < end) {
       // Update the submitting state
       setStatus(() => STATUSES.LOADING)
-      dataActions.editSession(id, start.toISOString(), end.toISOString()) // Give the submitting animation time to run
+      actions.data.editSession(id, start.toISOString(), end.toISOString()) // Give the submitting animation time to run
         .then(() => sessionItemRef.current.scroll())
         .then(() => setStatus(STATUSES.SUCCESS))
         .then(() => delayAction(() => setStatus(STATUSES.STABLE), 2500))
@@ -87,18 +91,18 @@ export default function SessionItem(props) {
     event.preventDefault();
     setStatus(STATUSES.DELETING)
     checkListDelete()
-    delayAction(() => dataActions.deleteSession(id)) // Gives the delete animation time to run
+    delayAction(() => actions.data.deleteSession(id)) // Gives the delete animation time to run
       .catch(() => setStatus(STATUSES.ERROR))
   }
 
   const handleToggle = event => {
     event.preventDefault();
     if (project) {
-      dataActions.toggleSession(id)
+      actions.data.toggleSession(id)
       setStatus(STATUSES.DELETING)
     }
     if (active) {
-      dataActions.toggleSession(state.trackedSession.project_id)
+      actions.data.toggleSession(state.trackedSession.project_id)
       setStatus(STATUSES.STABLE)
     }
   }
