@@ -39,7 +39,7 @@ export default function useAppData() {
   const yesterday = () => changeDay(-1);
   const tomorrow = () => changeDay(1);
   const lastWeek = () => changeDay(-7);
-  const nextWeek = () => changeDay(-7);
+  const nextWeek = () => changeDay(7);
 
   const dateActions = {
     changeDay,
