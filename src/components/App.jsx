@@ -32,8 +32,6 @@ import { ReducerState, ReducerActions } from '../reducer/context'
 export default function App() {
   console.log("rendering App")
   const state = useContext(ReducerState)
-  const actions = useContext(ReducerActions)
-
   const doneLoading = allTrue(state.loaded);
 
   return (
