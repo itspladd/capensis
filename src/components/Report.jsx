@@ -1,5 +1,4 @@
-import axios from "axios"
-import { useEffect, useState, useContext } from "react"
+import { useContext } from "react"
 
 import '../styles/Report.css';
 
