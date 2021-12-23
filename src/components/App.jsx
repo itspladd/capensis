@@ -51,7 +51,7 @@ export default function App() {
         <>
           <Router basename="/capensis">
             <Header />
-            <StatusBar state={state} />
+            <StatusBar />
 
             <div className="App-body">
               <Switch>
@@ -65,23 +65,10 @@ export default function App() {
                   <ProjectList />
                 </Route>
                 <Route exact path="/sessions">
-                  <Sessions
-                    sessions={state.sessions}
-                    projects={state.projects}
-                    day={state.day}
-                    lastWeek={() => actions.date.changeDay(-7)}
-                    nextWeek={() => actions.date.changeDay(7)}
-                    state={state}
-                    dataActions = {actions.data}
-                    toggleSession={actions.data.toggleSession} />
+                  <Sessions />
                 </Route>
                 <Route exact path="/reports" >
-                  <Report
-                    projects={state.projects}
-                    day={state.day}
-                    lastWeek={() => actions.date.changeDay(-7)}
-                    nextWeek={() => actions.date.changeDay(7)}
-                  />
+                  <Report />
                 </Route>
               </Switch>
             </div>
