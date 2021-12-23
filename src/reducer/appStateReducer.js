@@ -42,10 +42,8 @@ export function appStateReducer(state, action) {
   }
 
   const setUser = ({ user }) => {
-    if (!user) {
-      return { ...state, user: null }
-    }
-    return { ...state, user: { ...user }, loaded: { ...state.loaded, user: true }}
+    user = user ? { ...user } : null;
+    return { ...state, user, loaded: { ...state.loaded, user: true }}
   }
 
   const clearUser = () => {
