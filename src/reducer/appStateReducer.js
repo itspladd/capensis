@@ -1,4 +1,4 @@
-import { getLastSunday, makeNoonDate, timeStringSorter } from '../helpers/timeHelpers'
+import { makeNoonDate, timeStringSorter } from '../helpers/timeHelpers'
 
 import { ACTIONS as A } from '../constants/actions'
 
