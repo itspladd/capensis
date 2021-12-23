@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 
 import '../styles/Report.css';
 
@@ -9,22 +9,18 @@ import ReportItem from './ReportItem'
 
 import { makeWeekString } from '../helpers/stringHelpers'
 
-export default function Report(props) {
-  const { projects, day, lastWeek, nextWeek } = props;
+// Context
+import { ReducerState, ReducerActions } from '../reducer/context'
 
-  const [reportData, setReportData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+export default function Report() {
+  const state = useContext(ReducerState)
+  const actions = useContext(ReducerActions)
 
-  useEffect(() => {
-    axios.get(`/api/reports/week?date=${day.toISOString()}`)
-         .then(res => setReportData(res.data))
-         .catch(err => setError(err))
-         .finally(() => setLoading(false))
+  const { loaded, day, reports, projects } = state
+  const loading = !loaded.data.reports
+  const empty = !reports.length
 
-  }, [projects, day])
-
-  const report = reportData.map(project => {
+  const report = reports.map(project => {
     // Totals are returned in seconds.
     const { project_id, sessions_total, blocks_total } = project
     const projectName = projects[project_id] && projects[project_id].title;
@@ -45,19 +41,18 @@ export default function Report(props) {
     <div className="report">
       <PageHeader
         nav
-        back={lastWeek}
-        forward={nextWeek}
+        back={actions.date.lastWeek}
+        forward={actions.date.nextWeek}
         title="Report"
         subtitle={`${makeWeekString('EN-US', day)}, ${day.getFullYear()}`}
       />
       {loading && <Loading>Loading report...</Loading>}
-      {!loading && error && <p>{error.message}</p>}
-      {!loading && !error && reportData.length > 0 && (
+      {!loading && !empty > 0 && (
         <ul>
           {report}
         </ul>
         )}
-      {!loading && !error && !reportData.length && (
+      {!loading && empty && (
       <div className="report-empty">
         <p>You don't have anything scheduled this week!</p>
       </div>)}
